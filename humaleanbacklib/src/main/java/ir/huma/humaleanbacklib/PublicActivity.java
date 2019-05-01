@@ -1,5 +1,6 @@
 package ir.huma.humaleanbacklib;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v17.leanback.app.GuidedStepSupportFragment;
@@ -70,7 +71,17 @@ public class PublicActivity extends FragmentActivity {
         if (bundle != null)
             intent.putExtra("bundle", bundle);
 
-        context.startActivity(intent,bundle);
+        context.startActivity(intent, bundle);
+    }
+
+    public static void startWithFragmentForResult(Activity context, Class<? extends Fragment> fragmentClass, Bundle bundle, boolean isRtl, int requestCode) {
+        Intent intent = new Intent(context, PublicActivity.class);
+        intent.putExtra("fragment", fragmentClass.getCanonicalName());
+        intent.putExtra("isRtl", isRtl);
+        if (bundle != null)
+            intent.putExtra("bundle", bundle);
+
+        context.startActivityForResult(intent, requestCode, bundle);
     }
 
 

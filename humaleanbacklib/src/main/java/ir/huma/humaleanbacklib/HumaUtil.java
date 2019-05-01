@@ -1,5 +1,6 @@
 package ir.huma.humaleanbacklib;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.target.Target;
 
 import ir.huma.humaleanbacklib.Util.ImageLoader;
 import ir.huma.humaleanbacklib.fragments.BaseBrowseFragment;
+import ir.huma.humaleanbacklib.fragments.BaseLeanbackDialog;
 
 public class HumaUtil {
 
@@ -30,6 +32,16 @@ public class HumaUtil {
 
     public static void startFragment(Context context, Class<? extends Fragment> fragmentClass, Bundle bundle, boolean isRtl) {
         PublicActivity.startWithFragment(context, fragmentClass, bundle, isRtl);
+    }
+
+    public static void startLeanbackFragmentForResult(Activity context, int requestCode, String title, String description, String positiveText, String negativeText, boolean isRtl) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("description", description);
+        bundle.putString("positiveText", positiveText);
+        bundle.putString("negativeText", negativeText);
+
+        PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
     }
 
     public static void LoadImage(ImageView imageView, String url) {
