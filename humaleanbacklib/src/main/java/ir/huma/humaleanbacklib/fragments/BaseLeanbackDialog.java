@@ -114,37 +114,37 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             return this;
         }
 
-        public void setIcon(Bitmap icon) {
+        public Builder setIcon(Bitmap icon) {
             this.icon = icon;
+            return this;
         }
 
-        public void setPositiveIcon(Bitmap positiveIcon) {
+        public Builder setPositiveIcon(Bitmap positiveIcon) {
             this.positiveIcon = positiveIcon;
+            return this;
         }
 
-        public void setNegativeIcon(Bitmap negativeIcon) {
+        public Builder setNegativeIcon(Bitmap negativeIcon) {
             this.negativeIcon = negativeIcon;
+            return this;
         }
 
 
-        public void setIcon(Drawable icon) {
+        public Builder setIcon(Drawable icon) {
             this.icon = ((BitmapDrawable)icon).getBitmap();
+            return this;
         }
 
-        public void setPositiveIcon(Drawable positiveIcon) {
+        public Builder setPositiveIcon(Drawable positiveIcon) {
             this.positiveIcon = ((BitmapDrawable)positiveIcon).getBitmap();
+            return this;
         }
 
-        public void setNegativeIcon(Drawable negativeIcon) {
+        public Builder setNegativeIcon(Drawable negativeIcon) {
             this.negativeIcon = ((BitmapDrawable)negativeIcon).getBitmap();
+            return this;
         }
 
-        private byte[] convertToByte(Bitmap bitmap) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] b = baos.toByteArray();
-            return b;
-        }
 
         public void build(Activity context, int requestCode) {
             Bundle bundle = new Bundle();
