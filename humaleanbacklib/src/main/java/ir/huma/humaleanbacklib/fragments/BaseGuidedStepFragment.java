@@ -37,8 +37,8 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initial();
         final View v = super.onCreateView(inflater, container, savedInstanceState);
-
-        FontManager.instance(titleTypeface).setTypefaceImmediate(v);
+        if (titleTypeface != null)
+            FontManager.instance(titleTypeface).setTypefaceImmediate(v);
 
         return v;
     }

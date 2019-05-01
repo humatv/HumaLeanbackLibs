@@ -34,16 +34,6 @@ public class HumaUtil {
         PublicActivity.startWithFragment(context, fragmentClass, bundle, isRtl);
     }
 
-    public static void startLeanbackFragmentForResult(Activity context, int requestCode, String title, String description, String positiveText, String negativeText, boolean isRtl) {
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("description", description);
-        bundle.putString("positiveText", positiveText);
-        bundle.putString("negativeText", negativeText);
-
-        PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
-    }
-
     public static void LoadImage(ImageView imageView, String url) {
         new ImageLoader().setImageView(imageView).load(imageView.getContext(), url);
     }
