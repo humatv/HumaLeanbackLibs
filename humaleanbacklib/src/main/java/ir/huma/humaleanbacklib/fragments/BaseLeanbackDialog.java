@@ -20,6 +20,11 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             setStyle(bundle.getInt("style"));
         }
 
+        if (bundle.containsKey("typeface")) {
+            Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), bundle.getString("typeface"));
+            setTitleTypeface(typeface);
+            setTitleTypeface(typeface);
+        }
 
         String title = bundle.getString("title");
         String description = bundle.getString("description");
@@ -51,7 +56,7 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
         String positiveText = "";
         String negativeText = "";
         int style = -1;
-        Typeface typeface;
+        String typefaceInAsset;
         boolean isRtl;
 
         public Builder setTitle(String title) {
@@ -79,8 +84,8 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             return this;
         }
 
-        public Builder setTypeface(Typeface typeface) {
-            this.typeface = typeface;
+        public Builder setTypefaceInAsset(String typefaceInAsset) {
+            this.typefaceInAsset = typefaceInAsset;
             return this;
         }
 
@@ -97,7 +102,8 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             bundle.putString("negativeText", negativeText);
             if (style != -1)
                 bundle.putInt("style", style);
-
+            if (typefaceInAsset != null)
+                bundle.putString("typeface", typefaceInAsset);
 
             PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
         }

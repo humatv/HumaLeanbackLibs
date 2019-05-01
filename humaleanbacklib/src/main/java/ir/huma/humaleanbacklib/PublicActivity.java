@@ -95,4 +95,11 @@ public class PublicActivity extends FragmentActivity {
         super.onBackPressed();
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        f.onActivityResult(requestCode, resultCode, data);
+    }
 }
