@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HumaLeanbackSample</string>
+
+
+
+
+    <string name="lb_search_bar_hint">جستجو</string>
+    <string name="lb_search_bar_hint_with_title_speech">جستجو صوتی</string>
+    <string name="lb_search_bar_hint_with_title">جستجو</string>
+    <string name="lb_search_bar_hint_speech">جستجو صوتی</string>
+</resources>

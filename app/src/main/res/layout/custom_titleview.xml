@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v17.leanback.widget.SearchOrbView
+        android:id="@+id/search_orb"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
+        android:transitionGroup="true" />
+
+    <!--<AnalogClock-->
+    <!--android:id="@+id/clock"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:padding="6dp"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_gravity="center_vertical|end"-->
+    <!--android:layout_marginEnd="24dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/title_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginEnd="24dp"-->
+    <!--android:textAppearance="@android:style/TextAppearance.Large"-->
+    <!--android:visibility="gone" />-->
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_launcher" />
+
+</RelativeLayout>

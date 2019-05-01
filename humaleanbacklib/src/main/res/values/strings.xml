@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">LeanbackUtil</string>
+
+    <string name="IRANSans">fonts/IRANSans.ttf</string>
+    <string name="IRANSansMedium">fonts/IRANSansMedium.ttf</string>
+    <string name="IRANSansBold">fonts/IRANSansBold.ttf</string>
+    <string name="BYekan">fonts/BYekan.ttf</string>
+    <string name="BYekanBold">fonts/BYekanBold.ttf</string>
+    <string name="IRANSans2">IRANSans.ttf</string>
+
+</resources>
