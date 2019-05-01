@@ -126,6 +126,19 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             this.negativeIcon = negativeIcon;
         }
 
+
+        public void setIcon(Drawable icon) {
+            this.icon = ((BitmapDrawable)icon).getBitmap();
+        }
+
+        public void setPositiveIcon(Drawable positiveIcon) {
+            this.positiveIcon = ((BitmapDrawable)positiveIcon).getBitmap();
+        }
+
+        public void setNegativeIcon(Drawable negativeIcon) {
+            this.negativeIcon = ((BitmapDrawable)negativeIcon).getBitmap();
+        }
+
         private byte[] convertToByte(Bitmap bitmap) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
