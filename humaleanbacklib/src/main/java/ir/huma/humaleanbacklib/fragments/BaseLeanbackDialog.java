@@ -1,11 +1,17 @@
 package ir.huma.humaleanbacklib.fragments;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.view.View;
+
+import java.io.ByteArrayOutputStream;
 
 import ir.huma.humaleanbacklib.PublicActivity;
 import ir.huma.humaleanbacklib.Util.GuidedStepsUtil;
@@ -20,20 +26,31 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             setStyle(bundle.getInt("style"));
         }
 
+        String title = bundle.getString("title");
+        String description = bundle.getString("description");
+        String positiveText = bundle.getString("positiveText");
+        String negativeText = bundle.getString("negativeText");
+        Drawable positiveIcon = null, negativeIcon = null, icon = null;
+        if (bundle.containsKey("positiveIcon")) {
+            positiveIcon = new BitmapDrawable((Bitmap) bundle.getParcelable("positiveIcon"));
+        }
+        if (bundle.containsKey("negativeIcon")) {
+            negativeIcon = new BitmapDrawable((Bitmap) bundle.getParcelable("negativeIcon"));
+        }
+        if (bundle.containsKey("icon")) {
+            icon = new BitmapDrawable((Bitmap) bundle.getParcelable("icon"));
+        }
+
+        addActions(GuidedStepsUtil.getAction(1, positiveText, "", positiveIcon, getActivity()));
+        addActions(GuidedStepsUtil.getAction(2, negativeText, "", negativeIcon, getActivity()));
+
+        setGuidance(new GuidanceStylist.Guidance(title, description, "", icon));
+
         if (bundle.containsKey("typeface")) {
             Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), bundle.getString("typeface"));
             setTitleTypeface(typeface);
             setTitleTypeface(typeface);
         }
-
-        String title = bundle.getString("title");
-        String description = bundle.getString("description");
-        String positiveText = bundle.getString("positiveText");
-        String negativeText = bundle.getString("negativeText");
-        addActions(GuidedStepsUtil.getAction(1, positiveText, "", getActivity()));
-        addActions(GuidedStepsUtil.getAction(2, negativeText, "", getActivity()));
-
-        setGuidance(new GuidanceStylist.Guidance(title, description, "", null));
     }
 
     @Override
@@ -51,13 +68,16 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
 
 
     public static class Builder {
-        String title = "";
-        String description = "";
-        String positiveText = "";
-        String negativeText = "";
-        int style = -1;
-        String typefaceInAsset;
-        boolean isRtl;
+        private String title = "";
+        private String description = "";
+        private String positiveText = "";
+        private String negativeText = "";
+        private int style = -1;
+        private String typefaceInAsset;
+        private boolean isRtl;
+        private Bitmap icon;
+        private Bitmap positiveIcon;
+        private Bitmap negativeIcon;
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -94,12 +114,37 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             return this;
         }
 
+        public void setIcon(Bitmap icon) {
+            this.icon = icon;
+        }
+
+        public void setPositiveIcon(Bitmap positiveIcon) {
+            this.positiveIcon = positiveIcon;
+        }
+
+        public void setNegativeIcon(Bitmap negativeIcon) {
+            this.negativeIcon = negativeIcon;
+        }
+
+        private byte[] convertToByte(Bitmap bitmap) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            return b;
+        }
+
         public void build(Activity context, int requestCode) {
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
             bundle.putString("description", description);
             bundle.putString("positiveText", positiveText);
             bundle.putString("negativeText", negativeText);
+            if (icon != null)
+                bundle.putParcelable("icon", icon);
+            if (positiveIcon != null)
+                bundle.putParcelable("positiveIcon", positiveIcon);
+            if (negativeIcon != null)
+                bundle.putParcelable("negativeIcon", negativeIcon);
             if (style != -1)
                 bundle.putInt("style", style);
             if (typefaceInAsset != null)
