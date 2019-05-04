@@ -9,11 +9,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.GuidanceStylist;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 
 import ir.huma.humaleanbacklib.PublicActivity;
+import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.GuidedStepsUtil;
 
 public class BaseLeanbackDialog extends BaseGuidedStepFragment {
@@ -79,6 +82,9 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
         private Bitmap positiveIcon;
         private Bitmap negativeIcon;
 
+        private View.OnClickListener positiveClickListener;
+        private View.OnClickListener negativeClickListener;
+
         public Builder setTitle(String title) {
             this.title = title;
             return this;
@@ -131,22 +137,33 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
 
 
         public Builder setIcon(Drawable icon) {
-            this.icon = ((BitmapDrawable)icon).getBitmap();
+            this.icon = ((BitmapDrawable) icon).getBitmap();
             return this;
         }
 
         public Builder setPositiveIcon(Drawable positiveIcon) {
-            this.positiveIcon = ((BitmapDrawable)positiveIcon).getBitmap();
+            this.positiveIcon = ((BitmapDrawable) positiveIcon).getBitmap();
             return this;
         }
 
         public Builder setNegativeIcon(Drawable negativeIcon) {
-            this.negativeIcon = ((BitmapDrawable)negativeIcon).getBitmap();
+            this.negativeIcon = ((BitmapDrawable) negativeIcon).getBitmap();
             return this;
         }
 
+        public Builder setPositiveClickListener(View.OnClickListener positiveClickListener) {
+            this.positiveClickListener = positiveClickListener;
+            return this;
+        }
 
-        public void build(Activity context, int requestCode) {
+        public Builder setNegativeClickListener(View.OnClickListener negativeClickListener) {
+            this.negativeClickListener = negativeClickListener;
+            return this;
+        }
+
+        public void build(FragmentActivity context, int frameLayoutId) {
+            FragmentTransaction tx = context.getSupportFragmentManager().beginTransaction();
+
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
             bundle.putString("description", description);
@@ -163,7 +180,13 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             if (typefaceInAsset != null)
                 bundle.putString("typeface", typefaceInAsset);
 
-            PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
+            BaseLeanbackDialog f = new BaseLeanbackDialog();
+            f.setArguments(bundle);
+
+            tx.add(frameLayoutId, f);
+            tx.commit();
+
+//            PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
         }
     }
 }
