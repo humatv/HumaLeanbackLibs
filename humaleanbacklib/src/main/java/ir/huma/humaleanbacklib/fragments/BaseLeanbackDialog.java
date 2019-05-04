@@ -184,6 +184,7 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             f.setArguments(bundle);
 
             tx.add(frameLayoutId, f);
+            tx.addToBackStack("BaseLaenbackDialog");
             tx.commit();
 
 //            PublicActivity.startWithFragmentForResult(context, BaseLeanbackDialog.class, bundle, isRtl, requestCode);
