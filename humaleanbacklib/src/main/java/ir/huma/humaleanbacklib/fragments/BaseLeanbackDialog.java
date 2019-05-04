@@ -20,6 +20,9 @@ import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.GuidedStepsUtil;
 
 public class BaseLeanbackDialog extends BaseGuidedStepFragment {
+    private View.OnClickListener positiveClickListener;
+    private View.OnClickListener negativeClickListener;
+
     @Override
     public void initial() {
         Bundle bundle = getArguments();
@@ -64,11 +67,30 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
     @Override
     public void onItemClickListener(View v, Object item, int rowPos, int pos) {
         if (((Action) item).getId() == 1) {
-            getActivity().setResult(Activity.RESULT_OK);
+            if (positiveClickListener != null) {
+                positiveClickListener.onClick(v);
+            }
+        } else if (negativeClickListener != null) {
+            negativeClickListener.onClick(v);
         }
-        getActivity().finish();
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
+    public View.OnClickListener getPositiveClickListener() {
+        return positiveClickListener;
+    }
+
+    public void setPositiveClickListener(View.OnClickListener positiveClickListener) {
+        this.positiveClickListener = positiveClickListener;
+    }
+
+    public View.OnClickListener getNegativeClickListener() {
+        return negativeClickListener;
+    }
+
+    public void setNegativeClickListener(View.OnClickListener negativeClickListener) {
+        this.negativeClickListener = negativeClickListener;
+    }
 
     public static class Builder {
         private String title = "";
@@ -76,7 +98,7 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
         private String positiveText = "";
         private String negativeText = "";
         private int style = -1;
-        private String typefaceInAsset;
+        private Typeface typeface;
         private boolean isRtl;
         private Bitmap icon;
         private Bitmap positiveIcon;
@@ -110,8 +132,8 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
             return this;
         }
 
-        public Builder setTypefaceInAsset(String typefaceInAsset) {
-            this.typefaceInAsset = typefaceInAsset;
+        public Builder setTypeface(Typeface typeface) {
+            this.typeface = typeface;
             return this;
         }
 
@@ -177,11 +199,14 @@ public class BaseLeanbackDialog extends BaseGuidedStepFragment {
                 bundle.putParcelable("negativeIcon", negativeIcon);
             if (style != -1)
                 bundle.putInt("style", style);
-            if (typefaceInAsset != null)
-                bundle.putString("typeface", typefaceInAsset);
 
             BaseLeanbackDialog f = new BaseLeanbackDialog();
             f.setArguments(bundle);
+            f.setPositiveClickListener(positiveClickListener);
+            f.setNegativeClickListener(negativeClickListener);
+
+            f.setTitleTypeface(typeface);
+            f.setActionTypeface(typeface);
 
             tx.add(frameLayoutId, f);
             tx.addToBackStack("BaseLaenbackDialog");
