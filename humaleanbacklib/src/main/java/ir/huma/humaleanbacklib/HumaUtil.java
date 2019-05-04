@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +38,13 @@ public class HumaUtil {
 
     public static void LoadImage(ImageView imageView, String url) {
         new ImageLoader().setImageView(imageView).load(imageView.getContext(), url);
+    }
+
+    public static void addFragment(FragmentActivity activity, int frameLayoutId, Fragment f) {
+        FragmentTransaction tx = activity.getSupportFragmentManager().beginTransaction();
+        tx.add(frameLayoutId, f);
+        tx.addToBackStack(f.getClass().getName());
+        tx.commit();
     }
 
 
