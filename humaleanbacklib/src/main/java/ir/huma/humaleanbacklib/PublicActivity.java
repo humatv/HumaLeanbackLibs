@@ -71,7 +71,7 @@ public class PublicActivity extends FragmentActivity {
         if (bundle != null)
             intent.putExtra("bundle", bundle);
 
-        context.startActivity(intent, bundle);
+        context.startActivity(intent);
     }
 
     public static void startWithFragmentForResult(Activity context, Class<? extends Fragment> fragmentClass, Bundle bundle, boolean isRtl, int requestCode) {
@@ -81,7 +81,7 @@ public class PublicActivity extends FragmentActivity {
         if (bundle != null)
             intent.putExtra("bundle", bundle);
 
-        context.startActivityForResult(intent, requestCode, bundle);
+        context.startActivityForResult(intent, requestCode);
     }
 
 
