@@ -51,7 +51,7 @@ public class ImageLoader {
                 } else if (imageView == null && tryLoading > 0) {
                     Glide.with(context).asBitmap().apply(options).load(url).addListener(this).preload();
                 } else if (tryLoading <= 0 && imageView != null) {
-                    imageView.setTag(null);
+//                    imageView.setTag(null);
                 }
                 tryLoading--;
                 return false;
@@ -61,7 +61,7 @@ public class ImageLoader {
             public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                 if (imageView != null && imageView.getTag() != null && imageView.getTag().equals(url)) {
                     imageView.setImageBitmap(resource);
-                    imageView.setTag(null);
+//                    imageView.setTag(null);
                 }
                 if (readyListener != null) {
                     readyListener.onReady(resource);
