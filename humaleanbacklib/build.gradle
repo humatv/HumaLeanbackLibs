@@ -44,8 +44,8 @@ dependencies {
 //    implementation 'com.github.hamedgramzi:everythingmanager:1.3'
     implementation 'com.github.hamedgramzi:guidedKeayboardfixer:master-SNAPSHOT'
 //    implementation 'com.github.humatv:HumaLeanbackPlayer:master-SNAPSHOT'
-    implementation 'com.github.humatv:humaLeanbackPlayer:2f0c15aa4e'
-
+//    implementation 'com.github.humatv:humaLeanbackPlayer:2f0c15aa4e'
+    implementation 'com.github.humatv:HumaLeanbackPlayer:e20a86044c'
 }
 
 
