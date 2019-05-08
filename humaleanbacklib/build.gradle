@@ -43,6 +43,12 @@ dependencies {
     implementation 'com.github.hamedgramzi:everythingManager:d9b25dbd84'
 //    implementation 'com.github.hamedgramzi:everythingmanager:1.3'
     implementation 'com.github.hamedgramzi:guidedKeayboardfixer:master-SNAPSHOT'
-    implementation 'com.github.humatv:HumaLeanbackPlayer:master-SNAPSHOT'
+//    implementation 'com.github.humatv:HumaLeanbackPlayer:master-SNAPSHOT'
+    implementation 'com.github.humatv:humaLeanbackPlayer:2f0c15aa4e'
 
+}
+
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
