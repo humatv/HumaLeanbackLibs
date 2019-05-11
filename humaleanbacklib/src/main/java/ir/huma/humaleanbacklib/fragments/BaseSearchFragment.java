@@ -298,7 +298,6 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     }
 
 
-
     private static final long BACKGROUND_UPDATE_DELAY = 400;
 
     protected BackgroundManager mBackgroundManager;
@@ -407,7 +406,6 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     }
 
 
-
     public void setBackgroundDrawable(Drawable drawable) {
         this.background = drawable;
     }
@@ -425,6 +423,12 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     public void setBackgroundUri(String backgroundUri, boolean hasDelay) {
         this.background = backgroundUri;
         startBackgroundTimer(hasDelay);
+    }
+
+
+
+    public void setRtl() {
+        getView().findViewById(R.id.lb_results_frame).setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
     public int getDrawableResId() {

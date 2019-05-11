@@ -20,7 +20,7 @@ public class TestSearchFragment extends BaseSearchFragment {
 
         MyListRowPresenter p = new MyListRowPresenter();
         setAdapter(new ArrayObjectAdapter(p));
-
+        setRtl();
 
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
         adapter1 = new ArrayObjectAdapter(cardPresenter);
