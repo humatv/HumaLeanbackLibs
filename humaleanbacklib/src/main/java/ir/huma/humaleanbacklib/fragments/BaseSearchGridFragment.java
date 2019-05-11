@@ -5,14 +5,12 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
-import android.support.v17.leanback.app.BackgroundManager;
+
 import android.support.v17.leanback.app.SearchSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ListRow;
@@ -27,29 +25,22 @@ import android.support.v17.leanback.widget.SearchEditText;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
 import java.lang.reflect.Field;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import ir.atitec.everythingmanager.utility.Util;
 import ir.huma.humaleanbacklib.R;
-import ir.huma.humaleanbacklib.Util.ImageLoader;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
 
-public abstract class BaseSearchFragment extends SearchSupportFragment implements SearchSupportFragment.SearchResultProvider, FragmentProvider, OnBackPressListener {
+public abstract class BaseSearchGridFragment extends SearchGridFragment implements  OnBackPressListener {
 
     private boolean isPersianVoice = true;
     public final int VOICE_REQUEST_CODE = 342;
     public final int VOICE_REQUEST_PERMISSION = 653;
     private SearchBar searchBar;
     public boolean isKeyboardOpen = false;
-    private ArrayObjectAdapter adapter;
+//    private ArrayObjectAdapter adapter;
     private Typeface typeface;
     private SearchEditText editText;
     private long createTime = System.currentTimeMillis();
@@ -58,58 +49,64 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         customizeSearchView();
-        setSearchResultProvider(this);
+//        setSearchResultProvider(this);
         startVoice();
         setEventListener();
-        initial();
+        //initial();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     private void setEventListener() {
-        setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
-            @Override
-            public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                int rowPos = 0;
-                for (int i = 0; i < getAdapter().size(); i++) {
-                    if (row == getAdapter().get(i)) {
-                        rowPos = i;
-                        break;
-                    }
-                }
-                int pos = 0;
-                if (row instanceof ListRow) {
-                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
-                        if (((ListRow) row).getAdapter().get(i) == item) {
-                            pos = i;
-                            break;
-                        }
-                    }
-                }
-                onItemSelectedListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
-            }
-        });
-
-        setOnItemViewClickedListener(new OnItemViewClickedListener() {
-            @Override
-            public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                int rowPos = 0;
-                for (int i = 0; i < getAdapter().size(); i++) {
-                    if (row == getAdapter().get(i)) {
-                        rowPos = i;
-                        break;
-                    }
-                }
-                int pos = 0;
-                if (row instanceof ListRow) {
-                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
-                        if (((ListRow) row).getAdapter().get(i) == item) {
-                            pos = i;
-                            break;
-                        }
-                    }
-                }
-                onItemClickListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
-            }
-        });
+//        setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
+//            @Override
+//            public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+//                int rowPos = 0;
+//                for (int i = 0; i < getAdapter().size(); i++) {
+//                    if (row == getAdapter().get(i)) {
+//                        rowPos = i;
+//                        break;
+//                    }
+//                }
+//                int pos = 0;
+//                if (row instanceof ListRow) {
+//                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
+//                        if (((ListRow) row).getAdapter().get(i) == item) {
+//                            pos = i;
+//                            break;
+//                        }
+//                    }
+//                }
+//                onItemSelectedListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
+//            }
+//        });
+//
+//        setOnItemViewClickedListener(new OnItemViewClickedListener() {
+//            @Override
+//            public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+//                int rowPos = 0;
+//                for (int i = 0; i < getAdapter().size(); i++) {
+//                    if (row == getAdapter().get(i)) {
+//                        rowPos = i;
+//                        break;
+//                    }
+//                }
+//                int pos = 0;
+//                if (row instanceof ListRow) {
+//                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
+//                        if (((ListRow) row).getAdapter().get(i) == item) {
+//                            pos = i;
+//                            break;
+//                        }
+//                    }
+//                }
+//                onItemClickListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
+//            }
+//        });
     }
 
     private void startVoice() {
@@ -162,7 +159,7 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     }
 
     public boolean hasVoicePermission() {
-        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void requestVoicePermission() {
@@ -174,11 +171,11 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     private void customizeSearchView() {
 
         try {
-            Field f0 = SearchSupportFragment.class.getDeclaredField("mAutoStartRecognition");
+            Field f0 = SearchGridFragment.class.getDeclaredField("mAutoStartRecognition");
             f0.setAccessible(true);
             f0.set(this, false);
 
-            Field f1 = SearchSupportFragment.class.getDeclaredField("mSearchBar");
+            Field f1 = SearchGridFragment.class.getDeclaredField("mSearchBar");
             f1.setAccessible(true);
             searchBar = (SearchBar) f1.get(this);
             if (searchBar != null) {
@@ -263,18 +260,18 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         isPersianVoice = persianVoice;
     }
 
-    @Override
-    public ObjectAdapter getResultsAdapter() {
-        return adapter;
-    }
+//    @Override
+//    public ObjectAdapter getResultsAdapter() {
+//        return adapter;
+//    }
 
-    public ArrayObjectAdapter getAdapter() {
-        return adapter;
-    }
-
-    public void setAdapter(ArrayObjectAdapter adapter) {
-        this.adapter = adapter;
-    }
+//    public ArrayObjectAdapter getAdapter() {
+//        return adapter;
+//    }
+//
+//    public void setAdapter(ArrayObjectAdapter adapter) {
+//        this.adapter = adapter;
+//    }
 
     public Typeface getTypeface() {
         return typeface;
@@ -295,147 +292,5 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
             return true;
         }
         return false;
-    }
-
-
-
-    private static final long BACKGROUND_UPDATE_DELAY = 400;
-
-    protected BackgroundManager mBackgroundManager;
-    protected DisplayMetrics mMetrics;
-    protected Timer mBackgroundTimer;
-
-    private Object background;
-    protected static final Handler HANDLER = new Handler();
-
-    private int drawableResId = R.drawable.default_background;
-
-
-    private void prepareBackgroundManager() {
-
-        if (mBackgroundManager == null) {
-            try {
-                mBackgroundManager = BackgroundManager.getInstance(getActivity());
-                mBackgroundManager.attach(getActivity().getWindow());
-                mMetrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    protected class UpdateBackgroundTask extends TimerTask {
-
-        @Override
-        public void run() {
-            HANDLER.post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("backgroundManager", "UpdateBackgroundTask");
-                    updateBackground(getBackground());
-                }
-            });
-        }
-    }
-
-    private int tryLoadingBackground = 0;
-
-    protected void updateBackground(final Object background) {
-
-        if (mBackgroundManager == null) {
-            prepareBackgroundManager();
-        }
-
-        Log.e("backgroundManager", "updateBackground");
-
-        if (background != null && background instanceof String) {
-            new ImageLoader()
-                    .setSize(mMetrics.widthPixels + 180, mMetrics.heightPixels)
-                    .setReadyListener(new ImageLoader.ReadyListener() {
-                        @Override
-                        public void onReady(Bitmap bitmap) {
-                            if (BaseSearchFragment.this.background == background) {
-                                mBackgroundManager.setBitmap(bitmap);
-                            }
-                        }
-                    }).load(getContext(), (String) background);
-//            final RequestOptions options = new RequestOptions().override(mMetrics.widthPixels+180, mMetrics.heightPixels).centerCrop();
-//
-//            Glide.with(this).asBitmap().apply(options).load(background).addListener(new RequestListener<Bitmap>() {
-//                @Override
-//                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-//                    if (BaseBrowseFragment.this.background == background && tryLoadingBackground < 5) {
-//                        Glide.with(getActivity()).asBitmap().load(background).addListener(this);
-//                    }
-//                    tryLoadingBackground++;
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-//                    if (BaseBrowseFragment.this.background == background) {
-//                        mBackgroundManager.setBitmap(resource);
-//                    }
-//                    return false;
-//                }
-//            }).preload();
-
-        } else if (background != null && background instanceof Drawable) {
-            mBackgroundManager.setDrawable((Drawable) background);
-        } else {
-            mBackgroundManager.setDrawable(ResourcesCompat.getDrawable(getResources(), drawableResId, null));
-        }
-
-        if (mBackgroundTimer != null) {
-            mBackgroundTimer.cancel();
-        }
-    }
-
-
-    public void startBackgroundTimer(boolean hasDelay) {
-
-        if (null != mBackgroundTimer) {
-            mBackgroundTimer.cancel();
-        }
-
-        mBackgroundTimer = new Timer();
-
-        mBackgroundTimer.schedule(new BaseSearchFragment.UpdateBackgroundTask(), hasDelay ? BACKGROUND_UPDATE_DELAY : 0);
-
-    }
-
-
-
-    public void setBackgroundDrawable(Drawable drawable) {
-        this.background = drawable;
-    }
-
-    public void setBackgroundUri(String backgroundUri) {
-        this.background = backgroundUri;
-    }
-
-
-    public void setBackgroundDrawable(Drawable drawable, boolean hasDelay) {
-        this.background = drawable;
-        startBackgroundTimer(hasDelay);
-    }
-
-    public void setBackgroundUri(String backgroundUri, boolean hasDelay) {
-        this.background = backgroundUri;
-        startBackgroundTimer(hasDelay);
-    }
-
-    public int getDrawableResId() {
-        return drawableResId;
-    }
-
-    public void setDrawableResId(int drawableResId) {
-        this.drawableResId = drawableResId;
-    }
-
-    public Object getBackground() {
-        return background;
     }
 }

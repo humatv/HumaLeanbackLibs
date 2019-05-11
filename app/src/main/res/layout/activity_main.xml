@@ -73,6 +73,15 @@
         android:ems="10"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="onTestSearchGrid"
+        android:text="TestSearchGrid"
+        android:ems="10"
+        />
+
 
 
 

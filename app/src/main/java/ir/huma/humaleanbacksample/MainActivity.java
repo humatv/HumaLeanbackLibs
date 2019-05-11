@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
         HumaUtil.startFragment(this, TestDetailFragment.class, null);
 
     }
+
+    public void onTestSearchGrid(View view) {
+        HumaUtil.startFragment(this, TestSearchGridFragment.class, null);
+
+    }
 }

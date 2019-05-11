@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/browse_dummy"
     android:layout_width="match_parent"
+    android:clipChildren="false"
     android:layout_height="match_parent">
 
 
@@ -21,4 +22,11 @@
     </android.support.v17.leanback.widget.BrowseFrameLayout>
 
 
+    <android.support.v17.leanback.widget.SearchBar
+        android:id="@+id/lb_search_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lb_search_bar_padding_top"
+
+         />
 </FrameLayout>
