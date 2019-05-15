@@ -17,7 +17,9 @@ public class TestFragmentFactory extends BaseBrowseFragment {
 
     @Override
     public void initial() {
-        PageRowFragmentFactory factory = new PageRowFragmentFactory(getActivity());
+        mRowsAdapter = new ArrayObjectAdapter(new MyListRowPresenter());
+
+        PageRowFragmentFactory factory = new PageRowFragmentFactory(getActivity(), mRowsAdapter, this);
         factory.addFragment(1, new TestGridFragment());
         factory.addFragment(2, new TestGridFragment());
         factory.addFragment(3, new TestBaseRowsFragment());
@@ -25,7 +27,7 @@ public class TestFragmentFactory extends BaseBrowseFragment {
 
         getMainFragmentRegistry().registerFragment(PageRow.class, factory);
 
-        mRowsAdapter = new ArrayObjectAdapter(new MyListRowPresenter());
+
         setAdapter(mRowsAdapter);
         createRows();
         startEntranceTransition();
