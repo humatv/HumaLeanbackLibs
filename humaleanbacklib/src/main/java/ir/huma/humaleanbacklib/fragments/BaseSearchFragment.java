@@ -178,7 +178,7 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     }
 
     public boolean hasVoicePermission() {
-        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void requestVoicePermission() {
