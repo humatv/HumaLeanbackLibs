@@ -25,7 +25,7 @@ import ir.huma.humaleanbacklib.test.MyListRowPresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestBaseBrowseFragment extends BaseBrowseFragment {
-    ArrayObjectAdapter mRowsAdapter;
+        ArrayObjectAdapter mRowsAdapter;
 
 
     @Override

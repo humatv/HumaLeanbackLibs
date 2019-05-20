@@ -47,7 +47,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  */
 public abstract class SearchGridFragment extends Fragment implements BrowseSupportFragment.MainFragmentAdapterProvider, FragmentProvider {
     private static final String TAG = "VerticalGridFragment";
-    private static boolean DEBUG = false;
+    private static boolean DEBUG = true;
 
     private ObjectAdapter mAdapter;
     private VerticalGridPresenter mGridPresenter;

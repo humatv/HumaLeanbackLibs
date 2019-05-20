@@ -27,20 +27,22 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
 import ir.atitec.everythingmanager.utility.Util;
 import ir.huma.humaleanbacklib.R;
 
-public abstract class BaseSearchGridFragment extends SearchGridFragment implements  OnBackPressListener {
+public abstract class BaseSearchGridFragment extends SearchGridFragment implements OnBackPressListener {
 
     private boolean isPersianVoice = true;
     public final int VOICE_REQUEST_CODE = 342;
     public final int VOICE_REQUEST_PERMISSION = 653;
     private SearchBar searchBar;
     public boolean isKeyboardOpen = false;
-//    private ArrayObjectAdapter adapter;
+    //    private ArrayObjectAdapter adapter;
     private Typeface typeface;
     private SearchEditText editText;
     private long createTime = System.currentTimeMillis();
@@ -217,9 +219,23 @@ public abstract class BaseSearchGridFragment extends SearchGridFragment implemen
                                 @Override
                                 public void run() {
                                     isKeyboardOpen = false;
+//                                    onQueryTextSubmit(editText.getText().toString());
                                 }
                             }, 200);
                         }
+                    }
+                });
+
+                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int action, KeyEvent event) {
+                        if (EditorInfo.IME_ACTION_DONE == action ||
+                                EditorInfo.IME_ACTION_GO == action) {
+                            Util.hideKeyboard(getActivity());
+                            submitQuery(editText.getText().toString());
+                            return true;
+                        }
+                        return false;
                     }
                 });
 

@@ -32,6 +32,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.util.Timer;
@@ -223,6 +225,19 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
                                 }
                             }, 200);
                         }
+                    }
+                });
+
+                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int action, KeyEvent event) {
+                        if (EditorInfo.IME_ACTION_DONE == action ||
+                                EditorInfo.IME_ACTION_GO == action) {
+                            Util.hideKeyboard(getActivity());
+                            onQueryTextSubmit(editText.getText().toString());
+                            return true;
+                        }
+                        return false;
                     }
                 });
 

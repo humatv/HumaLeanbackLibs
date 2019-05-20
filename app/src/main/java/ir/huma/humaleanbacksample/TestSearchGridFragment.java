@@ -57,6 +57,8 @@ public class TestSearchGridFragment extends BaseSearchGridFragment {
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        Toast.makeText(getActivity(), "sumbit : "+query, Toast.LENGTH_SHORT).show();
+
         adapter1.clear();
         for (int i = 0; i < str.length; i++) {
             if (str[i].indexOf(query) != -1)
