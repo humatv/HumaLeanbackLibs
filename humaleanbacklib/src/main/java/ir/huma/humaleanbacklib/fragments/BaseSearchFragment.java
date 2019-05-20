@@ -3,7 +3,10 @@ package ir.huma.humaleanbacklib.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -64,7 +67,18 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         startVoice();
         setEventListener();
         initial();
+
+        getActivity().registerReceiver(receiver, new IntentFilter("ir.huma.launcher.newVoiceSearch"));
+
     }
+
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            startRecognition();
+        }
+    };
 
     private void setEventListener() {
         setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
@@ -441,7 +455,6 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     }
 
 
-
     public void setRtl() {
         getView().findViewById(R.id.lb_results_frame).setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
@@ -456,5 +469,11 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
 
     public Object getBackground() {
         return background;
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiver);
+        super.onDestroy();
     }
 }
