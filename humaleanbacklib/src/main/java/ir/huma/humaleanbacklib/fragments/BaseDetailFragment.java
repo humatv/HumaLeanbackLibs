@@ -317,10 +317,16 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
     public void setBackgrouundDrawable(Drawable backgroundImage) {
         this.backgroundImage = backgroundImage;
+        if(mDetailsBackground != null){
+            mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
+        }
     }
 
     public void setBackgrouundBitmap(Bitmap backgroundImage) {
         this.backgroundImage = backgroundImage;
+        if(mDetailsBackground != null){
+            mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
+        }
     }
 
     public void setLogoUri(Uri logoImage) {
