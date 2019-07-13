@@ -5,7 +5,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.BaseCardView;
+import android.support.v17.leanback.widget.ObjectAdapter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
     private static final String TAG = "Base Card";
 
     private int layoutResId;
+    ObjectAdapter adapter;
 
     public MyBaseCardView(Context context, int layoutResId) {
         super(context);
@@ -38,11 +41,22 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
         init();
     }
 
+    public ObjectAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(ObjectAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     @Override
     public void setSelected(boolean selected) {
-//        super.setSelected(selected);
-        changeSelected(selected);
+        int pos = 0;
+        if (adapter instanceof ArrayObjectAdapter) {
+            pos = ((ArrayObjectAdapter) adapter).indexOf(this);
+        }
+
+        changeSelected(selected, pos);
 
     }
 
@@ -91,8 +105,7 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
 
     public abstract void fillData(T t);
 
-    protected abstract void changeSelected(boolean selected);
-
+    protected abstract void changeSelected(boolean selected, int pos);
 
 
 }

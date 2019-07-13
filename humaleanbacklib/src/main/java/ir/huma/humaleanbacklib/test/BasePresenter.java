@@ -1,6 +1,7 @@
 package ir.huma.humaleanbacklib.test;
 
 import android.content.Context;
+import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.ViewGroup;
 
@@ -19,15 +20,17 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
     private Context context;
     private Class<TView> tViewClass;
     private int layoutResId;
+    ObjectAdapter adapter;
 
     public BasePresenter(Context context) {
         this.context = context;
     }
 
-    public BasePresenter(Context context, Class<TView> tViewClass, int layoutResId) {
+    public BasePresenter(Context context, Class<TView> tViewClass, int layoutResId, ObjectAdapter adapter) {
         this.context = context;
         this.tViewClass = tViewClass;
         this.layoutResId = layoutResId;
+        this.adapter = adapter;
     }
 
     @Override
@@ -36,6 +39,13 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
         return new ViewHolder(createView(parent));
     }
 
+    public ObjectAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(ObjectAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     /**
      * cast bin view and pass into class object model
@@ -92,7 +102,10 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
             throw new RuntimeException("if dont pass parameter tViewClass, you must override createView Method Of BasePresenter");
         }
         try {
-            return tViewClass.getConstructor(Context.class, int.class).newInstance(context, layoutResId);
+            TView v = tViewClass.getConstructor(Context.class, int.class).newInstance(context, layoutResId);
+            if (adapter != null) {
+                v.setAdapter(adapter);
+            }
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

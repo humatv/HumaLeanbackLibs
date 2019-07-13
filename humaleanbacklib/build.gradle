@@ -47,7 +47,8 @@ dependencies {
 //    implementation 'com.github.humatv:humaLeanbackPlayer:2f0c15aa4e'
 //    implementation 'com.github.humatv:HumaLeanbackPlayer:e20a86044c'
 
-    implementation 'com.github.humatv:HumaLeanbackPlayer:1c305e9dc9'
+//    implementation 'com.github.humatv:HumaLeanbackPlayer:1c305e9dc9'
+    implementation 'com.github.humatv:HumaLeanbackPlayer:a055cb4fa1'
 }
 
 
