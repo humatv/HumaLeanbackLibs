@@ -106,6 +106,7 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
             if (adapter != null) {
                 v.setAdapter(adapter);
             }
+            return v;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
