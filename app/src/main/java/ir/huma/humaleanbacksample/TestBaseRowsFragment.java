@@ -38,9 +38,9 @@ public class TestBaseRowsFragment extends BaseRowsFragment {
         mRowsAdapter = new ArrayObjectAdapter(p);
         setAlignment(100);
 
-        BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
-
+        BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<Video, Video.MyVideoView>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(cardPresenter);
+        cardPresenter.setAdapter(adapter1);
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }

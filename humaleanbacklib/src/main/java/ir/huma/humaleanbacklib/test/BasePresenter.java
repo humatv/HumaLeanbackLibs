@@ -26,11 +26,10 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
         this.context = context;
     }
 
-    public BasePresenter(Context context, Class<TView> tViewClass, int layoutResId, ObjectAdapter adapter) {
+    public BasePresenter(Context context, Class<TView> tViewClass, int layoutResId) {
         this.context = context;
         this.tViewClass = tViewClass;
         this.layoutResId = layoutResId;
-        this.adapter = adapter;
     }
 
     @Override

@@ -32,6 +32,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ir.atitec.everythingmanager.manager.FontManager;
 import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.ImageLoader;
 import ir.huma.humaleanbacklib.test.BasePresenter;
@@ -206,7 +207,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 //                            AppController.pref.edit().putString("defaultQuality", quality).commit();
                         }
                     });
-                    mMediaPlayerGlue.setTypeface(getString(R.string.IRANSans2));
+                    mMediaPlayerGlue.setTypeface(FontManager.instance(R.string.IRANSans2).getTypeface());
                     mDetailsBackground.setupVideoPlayback(mMediaPlayerGlue);
                     mMediaPlayerGlue.build();
 

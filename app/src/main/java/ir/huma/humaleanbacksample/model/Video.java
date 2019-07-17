@@ -31,9 +31,11 @@ public class Video {
         }
 
         @Override
-        protected void changeSelected(boolean selected) {
+        protected void changeSelected(boolean selected, int pos) {
 
         }
+
+
     }
 
 }

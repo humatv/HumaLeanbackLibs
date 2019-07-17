@@ -25,6 +25,7 @@ public class TestGridFragment extends BaseGridFragment {
 
 
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(cardPresenter);
+        cardPresenter.setAdapter(adapter1);
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }
