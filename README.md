@@ -2,7 +2,7 @@
 Use android tv leanback in easy way
 
 <h1>Setup</h1>
-[![](https://jitpack.io/v/humatv/HumaLeanbackLibs.svg)](https://jitpack.io/#humatv/HumaLeanbackLibs)
+[!(https://jitpack.io/v/humatv/HumaLeanbackLibs.svg)](https://jitpack.io/#humatv/HumaLeanbackLibs)
 
 ```gradle
 allProjects 
