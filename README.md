@@ -15,7 +15,7 @@ allProjects
 ```
 ```gradle
   dependencies {
-    implementation 'com.github.humatv:HumaLeanbackLibs:1.2'
+	implementation 'com.github.humatv:HumaLeanbackLibs:1.2.1'
 }
 ```
 
