@@ -529,3 +529,41 @@ public class TestSearchGridFragment extends BaseSearchGridFragment {
 }
 
 ```
+
+## Use Fragments in Activities:
+First way :Adding Activity
+```
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frameLayout"
+    tools:context=".VideoActivity"/>
+
+```
+```
+public class MainActivity extends FragmentActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        TestFragment t = new TestFragment();
+        t.setArguments(getIntent().getExtras());
+        tx.replace(R.id.frameLayout, t, "mainFragment");
+        tx.commit();
+    }
+}
+```
+Or Second way with Huma Lib:
+```
+Bundle b= new Bundle();
+b.putString("key","value");
+boolean isRtl = true;
+HumaUtil.startFragment(context, TestGuidedStepFragment.class, b, isRtl);
+```
