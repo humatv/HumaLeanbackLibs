@@ -3,7 +3,7 @@ package ir.huma.humaleanbacksample.model;
 import android.content.Context;
 import android.widget.TextView;
 
-import ir.huma.humaleanbacklib.test.MyBaseCardView;
+import ir.huma.humaleanbacklib.presenter.MyBaseCardView;
 import ir.huma.humaleanbacksample.R;
 
 public class Video {

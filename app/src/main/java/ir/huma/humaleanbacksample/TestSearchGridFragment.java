@@ -1,6 +1,5 @@
 package ir.huma.humaleanbacksample;
 
-import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.FocusHighlight;
 import android.support.v17.leanback.widget.VerticalGridPresenter;
@@ -8,8 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import ir.huma.humaleanbacklib.fragments.BaseSearchGridFragment;
-import ir.huma.humaleanbacklib.fragments.SearchGridFragment;
-import ir.huma.humaleanbacklib.test.BasePresenter;
+import ir.huma.humaleanbacklib.presenter.BasePresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestSearchGridFragment extends BaseSearchGridFragment {
@@ -17,7 +15,6 @@ public class TestSearchGridFragment extends BaseSearchGridFragment {
     ArrayObjectAdapter adapter1;
     @Override
     public void initial() {
-//        setmRowsSupportFragment(new TestGridFragment());
 
         VerticalGridPresenter presenter = new VerticalGridPresenter(FocusHighlight.ZOOM_FACTOR_LARGE, false);
         presenter.setShadowEnabled(false);
@@ -29,9 +26,6 @@ public class TestSearchGridFragment extends BaseSearchGridFragment {
 
         adapter1 = new ArrayObjectAdapter(cardPresenter);
         cardPresenter.setAdapter(adapter1);
-//        for (int i = 0; i < 10; i++) {
-//            adapter1.add(new Video());
-//        }
         setAdapter(adapter1);
         startRecognition();
 

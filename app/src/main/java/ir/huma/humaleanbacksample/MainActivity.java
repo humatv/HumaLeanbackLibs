@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onDetailFragmentClick(View view) {
+        Bundle b= new Bundle();
+        b.putString("key","value");
         HumaUtil.startFragment(this, TestDetailFragment.class, null);
 
     }

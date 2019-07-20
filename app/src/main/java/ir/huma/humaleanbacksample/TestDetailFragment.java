@@ -1,21 +1,17 @@
 package ir.huma.humaleanbacksample;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.DetailsOverviewRow;
 import android.support.v17.leanback.widget.ListRow;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ir.huma.humaleanbacklib.fragments.BaseDetailFragment;
-import ir.huma.humaleanbacklib.test.BasePresenter;
-import ir.huma.humaleanbacklib.test.DetailsDescriptionPresenter;
-import ir.huma.humaleanbacklib.test.IconHeaderItem;
-import ir.huma.humaleanbacklib.test.MyBaseCardView;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
+import ir.huma.humaleanbacklib.presenter.BasePresenter;
+import ir.huma.humaleanbacklib.presenter.DetailsDescriptionPresenter;
+import ir.huma.humaleanbacklib.presenter.IconHeaderItem;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestDetailFragment extends BaseDetailFragment {

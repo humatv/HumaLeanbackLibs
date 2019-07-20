@@ -45,7 +45,6 @@ import java.util.TimerTask;
 import ir.atitec.everythingmanager.utility.Util;
 import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.ImageLoader;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
 
 public abstract class BaseSearchFragment extends SearchSupportFragment implements SearchSupportFragment.SearchResultProvider, FragmentProvider, OnBackPressListener {
 

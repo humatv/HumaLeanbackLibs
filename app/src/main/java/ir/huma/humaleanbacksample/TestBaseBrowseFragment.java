@@ -1,17 +1,9 @@
 package ir.huma.humaleanbacksample;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.graphics.Typeface;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.FocusHighlight;
 import android.support.v17.leanback.widget.ListRow;
-import android.support.v17.leanback.widget.OnItemViewClickedListener;
-import android.support.v17.leanback.widget.OnItemViewSelectedListener;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.RowPresenter;
-import android.support.v17.leanback.widget.VerticalGridPresenter;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +11,9 @@ import android.widget.Toast;
 
 import ir.huma.humaleanbacklib.Util.CustomTitleView;
 import ir.huma.humaleanbacklib.fragments.BaseBrowseFragment;
-import ir.huma.humaleanbacklib.test.BasePresenter;
-import ir.huma.humaleanbacklib.test.IconHeaderItem;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
+import ir.huma.humaleanbacklib.presenter.BasePresenter;
+import ir.huma.humaleanbacklib.presenter.IconHeaderItem;
+import ir.huma.humaleanbacklib.presenter.MyListRowPresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestBaseBrowseFragment extends BaseBrowseFragment {
@@ -33,15 +25,15 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         setShowHeader(true);
 
         // set fastLane (or headers) background color
-//        setBrandColor(ResourcesCompat.getColor(getResources(), R.color.fastlane_background, null));
+        setBrandColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
 
         // set search icon color
-//        setSearchAffordanceColor(Color.TRANSPARENT);
+        setSearchAffordanceColor(Color.TRANSPARENT);
 
 //
         MyListRowPresenter p = new MyListRowPresenter();
 
-//        p.setRtl(true);
+        p.setRtl(true);
 //        p.setShadowEnabled(true);
         mRowsAdapter = new ArrayObjectAdapter(p);
 
@@ -53,7 +45,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
             adapter1.add(new Video());
         }
         IconHeaderItem headerItem = new IconHeaderItem("hello");
-//        headerItem.setTypeface(FontManager.instance().getTypeface());
+        headerItem.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));

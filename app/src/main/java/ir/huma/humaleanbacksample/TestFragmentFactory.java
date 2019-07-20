@@ -1,16 +1,14 @@
 package ir.huma.humaleanbacksample;
 
-import android.graphics.Color;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 import android.view.View;
 import android.widget.Toast;
 
 import ir.huma.humaleanbacklib.fragments.BaseBrowseFragment;
 import ir.huma.humaleanbacklib.fragments.PageRowFragmentFactory;
-import ir.huma.humaleanbacklib.test.IconHeaderItem;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
+import ir.huma.humaleanbacklib.presenter.IconHeaderItem;
+import ir.huma.humaleanbacklib.presenter.MyListRowPresenter;
 
 public class TestFragmentFactory extends BaseBrowseFragment {
     ArrayObjectAdapter mRowsAdapter;

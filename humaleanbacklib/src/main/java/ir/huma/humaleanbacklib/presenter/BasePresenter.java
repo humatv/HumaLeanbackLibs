@@ -1,4 +1,4 @@
-package ir.huma.humaleanbacklib.test;
+package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
 import android.support.v17.leanback.widget.ObjectAdapter;

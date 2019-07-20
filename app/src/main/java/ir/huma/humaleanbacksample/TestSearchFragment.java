@@ -6,9 +6,9 @@ import android.support.v17.leanback.widget.ListRow;
 import android.view.View;
 
 import ir.huma.humaleanbacklib.fragments.BaseSearchFragment;
-import ir.huma.humaleanbacklib.test.BasePresenter;
-import ir.huma.humaleanbacklib.test.IconHeaderItem;
-import ir.huma.humaleanbacklib.test.MyListRowPresenter;
+import ir.huma.humaleanbacklib.presenter.BasePresenter;
+import ir.huma.humaleanbacklib.presenter.IconHeaderItem;
+import ir.huma.humaleanbacklib.presenter.MyListRowPresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestSearchFragment extends BaseSearchFragment {

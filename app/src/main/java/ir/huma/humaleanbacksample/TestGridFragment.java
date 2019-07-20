@@ -8,7 +8,7 @@ import android.support.v17.leanback.widget.VerticalGridPresenter;
 import android.view.View;
 
 import ir.huma.humaleanbacklib.fragments.BaseGridFragment;
-import ir.huma.humaleanbacklib.test.BasePresenter;
+import ir.huma.humaleanbacklib.presenter.BasePresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
 public class TestGridFragment extends BaseGridFragment {
