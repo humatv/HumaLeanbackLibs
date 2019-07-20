@@ -188,22 +188,6 @@ public class TestBaseRowsFragment extends BaseRowsFragment {
 
         setAdapter(mRowsAdapter);
 
-
-//        setTitleView(R.layout.custom_titleview, R.id.search_orb, new CustomTitleView.OnTitleReadyListener() {
-//            @Override
-//            public void onReady(View v) {
-//
-//            }
-//        });
-
-
-//        setOnSearchClickedListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        setBackgroundUri("URL", false);
     }
 
     @Override
@@ -283,7 +267,7 @@ public class TestFragmentFactory extends BaseBrowseFragment {
         createRows();
         startEntranceTransition();
 
-        setBackgroundUri("https://bayanbox.ir/view/4386502884462510503/%D9%85%D9%86%D8%B8%D8%B1%D9%87-232.jpeg", false);
+        setBackgroundUri("URL", false);
 
     }
 
@@ -342,7 +326,7 @@ public class TestFragmentFactory extends BaseBrowseFragment {
         createRows();
         startEntranceTransition();
 
-        setBackgroundUri("https://bayanbox.ir/view/4386502884462510503/%D9%85%D9%86%D8%B8%D8%B1%D9%87-232.jpeg", false);
+        setBackgroundUri("URL", false);
 
     }
 
