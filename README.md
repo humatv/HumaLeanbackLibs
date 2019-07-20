@@ -540,7 +540,7 @@ First way :Adding Activity
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frameLayout"
-    tools:context=".VideoActivity"/>
+    tools:context=".MainActivity"/>
 
 ```
 ```
