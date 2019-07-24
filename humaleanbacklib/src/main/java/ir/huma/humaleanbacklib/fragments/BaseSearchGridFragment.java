@@ -237,18 +237,18 @@ public abstract class BaseSearchGridFragment extends SearchGridFragment implemen
                     }
                 });
 
-                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView v, int action, KeyEvent event) {
-                        if (EditorInfo.IME_ACTION_DONE == action ||
-                                EditorInfo.IME_ACTION_GO == action) {
-                            Util.hideKeyboard(getActivity());
-                            submitQuery(editText.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-                });
+//                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                    @Override
+//                    public boolean onEditorAction(TextView v, int action, KeyEvent event) {
+//                        if (EditorInfo.IME_ACTION_DONE == action ||
+//                                EditorInfo.IME_ACTION_GO == action) {
+//                            Util.hideKeyboard(getActivity());
+//                            submitQuery(editText.getText().toString());
+//                            return true;
+//                        }
+//                        return false;
+//                    }
+//                });
 
 
                 editText.setOnKeyListener(new View.OnKeyListener() {
