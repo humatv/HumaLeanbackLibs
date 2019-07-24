@@ -15,7 +15,7 @@ allProjects
 ```
 ```gradle
   dependencies {
-    implementation 'com.github.humatv:HumaLeanbackLibs:1.2'
+	implementation 'com.github.humatv:HumaLeanbackLibs:1.2.1'
 }
 ```
 
@@ -306,53 +306,28 @@ public class TestFragmentFactory extends BaseBrowseFragment {
 ##  5) GuidedStep
 [![Screenshot](images/screen6.png)](https://raw.githubusercontent.com/googlesamples/androidtv-Leanback/master/images/screen6.png)
 ```
-public class TestFragmentFactory extends BaseBrowseFragment {
-    ArrayObjectAdapter mRowsAdapter;
+public class TestGuidedStepFragment extends BaseGuidedStepFragment {
+
 
     @Override
     public void initial() {
-        mRowsAdapter = new ArrayObjectAdapter(new MyListRowPresenter());
-
-        PageRowFragmentFactory factory = new PageRowFragmentFactory(getActivity(), mRowsAdapter, this);
-        factory.addFragment(1, new TestGridFragment());
-        factory.addFragment(2, new TestGridFragment());
-        factory.addFragment(3, new TestBaseRowsFragment());
-
-
-        getMainFragmentRegistry().registerFragment(PageRow.class, factory);
+        setActionTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
+        setTitleTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
+        setStyle(R.style.MyLeanbackWizard);
+        setGuidance(new GuidanceStylist.Guidance("عنوان",
+                "توضیحات کامل",
+                "بالای توضیحات", getResources().getDrawable(R.mipmap.ic_launcher)));
 
 
-        setAdapter(mRowsAdapter);
-        createRows();
-        startEntranceTransition();
-
-        setBackgroundUri("URL", false);
-
-    }
-
-
-    private void createRows() {
-        IconHeaderItem headerItem1 = new IconHeaderItem(1, "test1", null);
-//        headerItem1.setTypeface(FontManager.instance().getTypeface());
-        PageRow pageRow1 = new PageRow(headerItem1);
-        mRowsAdapter.add(pageRow1);
-
-        IconHeaderItem headerItem3 = new IconHeaderItem(3, "test3", null);
-//        headerItem1.setTypeface(FontManager.instance().getTypeface());
-        PageRow pageRow3 = new PageRow(headerItem3);
-        mRowsAdapter.add(pageRow3);
-
-
-        IconHeaderItem headerItem2 = new IconHeaderItem(2, "test2", null);
-//        headerItem2.setTypeface(FontManager.instance().getTypeface());
-        PageRow pageRow2 = new PageRow(headerItem2);
-        mRowsAdapter.add(pageRow2);
+        for(int i=0;i<100;i++){
+            addActions(GuidedStepsUtil.getAction(1, "اکشن : "+ i, "زیر اکشن", getContext()));
+        }
 
     }
 
     @Override
     public void onItemSelectedListener(View v, Object item, int rowPos, int pos) {
-        Toast.makeText(getContext(), "selected :" + pos, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -360,6 +335,67 @@ public class TestFragmentFactory extends BaseBrowseFragment {
 
     }
 }
+
+```
+
+```
+<style name="MyLeanbackWizard" parent="Theme.Leanback.GuidedStep">
+        <item name="guidedActionsBackground">@color/white</item>
+        <item name="guidedStepBackground">#2196F3</item>
+        <item name="guidedActionItemTitleStyle">
+            @style/myGuidedActionItemTitleStyle
+        </item>
+        <item name="guidanceDescriptionStyle">
+            @style/MyGuidanceDescriptionStyle
+        </item>
+
+        <item name="guidedActionItemDescriptionStyle">
+            @style/myGuidedActionItemDescriptionStyle
+        </item>
+        <item name="guidedActionItemContentStyle">
+            @style/myGuidedActionItemContentStyle
+        </item>
+
+        <item name="guidedActionsSelectorDrawable">@drawable/guided_step_action_selector</item>
+
+        <item name="android:colorAccent">#009C60</item>
+        <item name="android:colorControlNormal">#000000</item>
+
+        <item name="guidanceContainerStyle">
+            @style/myGuidanceContainerStyle
+        </item>
+
+
+    </style>
+
+    <style name="MyGuidanceDescriptionStyle" parent="Widget.Leanback.GuidanceDescriptionStyle">
+        <item name="android:textColor">@color/text_color_black</item>
+
+    </style>
+
+
+    <style name="myGuidedActionItemTitleStyle" parent="Widget.Leanback.GuidedActionItemTitleStyle">
+        <item name="android:textColor">#646464</item>
+
+    </style>
+
+    <style name="myGuidedActionItemDescriptionStyle" parent="Widget.Leanback.GuidedActionItemDescriptionStyle">
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:alpha">1.0</item>
+        <item name="android:maxLines">20</item>
+
+    </style>
+
+
+    <style name="myGuidedActionItemContentStyle" parent="Widget.Leanback.GuidedActionItemContentStyle">
+        <item name="android:textColor">@color/text_color_black</item>
+
+    </style>
+
+    <style name="myGuidanceContainerStyle" parent="Widget.Leanback.GuidanceContainerStyle">
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <item name="android:layout_marginTop">-150dp</item>
+    </style>
 
 ```
 
