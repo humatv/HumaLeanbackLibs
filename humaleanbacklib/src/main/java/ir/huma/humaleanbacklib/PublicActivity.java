@@ -3,6 +3,7 @@ package ir.huma.humaleanbacklib;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -96,6 +97,11 @@ public class PublicActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        f.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
