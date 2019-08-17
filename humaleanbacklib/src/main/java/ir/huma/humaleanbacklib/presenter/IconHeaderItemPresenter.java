@@ -1,9 +1,11 @@
 package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
+import android.support.v17.leanback.widget.NonOverlappingLinearLayout;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
 
     boolean hasFocusable = true;
 
+    boolean isRtl = false;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup) {
         mUnselectedAlpha = viewGroup.getResources()
@@ -41,6 +45,8 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
         IconHeaderItem iconHeaderItem = (IconHeaderItem) ((Row) o).getHeaderItem();
         View rootView = viewHolder.view;
         rootView.setFocusable(hasFocusable);
+        if (isRtl)
+            ((NonOverlappingLinearLayout) rootView.getParent()).setGravity(Gravity.RIGHT);
 
         ImageView iconView = (ImageView) rootView.findViewById(R.id.header_icon);
 
@@ -53,7 +59,7 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
 
         TextView label = (TextView) rootView.findViewById(R.id.header_label);
         label.setText(iconHeaderItem.getName());
-        if(iconHeaderItem.getTypeface() != null){
+        if (iconHeaderItem.getTypeface() != null) {
             label.setTypeface(iconHeaderItem.getTypeface());
         }
         rootView.setAlpha(mUnselectedAlpha);
@@ -82,4 +88,15 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
         this.hasFocusable = hasFocusable;
         return this;
     }
+
+    public boolean isRtl() {
+        return isRtl;
+    }
+
+    public IconHeaderItemPresenter setRtl(boolean rtl) {
+        isRtl = rtl;
+        return this;
+    }
+
+
 }

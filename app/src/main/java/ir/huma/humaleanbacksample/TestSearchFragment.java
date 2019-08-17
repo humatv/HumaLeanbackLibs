@@ -18,9 +18,9 @@ public class TestSearchFragment extends BaseSearchFragment {
     @Override
     public void initial() {
 
-        MyListRowPresenter p = new MyListRowPresenter();
+        MyListRowPresenter p = new MyListRowPresenter().setRtl(true);
         setAdapter(new ArrayObjectAdapter(p));
-        setRtl();
+//        setRtl();
 
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
         adapter1 = new ArrayObjectAdapter(cardPresenter);

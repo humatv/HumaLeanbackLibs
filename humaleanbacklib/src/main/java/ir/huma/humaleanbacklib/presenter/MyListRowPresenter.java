@@ -13,6 +13,7 @@ public class MyListRowPresenter extends ListRowPresenter {
     private RowPresenter.ViewHolder holder;
     int horizontalNumRows = 1;
     boolean isRtl = false;
+    IconHeaderItemPresenter iconHeaderItemPresenter;
 
     public MyListRowPresenter() {
         this(FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
@@ -21,7 +22,7 @@ public class MyListRowPresenter extends ListRowPresenter {
 
     public MyListRowPresenter(int focusZoomFactor, boolean useFocusDimmer) {
         super(focusZoomFactor, useFocusDimmer);
-        setHeaderPresenter(new IconHeaderItemPresenter().setHasFocusable(false));
+        setHeaderPresenter(iconHeaderItemPresenter = new IconHeaderItemPresenter().setHasFocusable(false));
 
         setShadowEnabled(false);
     }
@@ -66,6 +67,7 @@ public class MyListRowPresenter extends ListRowPresenter {
 
     public MyListRowPresenter setRtl(boolean rtl) {
         isRtl = rtl;
+        iconHeaderItemPresenter.setRtl(rtl);
         return this;
     }
 
