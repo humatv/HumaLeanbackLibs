@@ -14,6 +14,7 @@ public class MyListRowPresenter extends ListRowPresenter {
     int horizontalNumRows = 1;
     boolean isRtl = false;
     IconHeaderItemPresenter iconHeaderItemPresenter;
+    int[] padding = new int[]{20, 0, 20, 0};
 
     public MyListRowPresenter() {
         this(FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
@@ -40,6 +41,8 @@ public class MyListRowPresenter extends ListRowPresenter {
             horizontalGridView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         horizontalGridView.setAlpha(0.9f);
         horizontalGridView.offsetLeftAndRight(200);
+        horizontalGridView.setPadding(padding[0], padding[1], padding[2], padding[3]);
+
         horizontalGridView.setNumRows(getHorizontalNumRows());
 
     }
@@ -74,5 +77,11 @@ public class MyListRowPresenter extends ListRowPresenter {
     @Override
     public boolean isUsingDefaultListSelectEffect() {
         return false;
+    }
+
+
+    public MyListRowPresenter setHorizontalGridViewPadding(int left, int top, int right, int bottom) {
+        padding = new int[]{left, top, right, bottom};
+        return this;
     }
 }

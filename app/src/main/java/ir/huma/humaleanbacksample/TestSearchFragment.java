@@ -18,7 +18,7 @@ public class TestSearchFragment extends BaseSearchFragment {
     @Override
     public void initial() {
 
-        MyListRowPresenter p = new MyListRowPresenter().setRtl(true);
+        MyListRowPresenter p = new MyListRowPresenter().setRtl(false);
         setAdapter(new ArrayObjectAdapter(p));
 //        setRtl();
 
