@@ -66,11 +66,20 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         startVoice();
         setEventListener();
         initial();
-
-        getActivity().registerReceiver(receiver, new IntentFilter("ir.huma.launcher.newVoiceSearch"));
-
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().registerReceiver(receiver, new IntentFilter("ir.huma.action.newVoiceSearch"));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(receiver);
+
+    }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -472,7 +481,6 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
 
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(receiver);
         super.onDestroy();
     }
 }
