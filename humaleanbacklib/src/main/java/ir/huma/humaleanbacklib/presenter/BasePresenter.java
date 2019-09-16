@@ -57,6 +57,7 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
 
         T t = (T) item;
         TView tView = (TView) viewHolder.view;
+        tView.setData(t);
         tView.fillData(t);
 //        onBindViewHolder(tView , t);
     }

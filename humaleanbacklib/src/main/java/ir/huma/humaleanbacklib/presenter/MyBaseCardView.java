@@ -19,6 +19,7 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
 
     private int layoutResId;
     ObjectAdapter adapter;
+    private T data;
 
     public MyBaseCardView(Context context, int layoutResId) {
         super(context);
@@ -52,8 +53,9 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
     @Override
     public void setSelected(boolean selected) {
         int pos = 0;
-        if (adapter instanceof ArrayObjectAdapter) {
-            pos = ((ArrayObjectAdapter) adapter).indexOf(this);
+
+        if (adapter != null &&  adapter instanceof ArrayObjectAdapter) {
+            pos = ((ArrayObjectAdapter) adapter).indexOf(data);
         }
 
         changeSelected(selected, pos);
@@ -98,6 +100,13 @@ public abstract class MyBaseCardView<T> extends BaseCardView {
         }
     }
 
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public T getData() {
+        return data;
+    }
 
     protected View getAnimationLayout() {
         return null;
