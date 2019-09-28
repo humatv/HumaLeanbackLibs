@@ -84,7 +84,11 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            startRecognition();
+//            if (!searchBar.isRecognizing()) {
+                startRecognition();
+//                Log.e("search", "newVoice!!");
+//            }
+
         }
     };
 
@@ -482,5 +486,26 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void startRecognition() {
+        if (!searchBar.isRecognizing())
+            super.startRecognition();
+    }
+
+    @Override
+    public void onResume() {
+        try {
+            Field f = SearchSupportFragment.class.getDeclaredField("mPendingStartRecognitionWhenPaused");
+            f.setAccessible(true);
+            f.set(this,false);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        super.onResume();
+
     }
 }
