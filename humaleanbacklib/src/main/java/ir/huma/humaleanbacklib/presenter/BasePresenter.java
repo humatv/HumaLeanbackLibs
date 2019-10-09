@@ -1,9 +1,17 @@
 package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
+import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.HorizontalGridView;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.VerticalGridView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -21,6 +29,8 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
     private Class<TView> tViewClass;
     private int layoutResId;
     ObjectAdapter adapter;
+    boolean longPress = false;
+    private onItemLongClickListener onItemLongClickListener;
 
     public BasePresenter(Context context) {
         this.context = context;
@@ -102,7 +112,49 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
             throw new RuntimeException("if dont pass parameter tViewClass, you must override createView Method Of BasePresenter");
         }
         try {
-            TView v = tViewClass.getConstructor(Context.class, int.class).newInstance(context, layoutResId);
+            final TView v = tViewClass.getConstructor(Context.class, int.class).newInstance(context, layoutResId);
+            v.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v2, int keyCode, KeyEvent event) {
+                    if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_NUMPAD_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            long eventDuration = event.getEventTime() - event.getDownTime();
+                            if (eventDuration > ViewConfiguration.getLongPressTimeout()) {
+                                if (!longPress) {
+                                    longPress = true;
+                                    if (onItemLongClickListener != null) {
+                                        if (adapter != null) {
+                                            int pos = 0, rowPos = 0;
+                                            if (v2.getParent() instanceof HorizontalGridView) {
+                                                pos = ((HorizontalGridView) v2.getParent()).getChildAdapterPosition(v2);
+                                            }
+                                            try {
+                                                ViewParent temp = v2.getParent().getParent().getParent();
+                                                VerticalGridView verticalGridView = (VerticalGridView) ((HorizontalGridView) v2.getParent()).getParent().getParent().getParent();
+                                                rowPos = verticalGridView.getChildAdapterPosition((View) temp);
+                                            } catch (Exception e) {
+
+                                            }
+                                            return onItemLongClickListener.onLongClick(v, v.getData(), rowPos, pos);
+                                        }
+                                    }
+                                } else {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        } else {
+                            if (longPress) {
+                                longPress = false;
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
             if (adapter != null) {
                 v.setAdapter(adapter);
             }
@@ -117,6 +169,14 @@ public class BasePresenter<T, TView extends MyBaseCardView> extends Presenter {
             e.printStackTrace();
         }
         throw new RuntimeException("can't instantiate from YourBaseCardView :P");
+    }
+
+    public void setOnItemLongClickListener(BasePresenter.onItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+
+    public interface onItemLongClickListener {
+        boolean onLongClick(View v, Object item, int rowPos, int pos);
     }
 
 }

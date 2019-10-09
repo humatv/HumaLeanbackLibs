@@ -39,8 +39,15 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
 
 
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
-
+        cardPresenter.setOnItemLongClickListener(new BasePresenter.onItemLongClickListener() {
+            @Override
+            public boolean onLongClick(View v, Object item, int rowPos, int pos) {
+                Toast.makeText(getContext(), "longClick : " + rowPos+" " + pos, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(cardPresenter);
+        cardPresenter.setAdapter(adapter1);
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }
@@ -76,6 +83,6 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
 
     @Override
     public void onItemClickListener(View v, Object item, int rowPos, int pos) {
-
+        Toast.makeText(getContext(), "click!!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseSupportFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.BrowseFrameLayout;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
@@ -24,7 +25,12 @@ import android.support.v17.leanback.widget.TitleViewAdapter;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -52,7 +58,7 @@ import ir.huma.humaleanbacklib.Util.ImageLoader;
  * package: ir.huma.android.magazine.fragment
  */
 
-public abstract class BaseBrowseFragment extends BrowseSupportFragment implements FragmentProvider{
+public abstract class BaseBrowseFragment extends BrowseSupportFragment implements FragmentProvider {
 
 
     private static final long BACKGROUND_UPDATE_DELAY = 400;
@@ -68,6 +74,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
     public static final Handler HANDLER = new Handler();
     private boolean mShowHeader = true;
     private int drawableResId = R.drawable.default_background;
+    boolean longPress = false;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -77,6 +84,44 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         initial();
         setHeaders();
         setEventListener();
+
+//        getView().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Toast.makeText(getActivity(), "code : " + keyCode, Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+
+        BrowseFrameLayout browseFrameLayout = (BrowseFrameLayout) ((FrameLayout) getView()).getChildAt(0);
+
+//        browseFrameLayout.setOnDispatchKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+////                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_NUMPAD_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER) {
+////                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+////                        long eventDuration = event.getEventTime() - event.getDownTime();
+////                        if (eventDuration > ViewConfiguration.getLongPressTimeout()) {
+////                            if (!longPress) {
+////                                onItemLongClickListener();
+////                            }
+////                            longPress = true;
+////                            return true;
+////                        }
+////                        return true;
+////                    } else {
+////                        if (longPress) {
+////                            longPress = false;
+////                            return true;
+////                        } else {
+//////                        IntentHandler.startApplication(getApplicationContext(), appInfo.packageName);
+////                            return false;
+////                        }
+////                    }
+////                }
+////                return false;
+//            }
+//        });
     }
 
     private void setEventListener() {
@@ -312,5 +357,8 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         ((CustomTitleView) getTitleView()).addView(resId, searchOrbViewId, onTitleReadyListener);
     }
 
+    public void onItemLongClickListener() {
+        Toast.makeText(getContext(), "LongClick!!", Toast.LENGTH_SHORT).show();
+    }
 
 }
