@@ -24,7 +24,7 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/header_label"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:lines="1"
