@@ -63,13 +63,17 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
         TextView label = (TextView) rootView.findViewById(R.id.header_label);
         label.setText(iconHeaderItem.getName());
         label.setTextSize(TypedValue.COMPLEX_UNIT_SP, iconHeaderItem.getTextSize());
+        label.setTextColor(iconHeaderItem.getTextColor());
+
         if (iconHeaderItem.isShadow()) {
             label.setShadowLayer(2, 4, 3, Color.BLACK);
         }
         if (iconHeaderItem.getTypeface() != null) {
             label.setTypeface(iconHeaderItem.getTypeface());
         }
-//        rootView.setAlpha(mUnselectedAlpha);
+        rootView.setAlpha(1);
+        label.setAlpha(1);
+
     }
 
     @Override

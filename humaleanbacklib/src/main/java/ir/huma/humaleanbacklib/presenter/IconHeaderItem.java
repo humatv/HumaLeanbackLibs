@@ -1,5 +1,6 @@
 package ir.huma.humaleanbacklib.presenter;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -20,6 +21,7 @@ public class IconHeaderItem extends HeaderItem {
      * unit in sp
      */
     private int textSize = 16;
+    private int textColor = Color.WHITE;
 
     public IconHeaderItem(long id, String name, Drawable icon) {
         super(id, name);
@@ -64,5 +66,13 @@ public class IconHeaderItem extends HeaderItem {
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
+    }
+
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
     }
 }
