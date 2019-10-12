@@ -51,9 +51,9 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }
-        IconHeaderItem headerItem = new IconHeaderItem("hello");
+        IconHeaderItem headerItem = new IconHeaderItem("آخرين اخبار دانش و فناوري");
         headerItem.setShadow(true);
-        headerItem.setTextSize(40);
+        headerItem.setTextSize(22);
         headerItem.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
