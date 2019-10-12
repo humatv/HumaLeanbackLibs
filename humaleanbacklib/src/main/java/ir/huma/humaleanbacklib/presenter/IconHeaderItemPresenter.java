@@ -69,7 +69,7 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
         if (iconHeaderItem.getTypeface() != null) {
             label.setTypeface(iconHeaderItem.getTypeface());
         }
-        rootView.setAlpha(mUnselectedAlpha);
+//        rootView.setAlpha(mUnselectedAlpha);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
     @Override
     protected void onSelectLevelChanged(ViewHolder holder) {
         // this is a temporary fix
-        holder.view.setAlpha(mUnselectedAlpha + holder.getSelectLevel() *
-                (1.0f - mUnselectedAlpha));
+//        holder.view.setAlpha(mUnselectedAlpha + holder.getSelectLevel() *
+//                (1.0f - mUnselectedAlpha));
     }
 
 
