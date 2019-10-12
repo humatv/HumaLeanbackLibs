@@ -60,7 +60,7 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
             iconView.setVisibility(View.GONE);
         }
 
-        TextView label = (TextView) rootView.findViewById(R.id.header_label);
+        AppCompatTextView label = (AppCompatTextView) rootView.findViewById(R.id.header_label);
         label.setText(iconHeaderItem.getName());
         label.setTextSize(TypedValue.COMPLEX_UNIT_SP, iconHeaderItem.getTextSize());
         label.setTextColor(iconHeaderItem.getTextColor());
