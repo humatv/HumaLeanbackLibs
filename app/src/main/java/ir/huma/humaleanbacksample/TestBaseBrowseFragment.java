@@ -52,6 +52,8 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
             adapter1.add(new Video());
         }
         IconHeaderItem headerItem = new IconHeaderItem("hello");
+        headerItem.setShadow(true);
+        headerItem.setTextSize(40);
         headerItem.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));

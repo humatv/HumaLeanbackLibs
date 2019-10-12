@@ -1,10 +1,13 @@
 package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v17.leanback.widget.NonOverlappingLinearLayout;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
+import android.support.v7.widget.AppCompatTextView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +60,12 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
             iconView.setVisibility(View.GONE);
         }
 
-        TextView label = (TextView) rootView.findViewById(R.id.header_label);
+        AppCompatTextView label = (AppCompatTextView) rootView.findViewById(R.id.header_label);
         label.setText(iconHeaderItem.getName());
+        label.setTextSize(TypedValue.COMPLEX_UNIT_SP, iconHeaderItem.getTextSize());
+        if (iconHeaderItem.isShadow()) {
+            label.setShadowLayer(2, 4, 3, Color.BLACK);
+        }
         if (iconHeaderItem.getTypeface() != null) {
             label.setTypeface(iconHeaderItem.getTypeface());
         }

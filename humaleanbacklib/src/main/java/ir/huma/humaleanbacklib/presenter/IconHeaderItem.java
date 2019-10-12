@@ -10,9 +10,16 @@ public class IconHeaderItem extends HeaderItem {
     private static final String TAG = IconHeaderItem.class.getSimpleName();
     public static final int ICON_NONE = -1;
 
-    /** Hold an icon resource id */
+    /**
+     * Hold an icon resource id
+     */
     private Drawable icon = null;
     private Typeface typeface;
+    private boolean shadow = false;
+    /**
+     * unit in sp
+     */
+    private int textSize = 16;
 
     public IconHeaderItem(long id, String name, Drawable icon) {
         super(id, name);
@@ -41,5 +48,21 @@ public class IconHeaderItem extends HeaderItem {
 
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
+    }
+
+    public boolean isShadow() {
+        return shadow;
+    }
+
+    public void setShadow(boolean shadow) {
+        this.shadow = shadow;
+    }
+
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 }
