@@ -39,7 +39,7 @@ public class MyListRowPresenter extends ListRowPresenter {
         final HorizontalGridView horizontalGridView = viewHolder.getGridView();
         if (isRtl)
             horizontalGridView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        horizontalGridView.setAlpha(0.9f);
+//        horizontalGridView.setAlpha(0.9f);
         horizontalGridView.offsetLeftAndRight(200);
         horizontalGridView.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
