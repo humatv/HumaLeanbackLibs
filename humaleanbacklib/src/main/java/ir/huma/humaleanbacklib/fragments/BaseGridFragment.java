@@ -15,6 +15,9 @@
 package ir.huma.humaleanbacklib.fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrowseSupportFragment;
@@ -32,8 +35,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import ir.huma.humaleanbacklib.R;
+import ir.huma.humaleanbacklib.Util.MyBackgroundManager;
 
 /**
  * A fragment for rendering items in a vertical grids.
@@ -41,13 +54,15 @@ import ir.huma.humaleanbacklib.R;
 public abstract class BaseGridFragment extends Fragment implements BrowseSupportFragment.MainFragmentAdapterProvider, FragmentProvider {
     private static final String TAG = "VerticalGridFragment";
     private static boolean DEBUG = false;
-
+    private ImageView backgroundImageView;
     private ObjectAdapter mAdapter;
     private VerticalGridPresenter mGridPresenter;
     private VerticalGridPresenter.ViewHolder mGridViewHolder;
-
     private Object mSceneAfterEntranceTransition;
+    private FrameLayout frameLayout;
     private int mSelectedPosition = -1;
+    MyBackgroundManager backgroundManager;
+
     private BrowseSupportFragment.MainFragmentAdapter mMainFragmentAdapter =
             new BrowseSupportFragment.MainFragmentAdapter(this) {
                 @Override
@@ -65,7 +80,6 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
             throw new IllegalArgumentException("Grid presenter may not be null");
         }
         mGridPresenter = gridPresenter;
-
         mGridPresenter.setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
             @Override
             public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
@@ -133,12 +147,15 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
                 == null) {
             return;
         }
-        if (mMainFragmentAdapter.getFragmentHost() != null)
-            if (!mGridViewHolder.getGridView().hasPreviousViewInSameRow(mSelectedPosition)) {
-                mMainFragmentAdapter.getFragmentHost().showTitleView(true);
-            } else {
-                mMainFragmentAdapter.getFragmentHost().showTitleView(false);
-            }
+
+        //if (mMainFragmentAdapter.getFragmentHost() != null)
+        if (!mGridViewHolder.getGridView().hasPreviousViewInSameRow(mSelectedPosition)) {
+            frameLayout.setVisibility(View.VISIBLE);
+            //mMainFragmentAdapter.getFragmentHost().showTitleView(true);
+        } else {
+            frameLayout.setVisibility(View.GONE);
+            //mMainFragmentAdapter.getFragmentHost().showTitleView(false);
+        }
     }
 
 
@@ -153,6 +170,11 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ViewGroup gridDock = (ViewGroup) view.findViewById(R.id.browse_grid_dock);
+        frameLayout = view.findViewById(R.id.frameLayout);
+        backgroundImageView = view.findViewById(R.id.backgroundImageView);
+        backgroundManager = new MyBackgroundManager(getContext(), backgroundImageView);
+        initial();
+
         mGridViewHolder = mGridPresenter.onCreateViewHolder(gridDock);
         gridDock.addView(mGridViewHolder.view);
         mGridViewHolder.getGridView().setOnChildLaidOutListener(mChildLaidOutListener);
@@ -166,16 +188,11 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
 
         if (mMainFragmentAdapter.getFragmentHost() != null)
             getMainFragmentAdapter().getFragmentHost().notifyViewCreated(mMainFragmentAdapter);
+
         updateAdapter();
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initial();
-
-    }
 
     @Override
     public void onDestroyView() {
@@ -210,4 +227,25 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
     void setEntranceTransitionState(boolean afterTransition) {
         mGridPresenter.setEntranceTransitionState(mGridViewHolder, afterTransition);
     }
+
+    public View setTitleView(int layoutResId) {
+        return LayoutInflater.from(getContext()).inflate(layoutResId, frameLayout, true);
+    }
+
+    public void setBackground(Drawable drawable) {
+        backgroundManager.setBackground(drawable, true);
+    }
+
+    public void setBackground(Bitmap bitmap) {
+        backgroundManager.setBackground(bitmap, true);
+    }
+
+    public void setBackground(int resourceId) {
+        backgroundManager.setBackground(resourceId, true);
+    }
+
+    public void setBackground(String url) {
+        backgroundManager.setBackground(url, true);
+    }
+
 }

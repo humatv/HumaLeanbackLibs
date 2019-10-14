@@ -13,8 +13,7 @@ import ir.huma.humaleanbacksample.model.Video;
 
 public class TestGridFragment extends BaseGridFragment {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initial() {
 
         VerticalGridPresenter presenter = new VerticalGridPresenter(FocusHighlight.ZOOM_FACTOR_LARGE, false);
         presenter.setShadowEnabled(false);
@@ -31,11 +30,8 @@ public class TestGridFragment extends BaseGridFragment {
         }
         setAdapter(adapter1);
 
-    }
-
-    @Override
-    public void initial() {
-
+        setBackground(R.drawable.test);
+        setTitleView(R.layout.custom_titleview);
     }
 
     @Override
