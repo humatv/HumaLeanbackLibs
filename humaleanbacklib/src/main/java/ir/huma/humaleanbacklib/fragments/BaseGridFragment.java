@@ -151,10 +151,12 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
         //if (mMainFragmentAdapter.getFragmentHost() != null)
         if (!mGridViewHolder.getGridView().hasPreviousViewInSameRow(mSelectedPosition)) {
             frameLayout.setVisibility(View.VISIBLE);
-            //mMainFragmentAdapter.getFragmentHost().showTitleView(true);
+            if (mMainFragmentAdapter.getFragmentHost() != null)
+                mMainFragmentAdapter.getFragmentHost().showTitleView(true);
         } else {
             frameLayout.setVisibility(View.GONE);
-            //mMainFragmentAdapter.getFragmentHost().showTitleView(false);
+            if (mMainFragmentAdapter.getFragmentHost() != null)
+                mMainFragmentAdapter.getFragmentHost().showTitleView(false);
         }
     }
 
