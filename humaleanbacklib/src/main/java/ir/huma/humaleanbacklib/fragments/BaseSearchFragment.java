@@ -64,8 +64,8 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         customizeSearchView();
         setSearchResultProvider(this);
         startVoice();
-        setEventListener();
         initial();
+        setEventListener();
     }
 
     @Override
@@ -85,7 +85,7 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         @Override
         public void onReceive(Context context, Intent intent) {
 //            if (!searchBar.isRecognizing()) {
-                startRecognition();
+            startRecognition();
 //                Log.e("search", "newVoice!!");
 //            }
 
@@ -96,46 +96,54 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
             @Override
             public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                int rowPos = 0;
-                for (int i = 0; i < getAdapter().size(); i++) {
-                    if (row == getAdapter().get(i)) {
-                        rowPos = i;
-                        break;
-                    }
-                }
-                int pos = 0;
-                if (row instanceof ListRow) {
-                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
-                        if (((ListRow) row).getAdapter().get(i) == item) {
-                            pos = i;
+                try {
+                    int rowPos = 0;
+                    for (int i = 0; i < getAdapter().size(); i++) {
+                        if (row == getAdapter().get(i)) {
+                            rowPos = i;
                             break;
                         }
                     }
+                    int pos = 0;
+                    if (row instanceof ListRow) {
+                        for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
+                            if (((ListRow) row).getAdapter().get(i) == item) {
+                                pos = i;
+                                break;
+                            }
+                        }
+                    }
+                    onItemSelectedListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
+                } catch (Exception e) {
+
                 }
-                onItemSelectedListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
             }
         });
 
         setOnItemViewClickedListener(new OnItemViewClickedListener() {
             @Override
             public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                int rowPos = 0;
-                for (int i = 0; i < getAdapter().size(); i++) {
-                    if (row == getAdapter().get(i)) {
-                        rowPos = i;
-                        break;
-                    }
-                }
-                int pos = 0;
-                if (row instanceof ListRow) {
-                    for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
-                        if (((ListRow) row).getAdapter().get(i) == item) {
-                            pos = i;
+                try {
+                    int rowPos = 0;
+                    for (int i = 0; i < getAdapter().size(); i++) {
+                        if (row == getAdapter().get(i)) {
+                            rowPos = i;
                             break;
                         }
                     }
+                    int pos = 0;
+                    if (row instanceof ListRow) {
+                        for (int i = 0; i < ((ListRow) row).getAdapter().size(); i++) {
+                            if (((ListRow) row).getAdapter().get(i) == item) {
+                                pos = i;
+                                break;
+                            }
+                        }
+                    }
+                    onItemClickListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
+                } catch (Exception e) {
+
                 }
-                onItemClickListener(itemViewHolder != null ? itemViewHolder.view : null, item, rowPos, pos);
             }
         });
     }
@@ -499,7 +507,7 @@ public abstract class BaseSearchFragment extends SearchSupportFragment implement
         try {
             Field f = SearchSupportFragment.class.getDeclaredField("mPendingStartRecognitionWhenPaused");
             f.setAccessible(true);
-            f.set(this,false);
+            f.set(this, false);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
