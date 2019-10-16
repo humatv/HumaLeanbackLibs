@@ -17,11 +17,14 @@ import ir.huma.humaleanbacksample.model.Video;
 public class TestDetailFragment extends BaseDetailFragment {
     @Override
     public void initial() {
-        addAction(new Action(1, "hello"));
+//        addAction(new Action(1, "hello"));
         setLogoDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+//        setBackgrouundDrawable(getResources().getDrawable(R.drawable.test));
+        //setBackgroundColor(Color.YELLOW);
+//        setActionColor(Color.TRANSPARENT);
+//        setBackgroundColor(Color.TRANSPARENT);
+//        setDetailsColor(Color.TRANSPARENT);
         setBackgrouundDrawable(getResources().getDrawable(R.drawable.test));
-        setBackgroundColor(Color.YELLOW);
-
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
 
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(cardPresenter);
@@ -49,7 +52,7 @@ public class TestDetailFragment extends BaseDetailFragment {
         setDetailsView(R.layout.detail_view_content, new DetailsDescriptionPresenter.OnViewReady<Video>() {
             @Override
             public void onReady(View v, Video o) {
-
+//                v.requestFocus();
             }
         });
         return new DetailsOverviewRow(new Video("+18"));

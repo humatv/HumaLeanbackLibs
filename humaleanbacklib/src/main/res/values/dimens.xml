@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="icon_header_item_padding_horizontal">15dp</dimen>
-    
+<!--    <dimen name="lb_details_v2_card_height">10dp</dimen>-->
+<!--    <dimen name="lb_details_v2_blank_height">10dp</dimen>-->
+<!--    <dimen name="lb_details_overview_height_large">10dp</dimen>-->
 </resources>

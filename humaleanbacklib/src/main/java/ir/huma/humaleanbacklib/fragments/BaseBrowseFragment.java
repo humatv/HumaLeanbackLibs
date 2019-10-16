@@ -361,4 +361,9 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         Toast.makeText(getContext(), "LongClick!!", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onDestroyView() {
+        mBackgroundManager.release();
+        super.onDestroyView();
+    }
 }
