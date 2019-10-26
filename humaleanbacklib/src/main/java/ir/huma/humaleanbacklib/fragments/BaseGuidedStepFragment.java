@@ -46,12 +46,6 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         if (titleTypeface != null)
             FontManager.instance(titleTypeface).setTypefaceImmediate(v);
 
-        return v;
-    }
-
-    @Override
-    public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
-        super.onCreateActions(actions, savedInstanceState);
         try {
             Field f = GuidedStepSupportFragment.class.getDeclaredField("mAdapter");
             f.setAccessible(true);
@@ -62,6 +56,15 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+
+        return v;
+    }
+
+    @Override
+    public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
+        super.onCreateActions(actions, savedInstanceState);
+
     }
 
     @Override
