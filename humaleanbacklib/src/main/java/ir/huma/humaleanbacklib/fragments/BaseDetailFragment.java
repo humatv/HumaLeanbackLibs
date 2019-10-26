@@ -28,6 +28,11 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+
 import ir.atitec.everythingmanager.manager.FontManager;
 import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.ImageLoader;
@@ -66,25 +71,24 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     private Drawable mDefaultBackground;
     private DisplayMetrics mMetrics;
     FullWidthDetailsOverviewRowPresenter fullWidthDetailsOverviewRowPresenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupUI();
         initial();
         setupEventListeners();
-        mBackgroundManager = BackgroundManager.getInstance(getActivity());
-        mBackgroundManager.attach(getActivity().getWindow());
-        //mDefaultBackground = getResources().getDrawable(R.drawable.maxresdefault, null);
-        mMetrics = new DisplayMetrics();
 
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
 
         //mBackgroundManager.setDrawable(mDefaultBackground);
     }
 
     private void setupUI() {
         detailsOverview = getDetailsOverview();
-
+        mBackgroundManager = BackgroundManager.getInstance(getActivity());
+        mBackgroundManager.attach(getActivity().getWindow());
+        mMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
         fullWidthDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(
                 detailsDescriptionPresenter) {
 
@@ -168,8 +172,8 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     }
 
 
-    public void removeTop(){
-        fullWidthDetailsOverviewRowPresenter.setFacet(ItemAlignmentFacet.class,  new ItemAlignmentFacet());
+    public void removeTop() {
+        fullWidthDetailsOverviewRowPresenter.setFacet(ItemAlignmentFacet.class, new ItemAlignmentFacet());
     }
 
     private void initializeBackground() {
@@ -250,8 +254,24 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 //                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
             } else if (backgroundImage instanceof Drawable) {
                 mBackgroundManager.setBitmap(drawableToBitmap((Drawable) backgroundImage));
-
 //                mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
+            } else if(backgroundImage instanceof Integer){
+
+                RequestOptions options = new RequestOptions()
+                        .centerCrop();
+                Glide.with(this)
+                        .asBitmap()
+                        .load(backgroundImage)
+                        .apply(options)
+                        .into(new SimpleTarget<Bitmap>(mMetrics.widthPixels, mMetrics.heightPixels) {
+                            @Override
+                            public void onResourceReady(
+                                    Bitmap resource,
+                                    Transition<? super Bitmap> transition) {
+                                mBackgroundManager.setBitmap(resource);
+                            }
+                        });
+
             }
 
         }
@@ -330,6 +350,10 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         this.backgroundImage = backgroundImage.toString();
     }
 
+    public void setBackgroundResId(int backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
     public void setBackgrouundDrawable(Drawable backgroundImage) {
         this.backgroundImage = backgroundImage;
         if (mDetailsBackground != null) {
@@ -392,6 +416,12 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     public void setDetailsView(int layoutResId, DetailsDescriptionPresenter.OnViewReady onViewReady) {
         detailsDescriptionPresenter = new DetailsDescriptionPresenter(getContext(), layoutResId, onViewReady);
     }
+
+    private Drawable resize(Bitmap b, DisplayMetrics metrics) {
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, metrics.widthPixels + 180, metrics.heightPixels, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
 
     @Override
     public ArrayObjectAdapter getAdapter() {

@@ -34,8 +34,14 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     private GuidedActionAdapter actionAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initial();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final View v = super.onCreateView(inflater, container, savedInstanceState);
         if (titleTypeface != null)
             FontManager.instance(titleTypeface).setTypefaceImmediate(v);
