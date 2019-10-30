@@ -32,11 +32,13 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     private int style = -1;
     private GuidanceStylist.Guidance guidance;
     private GuidedActionAdapter actionAdapter;
+    private List<GuidedAction> actionList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         initial();
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -64,7 +66,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
         super.onCreateActions(actions, savedInstanceState);
-
+        actions.addAll(actionList);
     }
 
     @Override
@@ -89,24 +91,33 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
 
     public void addActions(GuidedAction... actions) {
         for (int i = 0; i < actions.length; i++) {
-            getActions().add(actions[i]);
+            actionList.add(actions[i]);
         }
-        if (actionAdapter != null)
+        if (actionAdapter != null) {
+            getActions().clear();
+            getActions().addAll(actionList);
             actionAdapter.notifyDataSetChanged();
+        }
     }
 
     public void addActions(int index, GuidedAction... actions) {
         for (int i = 0; i < actions.length; i++) {
-            getActions().add(index + i, actions[i]);
+            actionList.add(index + i, actions[i]);
         }
-        if (actionAdapter != null)
+        if (actionAdapter != null) {
+            getActions().clear();
+            getActions().addAll(actionList);
             actionAdapter.notifyDataSetChanged();
+        }
     }
 
     public void clearActions() {
-        getActions().clear();
-        if (actionAdapter != null)
+        actionList.clear();
+
+        if (actionAdapter != null) {
+            getActions().clear();
             actionAdapter.notifyDataSetChanged();
+        }
     }
 
 
