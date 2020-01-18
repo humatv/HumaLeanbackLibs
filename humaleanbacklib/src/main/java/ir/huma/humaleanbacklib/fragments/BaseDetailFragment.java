@@ -110,7 +110,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
             @Override
             protected RowPresenter.ViewHolder createRowViewHolder(ViewGroup parent) {
-                // Customize Actionbar and Content by using custom colors.
+                // Customize Actionbar and Content by using custom color.
                 final RowPresenter.ViewHolder viewHolder = super.createRowViewHolder(parent);
 
                 if (actionColor != -1) {

@@ -33,6 +33,8 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     private GuidanceStylist.Guidance guidance;
     private GuidedActionAdapter actionAdapter;
     private List<GuidedAction> actionList = new ArrayList<>();
+    private Integer descriptionTextSize;
+    private Integer descriptionTextColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,20 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        TextView textView = v.findViewById(R.id.guidance_description);
+        if (descriptionTextSize != null) {
+            textView.setTextSize(descriptionTextSize);
+        }
+        if (descriptionTextColor != null) {
+            textView.setTextColor(descriptionTextColor);
+        }
+
+        textView.setMaxLines(20);
 
 
         return v;
     }
+
 
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
@@ -153,6 +165,14 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
 
     public GuidedActionAdapter getActionAdapter() {
         return actionAdapter;
+    }
+
+    public void setDescriptionTextSize(Integer descriptionTextSize) {
+        this.descriptionTextSize = descriptionTextSize;
+    }
+
+    public void setDescriptionTextColor(Integer descriptionTextColor) {
+        this.descriptionTextColor = descriptionTextColor;
     }
 
     @Override
