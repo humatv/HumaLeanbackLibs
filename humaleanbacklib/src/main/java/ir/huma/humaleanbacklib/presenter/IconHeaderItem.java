@@ -3,7 +3,7 @@ package ir.huma.humaleanbacklib.presenter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.v17.leanback.widget.HeaderItem;
+import androidx.leanback.widget.HeaderItem;
 
 public class IconHeaderItem extends HeaderItem {
 

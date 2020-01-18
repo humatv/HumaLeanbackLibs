@@ -1,10 +1,10 @@
 package ir.huma.humaleanbacksample;
 
 import android.graphics.Color;
-import android.support.v17.leanback.widget.Action;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.DetailsOverviewRow;
-import android.support.v17.leanback.widget.ListRow;
+import androidx.leanback.widget.Action;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.DetailsOverviewRow;
+import androidx.leanback.widget.ListRow;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,7 +31,7 @@ public class TestDetailFragment extends BaseDetailFragment {
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }
-        IconHeaderItem headerItem = new IconHeaderItem("hello");
+        IconHeaderItem headerItem = new IconHeaderItem("ذخیره");
 //        headerItem.setTypeface(FontManager.instance().getTypeface());
         getAdapter().add(new ListRow(headerItem, adapter1));
         getAdapter().notifyItemRangeChanged(getAdapter().size()-1,1);

@@ -2,11 +2,12 @@ package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v17.leanback.widget.NonOverlappingLinearLayout;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.RowHeaderPresenter;
-import android.support.v7.widget.AppCompatTextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.leanback.widget.NonOverlappingLinearLayout;
+import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.Row;
+import androidx.leanback.widget.RowHeaderPresenter;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;

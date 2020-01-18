@@ -9,24 +9,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.support.annotation.Nullable;
-import android.support.v17.leanback.app.BackgroundManager;
-import android.support.v17.leanback.app.BrowseSupportFragment;
-import android.support.v17.leanback.app.PermissionHelper;
-import android.support.v17.leanback.app.SearchSupportFragment;
-import android.support.v17.leanback.transition.TransitionHelper;
-import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.OnChildLaidOutListener;
-import android.support.v17.leanback.widget.OnItemViewClickedListener;
-import android.support.v17.leanback.widget.OnItemViewSelectedListener;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.RowPresenter;
-import android.support.v17.leanback.widget.SearchBar;
-import android.support.v17.leanback.widget.SpeechRecognitionCallback;
-import android.support.v17.leanback.widget.VerticalGridPresenter;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.annotation.Nullable;
+
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.leanback.app.BackgroundManager;
+import androidx.leanback.app.BrowseSupportFragment;
+import androidx.leanback.app.PermissionHelper;
+import androidx.leanback.app.SearchSupportFragment;
+import androidx.leanback.transition.TransitionHelper;
+import androidx.leanback.widget.ObjectAdapter;
+import androidx.leanback.widget.OnChildLaidOutListener;
+import androidx.leanback.widget.OnItemViewClickedListener;
+import androidx.leanback.widget.OnItemViewSelectedListener;
+import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.Row;
+import androidx.leanback.widget.RowPresenter;
+import androidx.leanback.widget.SearchBar;
+import androidx.leanback.widget.SpeechRecognitionCallback;
+import androidx.leanback.widget.VerticalGridPresenter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -384,7 +385,7 @@ public abstract class SearchGridFragment extends Fragment implements BrowseSuppo
                 @SuppressLint("RestrictedApi")
                 @Override
                 public void requestAudioPermission() {
-                    PermissionHelper.requestPermissions(SearchGridFragment.this,
+                    requestPermissions(
                             new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION_REQUEST_CODE);
                 }
             };
@@ -402,8 +403,8 @@ public abstract class SearchGridFragment extends Fragment implements BrowseSuppo
 
     private View createSearchView(View root){
 
-//        FrameLayout searchFrame = (FrameLayout) root.findViewById(android.support.v17.leanback.R.id.lb_search_frame);
-        mSearchBar = (SearchBar) root.findViewById(android.support.v17.leanback.R.id.lb_search_bar);
+//        FrameLayout searchFrame = (FrameLayout) root.findViewById(androidx.leanback.R.id.lb_search_frame);
+        mSearchBar = (SearchBar) root.findViewById(androidx.leanback.R.id.lb_search_bar);
         mSearchBar.setSearchBarListener(new SearchBar.SearchBarListener() {
             @Override
             public void onSearchQueryChange(String query) {
@@ -440,13 +441,13 @@ public abstract class SearchGridFragment extends Fragment implements BrowseSuppo
 //            setTitle(mTitle);
 //        }
         // Inject the RowsSupportFragment in the results container
-//        if (getChildFragmentManager().findFragmentById(android.support.v17.leanback.R.id.lb_results_frame) == null) {
+//        if (getChildFragmentManager().findFragmentById(androidx.leanback.R.id.lb_results_frame) == null) {
 ////            mRowsSupportFragment
 //            getChildFragmentManager().beginTransaction()
-//                    .replace(android.support.v17.leanback.R.id.lb_results_frame,mRowsSupportFragment ).commit();
+//                    .replace(androidx.leanback.R.id.lb_results_frame,mRowsSupportFragment ).commit();
 //        } else {
 //            mRowsSupportFragment = (BaseGridFragment) getChildFragmentManager()
-//                    .findFragmentById(android.support.v17.leanback.R.id.lb_results_frame);
+//                    .findFragmentById(androidx.leanback.R.id.lb_results_frame);
 //        }
 //        mRowsSupportFragment.setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
 //            @Override

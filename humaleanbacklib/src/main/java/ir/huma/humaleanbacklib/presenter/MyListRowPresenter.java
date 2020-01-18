@@ -1,10 +1,10 @@
 package ir.huma.humaleanbacklib.presenter;
 
-import android.support.v17.leanback.widget.FocusHighlight;
-import android.support.v17.leanback.widget.HorizontalGridView;
-import android.support.v17.leanback.widget.ListRow;
-import android.support.v17.leanback.widget.ListRowPresenter;
-import android.support.v17.leanback.widget.RowPresenter;
+import androidx.leanback.widget.FocusHighlight;
+import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ListRow;
+import androidx.leanback.widget.ListRowPresenter;
+import androidx.leanback.widget.RowPresenter;
 import android.view.View;
 
 public class MyListRowPresenter extends ListRowPresenter {

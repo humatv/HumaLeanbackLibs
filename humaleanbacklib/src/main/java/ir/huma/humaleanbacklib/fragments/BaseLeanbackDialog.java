@@ -7,10 +7,10 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v17.leanback.widget.Action;
-import android.support.v17.leanback.widget.GuidanceStylist;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import androidx.leanback.widget.Action;
+import androidx.leanback.widget.GuidanceStylist;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;

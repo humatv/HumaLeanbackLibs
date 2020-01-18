@@ -1,7 +1,7 @@
 package ir.huma.humaleanbacksample;
 
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.ListRow;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ListRow;
 import android.util.Log;
 import android.view.View;
 

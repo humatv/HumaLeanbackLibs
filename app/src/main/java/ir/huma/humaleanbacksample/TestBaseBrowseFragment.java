@@ -2,9 +2,10 @@ package ir.huma.humaleanbacksample;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.ListRow;
-import android.support.v4.content.res.ResourcesCompat;
+
+import androidx.core.content.res.ResourcesCompat;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ListRow;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;

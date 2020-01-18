@@ -1,10 +1,9 @@
 package ir.huma.humaleanbacksample;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.FocusHighlight;
-import android.support.v17.leanback.widget.VerticalGridPresenter;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.FocusHighlight;
+import androidx.leanback.widget.VerticalGridPresenter;
 import android.view.View;
 
 import ir.huma.humaleanbacklib.fragments.BaseGridFragment;

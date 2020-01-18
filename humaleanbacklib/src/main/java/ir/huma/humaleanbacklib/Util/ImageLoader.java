@@ -3,7 +3,6 @@ package ir.huma.humaleanbacklib.Util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.HashMap;
+
+import androidx.annotation.Nullable;
 
 public class ImageLoader {
     private int tryLoading = 5;

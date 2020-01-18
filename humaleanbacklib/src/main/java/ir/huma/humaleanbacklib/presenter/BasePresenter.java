@@ -1,11 +1,11 @@
 package ir.huma.humaleanbacklib.presenter;
 
 import android.content.Context;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.HorizontalGridView;
-import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.VerticalGridView;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ObjectAdapter;
+import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.VerticalGridView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;

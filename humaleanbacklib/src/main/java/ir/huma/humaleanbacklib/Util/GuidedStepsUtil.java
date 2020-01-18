@@ -2,8 +2,8 @@ package ir.huma.humaleanbacklib.Util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v17.leanback.widget.GuidedAction;
-import android.support.v17.leanback.widget.GuidedDatePickerAction;
+import androidx.leanback.widget.GuidedAction;
+import androidx.leanback.widget.GuidedDatePickerAction;
 
 import java.util.Date;
 import java.util.List;
