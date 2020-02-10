@@ -12,6 +12,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:onClick="onTestDrawerClick"
+        android:text="TestDrawerManager"
+        android:ems="10"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="onBaseBrowse2Click"
+        android:text="Base Browse2"
+        android:ems="10"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:onClick="onBaseBrowseClick"
         android:text="Base Browse"
         android:ems="10"
@@ -81,6 +99,8 @@
         android:text="TestSearchGrid"
         android:ems="10"
         />
+
+
 
 
 

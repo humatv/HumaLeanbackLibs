@@ -422,6 +422,15 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
+    @Override
+    public void onDestroyView() {
+        if(mBackgroundManager != null) {
+            mBackgroundManager.setDrawable(null);
+//            mBackgroundManager.release();
+            mBackgroundManager = null;
+        }
+        super.onDestroyView();
+    }
 
     @Override
     public ArrayObjectAdapter getAdapter() {

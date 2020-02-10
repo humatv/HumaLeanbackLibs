@@ -33,6 +33,7 @@ public class TestBaseRowsFragment extends BaseRowsFragment {
         IconHeaderItem headerItem = new IconHeaderItem("hello");
 //        headerItem.setTypeface(FontManager.instance().getTypeface());
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
+        mRowsAdapter.add(new ListRow(headerItem, adapter1));
 
         setAdapter(mRowsAdapter);
 

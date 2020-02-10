@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
-
 
 
     defaultConfig {
@@ -34,7 +35,11 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${supportLib}"
     implementation "androidx.leanback:leanback-preference:${supportLib}"
     implementation "androidx.recyclerview:recyclerview:${supportLib}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "androidx.annotation:annotation:${supportLib}"
+    implementation "com.google.android.material:material:${supportLib}"
+    implementation "androidx.constraintlayout:constraintlayout:${supportLib}"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -44,6 +49,16 @@ dependencies {
 
     implementation 'com.github.hamedgramzi:guidedKeayboardfixer:master-SNAPSHOT'
     implementation 'com.github.humatv:humaleanbackplayer:master-SNAPSHOT'
+
+    implementation "com.mikepenz:materialdrawer:7.0.0"
+    implementation 'com.mikepenz:crossfader:1.6.0'
+    implementation('com.mikepenz:crossfadedrawerlayout:1.1.0')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
+    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
+
 }
 
 

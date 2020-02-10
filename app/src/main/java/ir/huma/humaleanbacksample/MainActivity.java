@@ -1,17 +1,14 @@
 package ir.huma.humaleanbacksample;
 
-import android.content.Context;
-import android.os.Handler;
+import android.content.Intent;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import ir.huma.humaleanbacklib.HumaUtil;
+import ir.huma.humaleanbacklib.MenuActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,5 +64,14 @@ public class MainActivity extends AppCompatActivity {
     public void onTestSearchGrid(View view) {
         HumaUtil.startFragment(this, TestSearchGridFragment.class, null);
 
+    }
+
+    public void onBaseBrowse2Click(View view) {
+        startActivity(new Intent(MainActivity.this, MenuActivity.class));
+
+    }
+
+    public void onTestDrawerClick(View view) {
+        startActivity(new Intent(MainActivity.this, TestDrawerActivity.class));
     }
 }

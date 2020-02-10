@@ -17,12 +17,12 @@
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/icon_header_item_padding_horizontal">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/header_icon"
         android:layout_width="32dp"
         android:layout_height="32dp" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/header_label"
         android:layout_width="500dp"
         android:layout_height="wrap_content"

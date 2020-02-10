@@ -1,22 +1,21 @@
 package ir.huma.humaleanbacklib.fragments;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.leanback.app.BackgroundManager;
 import androidx.leanback.app.BrowseSupportFragment;
-import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.BrowseFrameLayout;
 import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.OnItemViewClickedListener;
@@ -24,30 +23,6 @@ import androidx.leanback.widget.OnItemViewSelectedListener;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
-import androidx.leanback.widget.TitleViewAdapter;
-
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.CustomTitleView;
 import ir.huma.humaleanbacklib.Util.ImageLoader;
@@ -61,18 +36,18 @@ import ir.huma.humaleanbacklib.Util.ImageLoader;
  * package: ir.huma.android.magazine.fragment
  */
 
-public abstract class BaseBrowseFragment extends BrowseSupportFragment implements FragmentProvider {
+public abstract class BaseBrowseFragment2 extends BrowseSupportFragment implements FragmentProvider {
 
 
     private static final long BACKGROUND_UPDATE_DELAY = 400;
-    private static final String TAG = BaseBrowseFragment.class.getSimpleName();
+    private static final String TAG = BaseBrowseFragment2.class.getSimpleName();
 
 
     public BackgroundManager mBackgroundManager;
 
     protected DisplayMetrics mMetrics;
     protected Timer mBackgroundTimer;
-    private boolean isInitBackgroundManager = true;
+
     private Object background;
     public static final Handler HANDLER = new Handler();
     private boolean mShowHeader = true;
@@ -83,8 +58,8 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initial();
         prepareBackgroundManager();
+        initial();
         setHeaders();
         setEventListener();
 
@@ -212,7 +187,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 
     private void prepareBackgroundManager() {
 
-        if (mBackgroundManager == null && isInitBackgroundManager) {
+        if (mBackgroundManager == null) {
             try {
                 mBackgroundManager = BackgroundManager.getInstance(getActivity());
                 mBackgroundManager.attach(getActivity().getWindow());
@@ -255,7 +230,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                     .setReadyListener(new ImageLoader.ReadyListener() {
                         @Override
                         public void onReady(Bitmap bitmap) {
-                            if (BaseBrowseFragment.this.background == background) {
+                            if (BaseBrowseFragment2.this.background == background) {
                                 mBackgroundManager.setBitmap(bitmap);
                             }
                         }
@@ -364,20 +339,9 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         Toast.makeText(getContext(), "LongClick!!", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean isInitBackgroundManager() {
-        return isInitBackgroundManager;
-    }
-
-    public void setInitBackgroundManager(boolean initBackgroundManager) {
-        isInitBackgroundManager = initBackgroundManager;
-    }
-
     @Override
     public void onDestroyView() {
-        if (mBackgroundManager != null)
-            mBackgroundManager.setDrawable(null);
-//        mBackgroundManager = null;
-
+        mBackgroundManager.release();
         super.onDestroyView();
     }
 }

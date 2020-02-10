@@ -2,29 +2,29 @@ package ir.huma.humaleanbacksample;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-
-import androidx.core.content.res.ResourcesCompat;
-import androidx.leanback.widget.ArrayObjectAdapter;
-import androidx.leanback.widget.ListRow;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ListRow;
 import ir.huma.humaleanbacklib.Util.CustomTitleView;
 import ir.huma.humaleanbacklib.fragments.BaseBrowseFragment;
+import ir.huma.humaleanbacklib.fragments.BaseBrowseFragment2;
 import ir.huma.humaleanbacklib.presenter.BasePresenter;
 import ir.huma.humaleanbacklib.presenter.IconHeaderItem;
 import ir.huma.humaleanbacklib.presenter.MyListRowPresenter;
 import ir.huma.humaleanbacksample.model.Video;
 
-public class TestBaseBrowseFragment extends BaseBrowseFragment {
+public class TestBaseBrowseFragment2 extends BaseBrowseFragment2 {
         ArrayObjectAdapter mRowsAdapter;
 
 
     @Override
     public void initial() {
-        setShowHeader(false);
-        setInitBackgroundManager(false);
+        setShowHeader(true);
+
         // set fastLane (or headers) background color
         setBrandColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
 
@@ -34,7 +34,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
 //
         MyListRowPresenter p = new MyListRowPresenter();
 
-        p.setRtl(false);
+        p.setRtl(true);
 //        p.setShadowEnabled(true);
         mRowsAdapter = new ArrayObjectAdapter(p);
 
@@ -52,7 +52,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         for (int i = 0; i < 10; i++) {
             adapter1.add(new Video());
         }
-        IconHeaderItem headerItem = new IconHeaderItem("Test");
+        IconHeaderItem headerItem = new IconHeaderItem("آخرين اخبار دانش و فناوري");
         headerItem.setShadow(true);
         headerItem.setTextSize(22);
         headerItem.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
