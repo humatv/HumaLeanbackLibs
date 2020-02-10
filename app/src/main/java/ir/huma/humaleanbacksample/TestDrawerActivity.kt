@@ -3,6 +3,7 @@ package ir.huma.humaleanbacksample
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.LayoutDirection
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
@@ -27,15 +28,15 @@ class TestDrawerActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
 
         result = DrawerBuilder()
                 .withActivity(this)
-                .withDrawerGravity(Gravity.RIGHT)
+                .withDrawerGravity(Gravity.START)
                 .withTranslucentStatusBar(false)
 //                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        PrimaryDrawerItem().withName("helllo").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
+                        PrimaryDrawerItem().withName("تست").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
                         PrimaryDrawerItem().withName("ali").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2),
                         PrimaryDrawerItem().withName("dskfs").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         DividerDrawerItem(),
@@ -72,9 +73,11 @@ class TestDrawerActivity : FragmentActivity() {
 
 
         drawerManager = DrawerManager(this, result);
+        drawerManager.isRtl =true;
         drawerManager.build()
         drawerManager.frameFragmentRes = ir.huma.humaleanbacklib.R.id.topLayout
         drawerManager.replaceFragment(TestBaseRowsFragment())
+
 //
 //            var f = TestBaseBrowseFragment()
 //            val tx = supportFragmentManager.beginTransaction()

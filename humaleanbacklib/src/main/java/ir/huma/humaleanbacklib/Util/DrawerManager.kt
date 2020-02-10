@@ -25,12 +25,10 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     private lateinit var miniResult: MiniDrawer
     private lateinit var crossFader: Crossfader<*>
     public var frameFragmentRes: Int? = null
+    public var isRtl = false;
 
+    public var useMiniDrawer: Boolean = true
 
-    private var useMiniDrawer: Boolean = true
-        set(value) {
-            field = value
-        }
 
     fun build() {
         if (useMiniDrawer) {
@@ -51,27 +49,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
             miniResult.withCrossFader(CrossfadeWrapper(crossFader))
-            var second = crossFader.getSecond();
-            second.isFocusable = true
-            crossFader.getFirst().isFocusable = true
 
-//            second.setOnFocusChangeListener { view, b ->
-//                Toast.makeText(activity,"focus second",Toast.LENGTH_SHORT).show()
-//            }
-//
-//            crossFader.getFirst().setOnFocusChangeListener { view, b ->
-//                Toast.makeText(activity,"focus first",Toast.LENGTH_SHORT).show()
-//            }
-
-//            Handler().postDelayed(r : Runnable -> {
-//                Toast.makeText(activity,crossFader.getContent().findFocus()?.y?.toString() ?: "" ,Toast.LENGTH_SHORT).show()
-//                Handler().postDelayed(r,1000);
-//            },1000)
-////
-//            result.recyclerView.setOnFocusChangeListener { view, b ->
-//
-//                Toast.makeText(activity,"focus recycle",Toast.LENGTH_SHORT).show()
-//            }
 
             //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
             crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
@@ -82,8 +60,17 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
         var foc = activity.currentFocus;
 
+        var right = KeyEvent.KEYCODE_DPAD_RIGHT;
+        var left = KeyEvent.KEYCODE_DPAD_LEFT;
+
+        if(isRtl){
+            val temp = right;
+            right = left;
+            left = temp;
+        }
+
         if (event?.action == KeyEvent.ACTION_DOWN) {
-            if(crossFader.isCrossFaded() && event?.keyCode != KeyEvent.KEYCODE_DPAD_RIGHT) {
+            if(crossFader.isCrossFaded() && event?.keyCode != right) {
                 return true;
             }
             return false;
@@ -97,12 +84,12 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         val position = result.currentSelectedPosition;
         var item = result.adapter.getItem(position);
 
-        if (event?.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+        if (event?.keyCode == left) {
             if (!crossFader.isCrossFaded()) {
                 crossFader.crossFade()
                 return true;
             }
-        } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+        } else if (event?.keyCode == right) {
             if (crossFader.isCrossFaded()) {
                 crossFader.crossFade()
                 return true;
