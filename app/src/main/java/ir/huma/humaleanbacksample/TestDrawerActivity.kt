@@ -74,6 +74,7 @@ class TestDrawerActivity : FragmentActivity() {
 
         drawerManager = DrawerManager(this, result);
         drawerManager.isRtl =true;
+        drawerManager.miniDrawerBackColor = Color.DKGRAY
         drawerManager.build()
         drawerManager.frameFragmentRes = ir.huma.humaleanbacklib.R.id.topLayout
         drawerManager.replaceFragment(TestBaseRowsFragment())

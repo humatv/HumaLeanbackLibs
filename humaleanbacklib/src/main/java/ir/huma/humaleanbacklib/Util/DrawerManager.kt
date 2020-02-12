@@ -1,5 +1,6 @@
 package ir.huma.humaleanbacklib.Util
 
+import android.graphics.Color
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
@@ -26,7 +27,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     private lateinit var crossFader: Crossfader<*>
     public var frameFragmentRes: Int? = null
     public var isRtl = false;
-
+    public var miniDrawerBackColor : Int? = null;
     public var useMiniDrawer: Boolean = true
 
 
@@ -49,10 +50,11 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
             miniResult.withCrossFader(CrossfadeWrapper(crossFader))
-
-
+            if(miniDrawerBackColor != null) {
+                crossFader.getSecond().setBackgroundColor(miniDrawerBackColor!!)
+            }
             //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
-            crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
+            crossFader.getCrossFadeSlidingPaneLayout() .setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
         }
     }
     var lastFocus : View? = null;
