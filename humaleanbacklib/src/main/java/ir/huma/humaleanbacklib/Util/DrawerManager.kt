@@ -97,18 +97,18 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 return true;
             }
         } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-            if (position+2 < result.drawerItems.size && result.drawerItems[result.currentSelectedPosition + 1] is DividerDrawerItem) {
-                result.setSelectionAtPosition(result.currentSelectedPosition + 2, false)
-            } else if(position+1 < result.drawerItems.size){
-                result.setSelectionAtPosition(result.currentSelectedPosition + 1, false)
+            if (position+2 < result.adapter.itemCount && result.adapter.getItem(position+1) is DividerDrawerItem) {
+                result.setSelectionAtPosition(position + 2, false)
+            } else if(position+1 < result.adapter.itemCount){
+                result.setSelectionAtPosition(position + 1, false)
             }
             return true;
 
         } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            if ( position-2 >=0 && result.drawerItems[result.currentSelectedPosition - 1] is DividerDrawerItem) {
-                result.setSelectionAtPosition(result.currentSelectedPosition - 2, false)
+            if ( position-2 >=0 && result.adapter.getItem(position-1) is DividerDrawerItem) {
+                result.setSelectionAtPosition(position - 2, false)
             } else if(position-1 >=0){
-                result.setSelectionAtPosition(result.currentSelectedPosition - 1, false)
+                result.setSelectionAtPosition(position - 1, false)
             }
             return true;
         } else if (event?.keyCode == KeyEvent.KEYCODE_ENTER || event?.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || event?.keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {

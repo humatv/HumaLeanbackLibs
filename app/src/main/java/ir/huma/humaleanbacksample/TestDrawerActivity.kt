@@ -32,6 +32,7 @@ class TestDrawerActivity : FragmentActivity() {
 
         result = DrawerBuilder()
                 .withActivity(this)
+                .withHeader(R.layout.detail_view_content)
                 .withDrawerGravity(Gravity.START)
                 .withTranslucentStatusBar(false)
 //                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
