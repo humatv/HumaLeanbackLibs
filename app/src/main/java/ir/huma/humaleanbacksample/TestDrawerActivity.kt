@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import ir.huma.humaleanbacklib.Util.DrawerManager
+import ir.huma.humaleanbacklib.Util.SpaceDrawerItem
 
 class TestDrawerActivity : FragmentActivity() {
 
@@ -32,15 +33,17 @@ class TestDrawerActivity : FragmentActivity() {
 
         result = DrawerBuilder()
                 .withActivity(this)
-                .withHeader(R.layout.detail_view_content)
+//                .withHeader(R.layout.detail_view_content)
                 .withDrawerGravity(Gravity.START)
                 .withTranslucentStatusBar(false)
 //                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         PrimaryDrawerItem().withName("تست").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
+                        SpaceDrawerItem().withIdentifier(332),
+                        DividerDrawerItem(),
+                        PrimaryDrawerItem().withName("تست").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
                         PrimaryDrawerItem().withName("ali").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2),
                         PrimaryDrawerItem().withName("dskfs").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
-                        DividerDrawerItem(),
                         SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true),
                         ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true),
                         ExpandableDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_filter_list).withSelectable(false).withIdentifier(19).withSubItems(
@@ -72,7 +75,7 @@ class TestDrawerActivity : FragmentActivity() {
                 // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
                 .buildView()
 
-
+//        result.miniDrawer?.withIncludeSecondaryDrawerItems(true)
         drawerManager = DrawerManager(this, result);
         drawerManager.isRtl =true;
         drawerManager.miniDrawerBackColor = Color.DKGRAY

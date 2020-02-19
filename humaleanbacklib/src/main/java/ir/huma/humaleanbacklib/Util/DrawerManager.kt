@@ -27,7 +27,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     private lateinit var crossFader: Crossfader<*>
     public var frameFragmentRes: Int? = null
     public var isRtl = false;
-    public var miniDrawerBackColor : Int? = null;
+    public var miniDrawerBackColor: Int? = null;
     public var useMiniDrawer: Boolean = true
 
 
@@ -50,14 +50,18 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
             miniResult.withCrossFader(CrossfadeWrapper(crossFader))
-            if(miniDrawerBackColor != null) {
+            if (miniDrawerBackColor != null) {
                 crossFader.getSecond().setBackgroundColor(miniDrawerBackColor!!)
             }
             //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
-            crossFader.getCrossFadeSlidingPaneLayout() .setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
+            crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
+
+            miniResult.withIncludeSecondaryDrawerItems(true)
+
         }
     }
-    var lastFocus : View? = null;
+
+    var lastFocus: View? = null;
     fun keyEvent(event: KeyEvent?): Boolean {
 
         var foc = activity.currentFocus;
@@ -65,25 +69,25 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         var right = KeyEvent.KEYCODE_DPAD_RIGHT;
         var left = KeyEvent.KEYCODE_DPAD_LEFT;
 
-        if(isRtl){
+        if (isRtl) {
             val temp = right;
             right = left;
             left = temp;
         }
 
         if (event?.action == KeyEvent.ACTION_DOWN) {
-            if(crossFader.isCrossFaded() && event?.keyCode != right) {
+            if (crossFader.isCrossFaded() && event?.keyCode != right) {
                 return true;
             }
             return false;
         }
-        if(foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded()){
+        if (foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded()) {
             lastFocus = foc;
             return false;
         }
         lastFocus = foc;
 
-        val position = result.currentSelectedPosition;
+        var position = result.currentSelectedPosition;
         var item = result.adapter.getItem(position);
 
         if (event?.keyCode == left) {
@@ -97,19 +101,26 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 return true;
             }
         } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-            if (position+2 < result.adapter.itemCount && result.adapter.getItem(position+1) is DividerDrawerItem) {
-                result.setSelectionAtPosition(position + 2, false)
-            } else if(position+1 < result.adapter.itemCount){
-                result.setSelectionAtPosition(position + 1, false)
+            while (position + 1 < result.adapter.itemCount){
+                if(result.adapter.getItem(position + 1) is DividerDrawerItem || result.adapter.getItem(position + 1) is SpaceDrawerItem){
+                    position++;
+                } else {
+                    result.setSelectionAtPosition(position + 1, false)
+                    break
+                }
             }
             return true;
 
         } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            if ( position-2 >=0 && result.adapter.getItem(position-1) is DividerDrawerItem) {
-                result.setSelectionAtPosition(position - 2, false)
-            } else if(position-1 >=0){
-                result.setSelectionAtPosition(position - 1, false)
+            while (position - 1 >= 0){
+                if(result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(position - 1) is SpaceDrawerItem){
+                    position--;
+                } else {
+                    result.setSelectionAtPosition(position - 1, false)
+                    break
+                }
             }
+
             return true;
         } else if (event?.keyCode == KeyEvent.KEYCODE_ENTER || event?.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || event?.keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
             if (item is SwitchDrawerItem) {
@@ -125,8 +136,8 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             return true;
 
-        } else if(event?.keyCode == KeyEvent.KEYCODE_BACK ){
-            if(crossFader.isCrossFaded()){
+        } else if (event?.keyCode == KeyEvent.KEYCODE_BACK) {
+            if (crossFader.isCrossFaded()) {
                 crossFader.crossFade()
                 return true
             }
@@ -136,16 +147,16 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         return false;
     }
 
-    fun replaceFragment(fragment : Fragment) {
-        if(frameFragmentRes != null){
+    fun replaceFragment(fragment: Fragment) {
+        if (frameFragmentRes != null) {
 
-            if(activity.supportFragmentManager.fragments.size > 0 ) {
+            if (activity.supportFragmentManager.fragments.size > 0) {
                 val tx = activity.supportFragmentManager.beginTransaction()
                 tx.remove(activity.supportFragmentManager.fragments[0])
                 tx.commit()
             }
             val tx = activity.supportFragmentManager.beginTransaction()
-            tx.replace(frameFragmentRes!!, fragment,fragment.javaClass.simpleName)
+            tx.replace(frameFragmentRes!!, fragment, fragment.javaClass.simpleName)
             tx.commitNowAllowingStateLoss()
         } else {
             throw RuntimeException("You must fill frameFragmentRes for replace fragment in it")

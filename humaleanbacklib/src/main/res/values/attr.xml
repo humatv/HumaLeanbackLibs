@@ -11,6 +11,7 @@
         <attr name="etCustomFont" format="string"/>
     </declare-styleable>
 
+    <item name="material_drawer_item_space" type="id"/>
 
 
 </resources>
