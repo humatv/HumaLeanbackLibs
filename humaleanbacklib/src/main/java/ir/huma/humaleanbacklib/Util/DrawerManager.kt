@@ -122,7 +122,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
             }
 
             return true;
-        } else if (crossFader.isCrossFaded() && event?.keyCode == KeyEvent.KEYCODE_ENTER || event?.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || event?.keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+        } else if (crossFader.isCrossFaded() && (event?.keyCode == KeyEvent.KEYCODE_ENTER || event?.keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || event?.keyCode == KeyEvent.KEYCODE_DPAD_CENTER)) {
             if (item is SwitchDrawerItem) {
                 item.withChecked(!item.isChecked)
                 result.adapter.notifyAdapterItemChanged(position);
