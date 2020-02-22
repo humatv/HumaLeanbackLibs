@@ -92,11 +92,23 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
         if (event?.keyCode == left) {
             if (!crossFader.isCrossFaded()) {
+
+
                 crossFader.crossFade()
                 return true;
             }
         } else if (event?.keyCode == right) {
             if (crossFader.isCrossFaded()) {
+                if (item is SwitchDrawerItem) {
+                    item.withChecked(!item.isChecked)
+                    result.adapter.notifyAdapterItemChanged(position);
+                } else if (item is ToggleDrawerItem) {
+                    item.withChecked(!item.isChecked)
+                    result.adapter.notifyAdapterItemChanged(position);
+                } else {
+                    result.adapter.viewClickListener?.onClick(result.recyclerView.get(position), position, result.adapter, item!!)
+                }
+
                 crossFader.crossFade()
                 return true;
             }
