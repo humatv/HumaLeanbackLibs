@@ -159,7 +159,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         return false;
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment,tag : String = fragment.javaClass.simpleName) {
         if (frameFragmentRes != null) {
 
             if (activity.supportFragmentManager.fragments.size > 0) {
@@ -168,7 +168,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 tx.commit()
             }
             val tx = activity.supportFragmentManager.beginTransaction()
-            tx.replace(frameFragmentRes!!, fragment, fragment.javaClass.simpleName)
+            tx.replace(frameFragmentRes!!, fragment, tag)
             tx.commitNowAllowingStateLoss()
         } else {
             throw RuntimeException("You must fill frameFragmentRes for replace fragment in it")
