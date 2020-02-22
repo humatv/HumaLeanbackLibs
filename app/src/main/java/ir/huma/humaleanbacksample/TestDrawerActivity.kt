@@ -15,6 +15,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.holder.BadgeStyle
+import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
@@ -82,6 +83,8 @@ class TestDrawerActivity : FragmentActivity() {
         drawerManager.build()
         drawerManager.frameFragmentRes = ir.huma.humaleanbacklib.R.id.topLayout
         drawerManager.replaceFragment(TestBaseRowsFragment())
+
+
 
 //
 //            var f = TestBaseBrowseFragment()

@@ -14,6 +14,7 @@ import com.mikepenz.crossfader.util.UIUtils
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.MiniDrawer
+import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.util.ifNotNull
 import com.mikepenz.materialdrawer.util.ifNull
@@ -29,7 +30,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     public var isRtl = false;
     public var miniDrawerBackColor: Int? = null;
     public var useMiniDrawer: Boolean = true
-
+    public var customHeightMiniDrawerItemInDp = 60;
 
     fun build() {
         if (useMiniDrawer) {
@@ -58,6 +59,9 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             miniResult.withIncludeSecondaryDrawerItems(true)
 
+            for(i in 0 until miniResult.itemAdapter?.itemList?.size()!!){
+                (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight = DimenHolder.fromDp(customHeightMiniDrawerItemInDp)
+            }
         }
     }
 
@@ -76,7 +80,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         }
 
         if (event?.action == KeyEvent.ACTION_DOWN) {
-            if (crossFader.isCrossFaded() && event?.keyCode != right) {
+            if (crossFader.isCrossFaded() && (event?.keyCode != right || event?.keyCode != left)) {
                 return true;
             }
             return false;
@@ -112,7 +116,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 crossFader.crossFade()
                 return true;
             }
-        } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+        } else if (crossFader.isCrossFaded() && event?.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
             while (position + 1 < result.adapter.itemCount){
                 if(result.adapter.getItem(position + 1) is DividerDrawerItem || result.adapter.getItem(position + 1) is SpaceDrawerItem){
                     position++;
@@ -123,7 +127,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
             }
             return true;
 
-        } else if (event?.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+        } else if (crossFader.isCrossFaded() && event?.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             while (position - 1 >= 0){
                 if(result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(position - 1) is SpaceDrawerItem){
                     position--;
