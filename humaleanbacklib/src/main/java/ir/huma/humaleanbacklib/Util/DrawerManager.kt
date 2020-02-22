@@ -88,7 +88,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         if (foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded()) {
             lastFocus = foc;
             return false;
-        }
+        } 
         lastFocus = foc;
 
         var position = result.currentSelectedPosition;
