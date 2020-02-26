@@ -108,23 +108,25 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         onItemSelectedListener(v, action, 0, current);
     }
 
-    @Override
-    public long onGuidedActionEditedAndProceed(GuidedAction action) {
-        if(lastSelectedTitle != null){
-            lastSelectedTitle.setSelected(false);
-        }
-        if(lastSelectedDescription != null){
-            lastSelectedDescription.setSelected(false);
-        }
-        lastSelectedTitle = null;
-        lastSelectedDescription = null;
-        return super.onGuidedActionEditedAndProceed(action);
-    }
+//    @Override
+//    public long onGuidedActionEditedAndProceed(GuidedAction action) {
+//
+//        return super.onGuidedActionEditedAndProceed(action);
+//    }
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
         int current = getActions().indexOf(action);
-
+        if(action.isDescriptionEditable()){
+            if(lastSelectedTitle != null){
+                lastSelectedTitle.setSelected(false);
+            }
+            if(lastSelectedDescription != null){
+                lastSelectedDescription.setSelected(false);
+            }
+            lastSelectedTitle = null;
+            lastSelectedDescription = null;
+        }
         onItemClickListener(getActionItemView(current), action, 0, current);
     }
 
