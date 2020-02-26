@@ -109,6 +109,19 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     }
 
     @Override
+    public long onGuidedActionEditedAndProceed(GuidedAction action) {
+        if(lastSelectedTitle != null){
+            lastSelectedTitle.setSelected(false);
+        }
+        if(lastSelectedDescription != null){
+            lastSelectedDescription.setSelected(false);
+        }
+        lastSelectedTitle = null;
+        lastSelectedDescription = null;
+        return super.onGuidedActionEditedAndProceed(action);
+    }
+
+    @Override
     public void onGuidedActionClicked(GuidedAction action) {
         int current = getActions().indexOf(action);
 
