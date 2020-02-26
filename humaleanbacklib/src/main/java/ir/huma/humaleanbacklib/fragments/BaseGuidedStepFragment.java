@@ -80,7 +80,8 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         super.onCreateActions(actions, savedInstanceState);
         actions.addAll(actionList);
     }
-    View lastSelected;
+    View lastSelectedTitle;
+    View lastSelectedDescription;
     @Override
     public void onGuidedActionFocused(GuidedAction action) {
         int current = getActions().indexOf(action);
@@ -91,13 +92,18 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                 FontManager.instance(actionTypeface).setTypefaceImmediate(getActionItemView(i));
             }
         }
-        if(lastSelected != null){
-            lastSelected.setSelected(false);
+        if(lastSelectedTitle != null){
+            lastSelectedTitle.setSelected(false);
+        }
+        if(lastSelectedDescription != null){
+            lastSelectedDescription.setSelected(false);
         }
         View v = getActionItemView(current);
-        View v2 = v.findViewById(R.id.guidedactions_item_title);
-        v2.setSelected(true);
-        lastSelected = v2;
+        lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
+        lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
+        lastSelectedTitle.setSelected(true);
+        lastSelectedDescription.setSelected(true);
+
         onItemSelectedListener(v, action, 0, current);
     }
 
