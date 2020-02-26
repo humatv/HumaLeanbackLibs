@@ -104,6 +104,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         lastSelectedTitle.setSelected(true);
         lastSelectedDescription.setSelected(true);
 
+
         onItemSelectedListener(v, action, 0, current);
     }
 
