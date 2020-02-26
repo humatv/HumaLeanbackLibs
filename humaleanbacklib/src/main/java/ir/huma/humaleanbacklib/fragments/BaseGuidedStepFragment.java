@@ -80,7 +80,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         super.onCreateActions(actions, savedInstanceState);
         actions.addAll(actionList);
     }
-
+    View lastSelected;
     @Override
     public void onGuidedActionFocused(GuidedAction action) {
         int current = getActions().indexOf(action);
@@ -91,7 +91,14 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                 FontManager.instance(actionTypeface).setTypefaceImmediate(getActionItemView(i));
             }
         }
-        onItemSelectedListener(getActionItemView(current), action, 0, current);
+        if(lastSelected != null){
+            lastSelected.setSelected(false);
+        }
+        View v = getActionItemView(current);
+        View v2 = v.findViewById(R.id.guidedactions_item_title);
+        v2.setSelected(true);
+        lastSelected = v2;
+        onItemSelectedListener(v, action, 0, current);
     }
 
     @Override

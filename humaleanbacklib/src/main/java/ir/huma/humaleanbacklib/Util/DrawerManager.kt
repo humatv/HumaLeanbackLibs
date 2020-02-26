@@ -80,15 +80,16 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         }
 
         if (event?.action == KeyEvent.ACTION_DOWN) {
-            if (crossFader.isCrossFaded() && (event?.keyCode != right || event?.keyCode != left)) {
+            if (crossFader.isCrossFaded() && (event?.keyCode != right )) {
                 return true;
             }
             return false;
         }
+
         if (foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded()) {
             lastFocus = foc;
             return false;
-        } 
+        }
         lastFocus = foc;
 
         var position = result.currentSelectedPosition;

@@ -58,11 +58,11 @@ class TestDrawerActivity : FragmentActivity() {
 //                            if(supportFragmentManager.findFragmentByTag((TestBaseBrowseFragment::class).simpleName) != null ){
 //
 //                            }
-                            drawerManager.replaceFragment(TestBaseBrowseFragment())
+//                            drawerManager.replaceFragment(TestBaseBrowseFragment())
                         } else if(position == 0){
-                            drawerManager.replaceFragment(TestBaseRowsFragment())
+//                            drawerManager.replaceFragment(TestBaseRowsFragment())
                         } else if(position == 2){
-                            drawerManager.replaceFragment(TestDetailFragment())
+//                            drawerManager.replaceFragment(TestDetailFragment())
                         }
                         //(drawerItem is Nameable<*>) {
                         //  crossFader?.crossFade()
