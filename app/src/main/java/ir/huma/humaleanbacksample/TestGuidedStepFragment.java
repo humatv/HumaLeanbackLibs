@@ -31,7 +31,7 @@ public class TestGuidedStepFragment extends BaseGuidedStepFragment {
         addActions(GuidedStepsUtil.getEditableAction(0,"تست","", InputType.TYPE_CLASS_TEXT,getContext()));
 
         for(int i=0;i<100;i++){
-            addActions(GuidedStepsUtil.getAction(1, "اکشن : "+ i, "زیر اکشن", getContext()));
+            addActions(GuidedStepsUtil.getAction(1, "اکشن : "+ i, "زیر اکشن",R.drawable.lb_ic_replay, getContext()));
         }
 
     }

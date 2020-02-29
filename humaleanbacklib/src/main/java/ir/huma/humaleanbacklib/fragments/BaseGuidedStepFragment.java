@@ -13,6 +13,7 @@ import androidx.leanback.widget.GuidedActionAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +83,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     }
     View lastSelectedTitle;
     View lastSelectedDescription;
+    View lastSelectedIcon;
     @Override
     public void onGuidedActionFocused(GuidedAction action) {
         int current = getActions().indexOf(action);
@@ -99,11 +101,16 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
             lastSelectedDescription.setSelected(false);
             lastSelectedDescription.setOnFocusChangeListener(null);
         }
+        if(lastSelectedIcon != null){
+            lastSelectedIcon.setSelected(false);
+        }
         View v = getActionItemView(current);
         lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
         lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
+        lastSelectedIcon = v.findViewById(R.id.guidedactions_item_icon);
         lastSelectedTitle.setSelected(true);
         lastSelectedDescription.setSelected(true);
+
 
         if(action.isDescriptionEditable()){
             lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -116,12 +123,17 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                         if(lastSelectedDescription != null){
                             lastSelectedDescription.setSelected(false);
                         }
+                        if(lastSelectedIcon != null){
+                            lastSelectedIcon.setSelected(false);
+                        }
                         lastSelectedTitle = null;
                         lastSelectedDescription = null;
+                        lastSelectedIcon = null;
                     }
                 }
             });
         }
+
 
         onItemSelectedListener(v, action, 0, current);
     }
