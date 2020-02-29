@@ -110,7 +110,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         lastSelectedIcon = v.findViewById(R.id.guidedactions_item_icon);
         lastSelectedTitle.setSelected(true);
         lastSelectedDescription.setSelected(true);
-
+        lastSelectedIcon.setSelected(true);
 
         if(action.isDescriptionEditable()){
             lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
