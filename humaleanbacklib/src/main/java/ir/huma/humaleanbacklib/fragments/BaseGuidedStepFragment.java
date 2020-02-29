@@ -5,11 +5,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidedAction;
 import androidx.leanback.widget.GuidedActionAdapter;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +83,11 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         super.onCreateActions(actions, savedInstanceState);
         actions.addAll(actionList);
     }
+
     View lastSelectedTitle;
     View lastSelectedDescription;
     View lastSelectedIcon;
+
     @Override
     public void onGuidedActionFocused(GuidedAction action) {
         int current = getActions().indexOf(action);
@@ -94,50 +98,53 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                 FontManager.instance(actionTypeface).setTypefaceImmediate(getActionItemView(i));
             }
         }
-        if(lastSelectedTitle != null){
+        if (lastSelectedTitle != null) {
             lastSelectedTitle.setSelected(false);
         }
-        if(lastSelectedDescription != null){
+        if (lastSelectedDescription != null) {
             lastSelectedDescription.setSelected(false);
             lastSelectedDescription.setOnFocusChangeListener(null);
         }
-        if(lastSelectedIcon != null){
+        if (lastSelectedIcon != null) {
             lastSelectedIcon.setSelected(false);
         }
+
         View v = getActionItemView(current);
-        lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
-        lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
-        lastSelectedIcon = v.findViewById(R.id.guidedactions_item_icon);
-        lastSelectedTitle.setSelected(true);
-        lastSelectedDescription.setSelected(true);
-        lastSelectedIcon.setSelected(true);
+        try {
+            lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
+            lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
+            lastSelectedIcon = v.findViewById(R.id.guidedactions_item_icon);
+            lastSelectedTitle.setSelected(true);
+            lastSelectedDescription.setSelected(true);
+            lastSelectedIcon.setSelected(true);
 
-        if(action.isDescriptionEditable()){
-            lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    if(b){
-                        if(lastSelectedTitle != null){
-                            lastSelectedTitle.setSelected(false);
+            if (action.isDescriptionEditable()) {
+                lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        if (b) {
+                            if (lastSelectedTitle != null) {
+                                lastSelectedTitle.setSelected(false);
+                            }
+                            if (lastSelectedDescription != null) {
+                                lastSelectedDescription.setSelected(false);
+                            }
+                            if (lastSelectedIcon != null) {
+                                lastSelectedIcon.setSelected(false);
+                            }
+                            lastSelectedTitle = null;
+                            lastSelectedDescription = null;
+                            lastSelectedIcon = null;
                         }
-                        if(lastSelectedDescription != null){
-                            lastSelectedDescription.setSelected(false);
-                        }
-                        if(lastSelectedIcon != null){
-                            lastSelectedIcon.setSelected(false);
-                        }
-                        lastSelectedTitle = null;
-                        lastSelectedDescription = null;
-                        lastSelectedIcon = null;
                     }
-                }
-            });
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
         onItemSelectedListener(v, action, 0, current);
     }
-
 
 
     @Override
