@@ -97,6 +97,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         }
         if(lastSelectedDescription != null){
             lastSelectedDescription.setSelected(false);
+            lastSelectedDescription.setOnFocusChangeListener(null);
         }
         View v = getActionItemView(current);
         lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
@@ -104,29 +105,43 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
         lastSelectedTitle.setSelected(true);
         lastSelectedDescription.setSelected(true);
 
+        if(action.isDescriptionEditable()){
+            lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if(b){
+                        if(lastSelectedTitle != null){
+                            lastSelectedTitle.setSelected(false);
+                        }
+                        if(lastSelectedDescription != null){
+                            lastSelectedDescription.setSelected(false);
+                        }
+                        lastSelectedTitle = null;
+                        lastSelectedDescription = null;
+                    }
+                }
+            });
+        }
 
         onItemSelectedListener(v, action, 0, current);
     }
 
-//    @Override
-//    public long onGuidedActionEditedAndProceed(GuidedAction action) {
-//
-//        return super.onGuidedActionEditedAndProceed(action);
-//    }
+
+
+    @Override
+    public long onGuidedActionEditedAndProceed(GuidedAction action) {
+        return super.onGuidedActionEditedAndProceed(action);
+    }
+
+
+    @Override
+    public void onGuidedActionEdited(GuidedAction action) {
+        super.onGuidedActionEdited(action);
+    }
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
         int current = getActions().indexOf(action);
-        if(action.isDescriptionEditable()){
-            if(lastSelectedTitle != null){
-                lastSelectedTitle.setSelected(false);
-            }
-            if(lastSelectedDescription != null){
-                lastSelectedDescription.setSelected(false);
-            }
-            lastSelectedTitle = null;
-            lastSelectedDescription = null;
-        }
         onItemClickListener(getActionItemView(current), action, 0, current);
     }
 
