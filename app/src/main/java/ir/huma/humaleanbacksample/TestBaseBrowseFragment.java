@@ -3,6 +3,7 @@ package ir.huma.humaleanbacksample;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ListRow;
@@ -24,7 +25,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
     @Override
     public void initial() {
         setShowHeader(false);
-        setInitBackgroundManager(false);
+        //setInitBackgroundManager(false);
         // set fastLane (or headers) background color
         setBrandColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
 
@@ -76,7 +77,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
                 Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
             }
         });
-//        setBackgroundUri("https://bayanbox.ir/view/4386502884462510503/%D9%85%D9%86%D8%B8%D8%B1%D9%87-232.jpeg", false);
+//        setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.background2), false);
     }
 
     @Override

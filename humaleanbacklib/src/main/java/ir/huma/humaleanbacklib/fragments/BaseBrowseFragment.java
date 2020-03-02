@@ -374,7 +374,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 
     @Override
     public void onDestroyView() {
-        if (mBackgroundManager != null)
+        if (mBackgroundManager != null && mBackgroundManager.isAttached())
             mBackgroundManager.setDrawable(null);
 //        mBackgroundManager = null;
 
