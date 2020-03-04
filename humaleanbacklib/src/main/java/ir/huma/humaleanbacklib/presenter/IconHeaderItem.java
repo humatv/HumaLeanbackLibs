@@ -3,6 +3,7 @@ package ir.huma.humaleanbacklib.presenter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+
 import androidx.leanback.widget.HeaderItem;
 
 public class IconHeaderItem extends HeaderItem {
@@ -17,6 +18,7 @@ public class IconHeaderItem extends HeaderItem {
     private Drawable icon = null;
     private Typeface typeface;
     private boolean shadow = false;
+    private float unselectedAlpha = 1;
     /**
      * unit in sp
      */
@@ -74,5 +76,18 @@ public class IconHeaderItem extends HeaderItem {
 
     public void setTextColor(int textColor) {
         this.textColor = textColor;
+    }
+
+    public float getUnselectedAlpha() {
+        return unselectedAlpha;
+    }
+
+    public void setUnselectedAlpha(float unselectedAlpha) {
+        if (unselectedAlpha > 1)
+            this.unselectedAlpha = 1;
+        else if (unselectedAlpha < 0) {
+            this.unselectedAlpha = 0;
+        } else
+            this.unselectedAlpha = unselectedAlpha;
     }
 }

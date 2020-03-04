@@ -57,6 +57,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         headerItem.setShadow(true);
         headerItem.setTextSize(22);
         headerItem.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
+        headerItem.setUnselectedAlpha(0.5f);
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));
         mRowsAdapter.add(new ListRow(headerItem, adapter1));

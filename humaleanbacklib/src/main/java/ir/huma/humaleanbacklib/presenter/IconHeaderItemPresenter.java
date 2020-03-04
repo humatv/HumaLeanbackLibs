@@ -26,7 +26,7 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
 
     private static final String TAG = IconHeaderItemPresenter.class.getSimpleName();
 
-    private float mUnselectedAlpha;
+    //private float mUnselectedAlpha =1;
 
     boolean hasFocusable = true;
 
@@ -34,8 +34,8 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup) {
-        mUnselectedAlpha = viewGroup.getResources()
-                .getFraction(R.fraction.lb_browse_header_unselect_alpha, 1, 1);
+//        mUnselectedAlpha = viewGroup.getResources()
+//                .getFraction(R.fraction.lb_browse_header_unselect_alpha, 1, 1);
         LayoutInflater inflater = (LayoutInflater) viewGroup.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -53,7 +53,8 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
             ((NonOverlappingLinearLayout) rootView.getParent()).setGravity(Gravity.RIGHT);
 
         ImageView iconView = (ImageView) rootView.findViewById(R.id.header_icon);
-
+        viewHolder.view.setTag(iconHeaderItem);
+        rootView.setAlpha(iconHeaderItem.getUnselectedAlpha());
         if (iconHeaderItem.getIcon() != null) { // Show icon only when it is set.
 
             iconView.setImageDrawable(iconHeaderItem.getIcon());
@@ -72,7 +73,7 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
         if (iconHeaderItem.getTypeface() != null) {
             label.setTypeface(iconHeaderItem.getTypeface());
         }
-        rootView.setAlpha(1);
+//        rootView.setAlpha(1);
         label.setAlpha(1);
 
     }
@@ -87,8 +88,16 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
     @Override
     protected void onSelectLevelChanged(ViewHolder holder) {
         // this is a temporary fix
-//        holder.view.setAlpha(mUnselectedAlpha + holder.getSelectLevel() *
-//                (1.0f - mUnselectedAlpha));
+        IconHeaderItem item = (IconHeaderItem) holder.view.getTag();
+        if(item != null) {
+//            if(holder.getSelectLevel() >= 1){
+//                holder.view.setAlpha(1);
+//            } else {
+//                holder.view.setAlpha(item.getUnselectedAlpha());
+//            }
+            holder.view.setAlpha(item.getUnselectedAlpha() + holder.getSelectLevel() *
+                    (1.0f - item.getUnselectedAlpha()));
+        }
     }
 
 
