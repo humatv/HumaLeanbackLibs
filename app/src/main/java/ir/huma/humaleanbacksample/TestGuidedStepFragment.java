@@ -25,6 +25,7 @@ public class TestGuidedStepFragment extends BaseGuidedStepFragment {
         setActionTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
         setTitleTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/IRANSans.ttf"));
         setStyle(R.style.MyLeanbackWizard);
+        //setAutoEmptyFields(true);
         setGuidance(new GuidanceStylist.Guidance("عنوان",
                 "توضیحات کامل",
                 "بالای توضیحات", getResources().getDrawable(R.mipmap.ic_launcher)));

@@ -15,6 +15,7 @@ import androidx.leanback.widget.GuidedActionAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     private List<GuidedAction> actionList = new ArrayList<>();
     private Integer descriptionTextSize;
     private Integer descriptionTextColor;
-
+    private boolean autoEmptyFields = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         initial();
@@ -109,7 +110,7 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
             lastSelectedIcon.setSelected(false);
         }
 
-        View v = getActionItemView(current);
+        final View v = getActionItemView(current);
         try {
             lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
             lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
@@ -123,6 +124,12 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                     @Override
                     public void onFocusChange(View view, boolean b) {
                         if (b) {
+                            EditText editText = v.findViewById(R.id.guidedactions_item_description);
+                            if(isAutoEmptyFields()){
+                                editText.setText("");
+                            } else {
+                                editText.setSelection(editText.getText().length());
+                            }
                             if (lastSelectedTitle != null) {
                                 lastSelectedTitle.setSelected(false);
                             }
@@ -236,6 +243,14 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
 
     public void setDescriptionTextColor(Integer descriptionTextColor) {
         this.descriptionTextColor = descriptionTextColor;
+    }
+
+    public boolean isAutoEmptyFields() {
+        return autoEmptyFields;
+    }
+
+    public void setAutoEmptyFields(boolean autoEmptyFields) {
+        this.autoEmptyFields = autoEmptyFields;
     }
 
     @Override
