@@ -47,7 +47,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.github.hamedgramzi:everythingManager:1.4'
 
-    implementation 'com.github.hamedgramzi:guidedKeayboardfixer:master-SNAPSHOT'
+    implementation 'com.github.hamedgramzi:guidedKeayboardfixer:2.0'
     implementation 'com.github.humatv:humaleanbackplayer:master-SNAPSHOT'
 
     implementation "com.mikepenz:materialdrawer:7.0.0"
@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
     implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
     implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 
 

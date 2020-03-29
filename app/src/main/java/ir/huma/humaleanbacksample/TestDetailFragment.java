@@ -24,7 +24,8 @@ public class TestDetailFragment extends BaseDetailFragment {
 //        setActionColor(Color.TRANSPARENT);
 //        setBackgroundColor(Color.TRANSPARENT);
 //        setDetailsColor(Color.TRANSPARENT);
-        setBackgroundResId(R.drawable.test);
+
+
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
 
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(cardPresenter);

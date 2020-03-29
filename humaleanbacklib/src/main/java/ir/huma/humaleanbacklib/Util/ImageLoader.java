@@ -3,6 +3,7 @@ package ir.huma.humaleanbacklib.Util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,13 +25,17 @@ public class ImageLoader {
     private Drawable placeHolder;
     private Drawable error;
     private ReadyListener readyListener;
+    private boolean autoFill = true;
 
+    public ImageLoader(){
+        Log.d("ImageLoader","init "+toString());
+    }
 
     public void load(final Context context, final String url) {
-        if (imageView != null && imageView.getTag() != null && imageView.getTag().equals(url)) {
+        if (imageView != null && imageView.getTag() != null && !imageView.getTag().equals(url)) {
             return;
         }
-        if (imageView != null)
+        if (imageView != null && imageView.getTag() == null)
             imageView.setTag(url);
 
         final RequestOptions options = new RequestOptions().centerCrop();
@@ -60,13 +65,19 @@ public class ImageLoader {
 
             @Override
             public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                if (imageView != null && imageView.getTag() != null && imageView.getTag().equals(url)) {
-                    imageView.setImageBitmap(resource);
+                if (imageView != null)
+                    Log.d("ImageLoader",imageView.toString()+"\n"+imageView.getTag() + " \n" + model);
+                if (imageView != null && (imageView.getTag() == null || imageView.getTag().equals(model))) {
+                    if (autoFill)
+                        imageView.setImageBitmap(resource);
+                    if (readyListener != null) {
+                        readyListener.onReady(resource);
+                    }
 //                    imageView.setTag(null);
-                }
-                if (readyListener != null) {
+                } else if (imageView == null || imageView.getTag() == null) {
                     readyListener.onReady(resource);
                 }
+
                 return false;
             }
         }).preload();
@@ -82,7 +93,7 @@ public class ImageLoader {
         return this;
     }
 
-    public ImageLoader setSize(int width,int height) {
+    public ImageLoader setSize(int width, int height) {
         this.width = width;
         this.height = height;
         return this;
@@ -103,6 +114,10 @@ public class ImageLoader {
         return this;
     }
 
+    public ImageLoader setAutoFill(boolean autoFill) {
+        this.autoFill = autoFill;
+        return this;
+    }
 
     public interface ReadyListener {
         void onReady(Bitmap bitmap);
