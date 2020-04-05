@@ -85,14 +85,12 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         super.onCreate(savedInstanceState);
 
 
-
-
         //mBackgroundManager.setDrawable(mDefaultBackground);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v =  super.onCreateView(inflater, container, savedInstanceState);
+        View v = super.onCreateView(inflater, container, savedInstanceState);
         setupUI();
         initial();
         setupEventListeners();
@@ -115,15 +113,15 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                 int y1 = m1.topMargin;
 
                 super.onLayoutLogo(viewHolder, oldState, logoChanged);
-                if (y1 != 0 ) {
+                if (y1 != 0) {
                     final ViewGroup.MarginLayoutParams m2 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                    final int y2 = m2.topMargin+=56;
+                    final int y2 = m2.topMargin += 56;
                     m2.topMargin = y1;
                     v.setLayoutParams(m2);
                     v.animate().translationY(y2 - y1).setDuration(200).start();
                 } else {
                     final ViewGroup.MarginLayoutParams m2 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                    m2.topMargin +=56;
+                    m2.topMargin += 56;
 //                    m2.topMargin = y1;
                     v.setLayoutParams(m2);
 //                    m1 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -187,10 +185,8 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                initializeBackground();
                 startEntranceTransition();
-
-
+                initializeBackground();
             }
         }, 100);
         setAdapter(mRowsAdapter);
@@ -221,8 +217,8 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
             }
         }
         mDetailsBackground = new DetailsSupportFragmentBackgroundController(this);
+        mDetailsBackground.enableParallax();
         if (backgroundColor != -1) {
-            mDetailsBackground.enableParallax();
             mDetailsBackground.setSolidColor(backgroundColor);
         }
 
@@ -267,47 +263,10 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
             }, 1000);
 
 
-        } else if (backgroundImage != null) {
-//            mDetailsBackground.enableParallax();
-//            if (backgroundColor != -1)
-//                mDetailsBackground.setSolidColor(backgroundColor);
-
-            if (backgroundImage instanceof String) {
-                new ImageLoader().setReadyListener(new ImageLoader.ReadyListener() {
-                    @Override
-                    public void onReady(Bitmap bitmap) {
-                        //mBackgroundManager.setBitmap(bitmap);
-
-                        mDetailsBackground.setCoverBitmap(bitmap);
-                    }
-                }).load(getContext(), (String) backgroundImage);
-            } else if (backgroundImage instanceof Bitmap) {
-//                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
-
-                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
-            } else if (backgroundImage instanceof Drawable) {
-                mBackgroundManager.setBitmap(drawableToBitmap((Drawable) backgroundImage));
-//                mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
-            } else if (backgroundImage instanceof Integer) {
-
-                RequestOptions options = new RequestOptions()
-                        .centerCrop();
-                Glide.with(this)
-                        .asBitmap()
-                        .load(backgroundImage)
-                        .apply(options)
-                        .into(new SimpleTarget<Bitmap>(mMetrics.widthPixels, mMetrics.heightPixels) {
-                            @Override
-                            public void onResourceReady(
-                                    Bitmap resource,
-                                    Transition<? super Bitmap> transition) {
-                                mBackgroundManager.setBitmap(resource);
-                            }
-                        });
-
-            }
-
+        } else {
+            setBackgroundData();
         }
+
 
     }
 
@@ -464,6 +423,68 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
+    private void setBackgroundData() {
+        if (backgroundImage != null) {
+//            mDetailsBackground.enableParallax();
+//            if (backgroundColor != -1)
+//                mDetailsBackground.setSolidColor(backgroundColor);
+
+            if (backgroundImage instanceof String) {
+                new ImageLoader().setReadyListener(new ImageLoader.ReadyListener() {
+                    @Override
+                    public void onReady(Bitmap bitmap) {
+                        //mBackgroundManager.setBitmap(bitmap);
+                        //mDetailsBackground.enableParallax();
+                        mDetailsBackground.setCoverBitmap(bitmap);
+                        mDetailsBackground.getCoverDrawable().invalidateSelf();
+                    }
+                }).load(getContext(), (String) backgroundImage);
+            } else if (backgroundImage instanceof Bitmap) {
+//                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
+                //mDetailsBackground.enableParallax();
+                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
+                mDetailsBackground.getCoverDrawable().invalidateSelf();
+            } else if (backgroundImage instanceof Drawable) {
+                mBackgroundManager.setBitmap(drawableToBitmap((Drawable) backgroundImage));
+//                mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
+            } else if (backgroundImage instanceof Integer) {
+
+                RequestOptions options = new RequestOptions()
+                        .centerCrop();
+                Glide.with(this)
+                        .asBitmap()
+                        .load(backgroundImage)
+                        .apply(options)
+                        .into(new SimpleTarget<Bitmap>(mMetrics.widthPixels, mMetrics.heightPixels) {
+                            @Override
+                            public void onResourceReady(
+                                    Bitmap resource,
+                                    Transition<? super Bitmap> transition) {
+                                mBackgroundManager.setBitmap(resource);
+                            }
+                        });
+
+            }
+
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if (mDetailsBackground != null) {
+            mDetailsBackground.setCoverBitmap(null);
+        }
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mDetailsBackground != null)
+            setBackgroundData();
+    }
+
+
     @Override
     public void onDestroyView() {
         if (mBackgroundManager != null && mBackgroundManager.isAttached()) {
@@ -473,10 +494,11 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
             mBackgroundManager = null;
         }
-        if (mDetailsBackground != null) {
-            mDetailsBackground.setCoverBitmap(null);
-            mDetailsBackground = null;
-        }
+        mDetailsBackground = null;
+//        if (mDetailsBackground != null) {
+//            mDetailsBackground.setCoverBitmap(null);
+//            mDetailsBackground = null;
+//        }
 
         super.onDestroyView();
     }

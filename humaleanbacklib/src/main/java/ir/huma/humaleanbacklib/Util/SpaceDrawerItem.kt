@@ -30,7 +30,7 @@ open class SpaceDrawerItem : AbstractDrawerItem<SpaceDrawerItem, SpaceDrawerItem
         //define how the divider should look like
         holder.view.isClickable = false
         holder.view.isEnabled = false
-        holder.view.minimumHeight = 100
+        holder.view.minimumHeight = 109
 //        ViewCompat.setImportantForAccessibility(holder.view, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
