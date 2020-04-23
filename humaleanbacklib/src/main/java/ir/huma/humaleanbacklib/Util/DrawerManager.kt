@@ -31,6 +31,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     public var miniDrawerBackColor: Int? = null;
     public var useMiniDrawer: Boolean = true
     public var customHeightMiniDrawerItemInDp = 60;
+    public var fireOnClick = false;
 
     fun build() {
         if (useMiniDrawer) {
@@ -122,7 +123,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 if(result.adapter.getItem(position + 1) is DividerDrawerItem || result.adapter.getItem(position + 1) is SpaceDrawerItem){
                     position++;
                 } else {
-                    result.setSelectionAtPosition(position + 1, false)
+                    result.setSelectionAtPosition(position + 1, fireOnClick)
                     break
                 }
             }
@@ -133,7 +134,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 if(result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(position - 1) is SpaceDrawerItem){
                     position--;
                 } else {
-                    result.setSelectionAtPosition(position - 1, false)
+                    result.setSelectionAtPosition(position - 1, fireOnClick)
                     break
                 }
             }
