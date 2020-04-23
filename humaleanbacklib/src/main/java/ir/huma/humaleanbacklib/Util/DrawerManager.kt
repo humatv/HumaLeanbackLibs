@@ -135,7 +135,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 if(result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(position - 1) is SpaceDrawerItem){
                     position--;
                 } else {
-                    val fire : Boolean = if(result.adapter.getItem(position - 1)?.tag != null && result.adapter.getItem(position - 1)?.tag is Boolean) (result.adapter.getItem(position + 1)?.tag as Boolean) else fireOnClick
+                    val fire : Boolean = if(result.adapter.getItem(position - 1)?.tag != null && result.adapter.getItem(position - 1)?.tag is Boolean) (result.adapter.getItem(position - 1)?.tag as Boolean) else fireOnClick
                     result.setSelectionAtPosition(position - 1, fire)
                     break
                 }
