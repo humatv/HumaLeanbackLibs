@@ -55,7 +55,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     private String quality;
     private boolean isRowMode;
     private ExoMediaPlayerWithGlue mMediaPlayerGlue;
-
+    public int logoAnimationTime = 120;
     private DetailsDescriptionPresenter detailsDescriptionPresenter;
     private DetailsOverviewRow detailsOverview;
 
@@ -118,7 +118,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                     final int y2 = m2.topMargin += 56;
                     m2.topMargin = y1;
                     v.setLayoutParams(m2);
-                    v.animate().translationY(y2 - y1).setDuration(200).start();
+                    v.animate().translationY(y2 - y1).setDuration(logoAnimationTime).start();
                 } else {
                     final ViewGroup.MarginLayoutParams m2 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
                     m2.topMargin += 56;
