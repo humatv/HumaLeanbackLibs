@@ -217,6 +217,10 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
         }
     }
 
+    public int getSelectedPosition() {
+        return mSelectedPosition;
+    }
+
     private void updateAdapter() {
         if (mGridViewHolder != null) {
             mGridPresenter.onBindViewHolder(mGridViewHolder, mAdapter);
@@ -249,5 +253,7 @@ public abstract class BaseGridFragment extends Fragment implements BrowseSupport
     public void setBackground(String url) {
         backgroundManager.setBackground(url, true);
     }
+
+
 
 }
