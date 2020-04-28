@@ -53,9 +53,9 @@ dependencies {
     implementation 'com.github.hamedgramzi:guidedKeayboardfixer:2.0'
     implementation 'com.github.humatv:HumaLeanbackPlayer:1.5'
 
-    debugImplementation "com.mikepenz:materialdrawer:7.0.0"
-    debugImplementation 'com.mikepenz:crossfader:1.6.0'
-    debugImplementation 'com.mikepenz:crossfadedrawerlayout:1.1.0'
+    implementation "com.mikepenz:materialdrawer:7.0.0"
+    implementation 'com.mikepenz:crossfader:1.6.0'
+    implementation 'com.mikepenz:crossfadedrawerlayout:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 //    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
