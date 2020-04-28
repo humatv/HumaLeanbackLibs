@@ -33,7 +33,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     public var customHeightMiniDrawerItemInDp = 60;
     public var fireOnClick = false;
 
-    fun build() {
+    fun build(crossfadeContentResLayout : Int) {
         if (useMiniDrawer) {
             miniResult = result.miniDrawer!!
 
@@ -44,7 +44,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
             //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
             //the crossfader library can be found here: https://github.com/mikepenz/Crossfader
             crossFader = Crossfader<CrossFadeSlidingPaneLayout>()
-                    .withContent(activity.findViewById<View>(R.id.crossfade_content))
+                    .withContent(activity.findViewById<View>(crossfadeContentResLayout))
                     .withFirst(result.slider, firstWidth)
                     .withSecond(miniResult.build(activity), secondWidth)
 //                    .withSavedInstance(savedInstanceState)

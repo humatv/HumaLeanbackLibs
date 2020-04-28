@@ -3,9 +3,7 @@
     package="ir.huma.humaleanbacklib">
 
     <application>
-        <activity android:name=".MenuActivity"
-            android:theme="@style/LeanbackTheme"
-            ></activity>
+
         <activity
             android:name=".PublicActivity"
             android:theme="@style/LeanbackTheme" />

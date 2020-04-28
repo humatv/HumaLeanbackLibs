@@ -1,5 +1,6 @@
 package ir.huma.humaleanbacksample
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,8 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.holder.BadgeStyle
@@ -39,17 +39,17 @@ class TestDrawerActivity : FragmentActivity() {
                 .withTranslucentStatusBar(false)
 //                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        PrimaryDrawerItem().withName("تست").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
+                        PrimaryDrawerItem().withName("تست").withIdentifier(1),
                         SpaceDrawerItem().withIdentifier(332),
                         DividerDrawerItem(),
-                        PrimaryDrawerItem().withName("تست").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
-                        PrimaryDrawerItem().withName("ali").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2),
-                        PrimaryDrawerItem().withName("dskfs").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
-                        SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true),
-                        ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true),
-                        ExpandableDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_filter_list).withSelectable(false).withIdentifier(19).withSubItems(
-                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2002),
-                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2003)
+                        PrimaryDrawerItem().withName("تست").withIdentifier(1),
+                        PrimaryDrawerItem().withName("ali").withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2),
+                        PrimaryDrawerItem().withName("dskfs").withIdentifier(3),
+                        SwitchDrawerItem().withName("Switch").withChecked(true),
+                        ToggleDrawerItem().withName("Toggle").withChecked(true),
+                        ExpandableDrawerItem().withName("Collapsable").withSelectable(false).withIdentifier(19).withSubItems(
+                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIdentifier(2002),
+                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIdentifier(2003)
                         )
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
@@ -80,7 +80,7 @@ class TestDrawerActivity : FragmentActivity() {
         drawerManager = DrawerManager(this, result);
         drawerManager.isRtl =true;
         drawerManager.miniDrawerBackColor = Color.DKGRAY
-        drawerManager.build()
+        drawerManager.build(R.id.crossfade_content)
         drawerManager.frameFragmentRes = ir.huma.humaleanbacklib.R.id.topLayout
         drawerManager.replaceFragment(TestBaseRowsFragment())
 
@@ -94,6 +94,7 @@ class TestDrawerActivity : FragmentActivity() {
 
     }
 
+    @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
         return drawerManager.keyEvent(event) || super.dispatchKeyEvent(event);
     }

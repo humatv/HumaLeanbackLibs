@@ -8,7 +8,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import ir.huma.humaleanbacklib.HumaUtil;
-import ir.huma.humaleanbacklib.MenuActivity;
 
 public class MainActivity extends AppCompatActivity {
 

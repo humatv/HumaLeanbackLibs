@@ -1,4 +1,4 @@
-package ir.huma.humaleanbacklib
+package ir.huma.humaleanbacksample
 
 import android.graphics.Color
 import android.os.Bundle
@@ -16,8 +16,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.crossfader.Crossfader
 import com.mikepenz.crossfader.util.UIUtils
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
-import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
 import ir.huma.humaleanbacklib.Util.CrossfadeWrapper
 
@@ -37,53 +35,21 @@ class MenuActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-//        val profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460")
-
-
-        // Create the AccountHeader
-//        headerResult = AccountHeaderBuilder()
-//                .withActivity(this)
-//                .withTranslucentStatusBar(false)
-//                .addProfiles(
-//                        profile,
-//                        //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-//                        ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(GoogleMaterial.Icon.gmd_add).withIdentifier(PROFILE_SETTING.toLong()),
-//                        ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
-//                )
-//                .withOnAccountHeaderListener(object : AccountHeader.OnAccountHeaderListener {
-//                    override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
-//                        //sample usage of the onProfileChanged listener
-//                        //if the clicked item has the identifier 1 add a new profile ;)
-//                        if (profile is IDrawerItem<*> && (profile as IDrawerItem<*>).identifier == PROFILE_SETTING.toLong()) {
-//                            val newProfile = ProfileDrawerItem().withNameShown(true).withName("Batman").withEmail("batman@gmail.com").withIcon(resources.getDrawable(R.drawable.profile))
-//                            headerResult.profiles?.let {
-//                                //we know that there are 2 setting elements. set the new profile above them ;)
-//                                headerResult.addProfile(newProfile, it.size - 2)
-//                            } ?: headerResult.addProfiles(newProfile)
-//                        }
-//
-//                        //false if you have not consumed the event and it should close the drawer
-//                        return false
-//                    }
-//                })
-//                .withSavedInstance(savedInstanceState)
-//                .build()
-
         result = DrawerBuilder()
                 .withActivity(this)
                 .withDrawerGravity(Gravity.RIGHT)
                 .withTranslucentStatusBar(false)
 //                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        PrimaryDrawerItem().withName("helllo").withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
-                        PrimaryDrawerItem().withName("ali").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
-                        PrimaryDrawerItem().withName("dskfs").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                        PrimaryDrawerItem().withName("helllo").withIdentifier(1),
+                        PrimaryDrawerItem().withName("ali").withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                        PrimaryDrawerItem().withName("dskfs").withIdentifier(3),
                         DividerDrawerItem(),
-                        SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
-                        ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
-                                ExpandableDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(19).withSelectable(false).withSubItems(
-                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2002),
-                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2003)
+                        SwitchDrawerItem().withName("Switch").withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
+                        ToggleDrawerItem().withName("Toggle").withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
+                                ExpandableDrawerItem().withName("Collapsable").withIdentifier(19).withSelectable(false).withSubItems(
+                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIdentifier(2002),
+                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIdentifier(2003)
                         )
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
