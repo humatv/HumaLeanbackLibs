@@ -376,6 +376,9 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         this.logoImage = logoImage;
     }
 
+    public ClassPresenterSelector getRowPresenterSelector() {
+        return rowPresenterSelector;
+    }
 
     public int getActionColor() {
         return actionColor;
