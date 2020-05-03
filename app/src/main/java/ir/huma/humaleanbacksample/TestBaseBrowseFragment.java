@@ -54,6 +54,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         p.setRowBackground(0, new ColorDrawable(Color.GREEN));
         p.setRowBackground(1, new ColorDrawable(Color.RED));
         p.setRowBackground(2, new ColorDrawable(Color.BLUE));
+        p.setHorizontalGridViewPadding(100,100,100,100);
 //        p.setOnLongClickListener(new MyListRowPresenter.OnLongClickListener() {
 //            @Override
 //            public void onLongClickListener(View v, Object item, int rowPos, int pos) {

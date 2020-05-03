@@ -75,7 +75,8 @@ public class MyListRowPresenter extends ListRowPresenter {
 
 //        horizontalGridView.setAlpha(0.9f);
         horizontalGridView.offsetLeftAndRight(200);
-        horizontalGridView.setPadding(padding[0], padding[1], padding[2], padding[3]);
+        horizontalGridView.setPadding(padding[0], horizontalGridView.getPaddingTop(), padding[2], horizontalGridView.getPaddingBottom());
+        viewHolder.view.getRootView().setPadding(0,padding[1],0,padding[3]);
         horizontalGridView.setNumRows(getHorizontalNumRows());
 
         horizontalGridView.setOnKeyInterceptListener(new BaseGridView.OnKeyInterceptListener() {
