@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.BaseGridView;
 import androidx.leanback.widget.ListRow;
+
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,6 +51,9 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
                 return false;
             }
         });
+        p.setRowBackground(0, new ColorDrawable(Color.GREEN));
+        p.setRowBackground(1, new ColorDrawable(Color.RED));
+        p.setRowBackground(2, new ColorDrawable(Color.BLUE));
 //        p.setOnLongClickListener(new MyListRowPresenter.OnLongClickListener() {
 //            @Override
 //            public void onLongClickListener(View v, Object item, int rowPos, int pos) {

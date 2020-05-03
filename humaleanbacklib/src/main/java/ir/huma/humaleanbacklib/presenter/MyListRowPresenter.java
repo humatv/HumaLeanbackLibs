@@ -7,12 +7,18 @@ import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.ListRowPresenter;
+import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.RowPresenter;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class MyListRowPresenter extends ListRowPresenter {
 
@@ -24,6 +30,8 @@ public class MyListRowPresenter extends ListRowPresenter {
     int horizontalNumRows = 1;
     boolean isRtl = false;
     IconHeaderItemPresenter iconHeaderItemPresenter;
+    HashMap<Integer, Drawable> rowDrawablesHash = new HashMap<>();
+
     int[] padding = new int[]{20, 0, 20, 0};
 
     public MyListRowPresenter() {
@@ -41,6 +49,11 @@ public class MyListRowPresenter extends ListRowPresenter {
     boolean longPress;
 
     @Override
+    public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item, List<Object> payloads) {
+        super.onBindViewHolder(viewHolder, item, payloads);
+    }
+
+    @Override
     protected void onBindRowViewHolder(RowPresenter.ViewHolder holder, final Object item) {
         this.holder = holder;
         super.onBindRowViewHolder(holder, item);
@@ -51,10 +64,18 @@ public class MyListRowPresenter extends ListRowPresenter {
         final HorizontalGridView horizontalGridView = viewHolder.getGridView();
         if (isRtl)
             horizontalGridView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        if (arrayObjectAdapter != null) {
+            if (!rowDrawablesHash.isEmpty()) {
+                Drawable d = rowDrawablesHash.get(arrayObjectAdapter.indexOf(viewHolder.getRow()));
+                if (d != null) {
+                    viewHolder.view.getRootView().setBackground(d);
+                }
+            }
+        }
+
 //        horizontalGridView.setAlpha(0.9f);
         horizontalGridView.offsetLeftAndRight(200);
         horizontalGridView.setPadding(padding[0], padding[1], padding[2], padding[3]);
-
         horizontalGridView.setNumRows(getHorizontalNumRows());
 
         horizontalGridView.setOnKeyInterceptListener(new BaseGridView.OnKeyInterceptListener() {
@@ -143,6 +164,10 @@ public class MyListRowPresenter extends ListRowPresenter {
     @Override
     public boolean isUsingDefaultListSelectEffect() {
         return false;
+    }
+
+    public void setRowBackground(int position, Drawable drawable) {
+        rowDrawablesHash.put(position, drawable);
     }
 
 
