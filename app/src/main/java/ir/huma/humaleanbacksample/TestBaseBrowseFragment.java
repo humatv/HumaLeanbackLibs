@@ -6,8 +6,10 @@ import android.graphics.Typeface;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.BaseGridView;
 import androidx.leanback.widget.ListRow;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,13 +40,30 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
         p.setRtl(false);
 //        p.setShadowEnabled(true);
         mRowsAdapter = new ArrayObjectAdapter(p);
+        p.setAdapter(mRowsAdapter);
+        p.setOnKeyInterceptListener(new BaseGridView.OnKeyInterceptListener() {
+            @Override
+            public boolean onInterceptKeyEvent(KeyEvent event) {
+                Log.d("TestBaseBrowseFragment", event.toString());
 
-
+                return false;
+            }
+        });
+//        p.setOnLongClickListener(new MyListRowPresenter.OnLongClickListener() {
+//            @Override
+//            public void onLongClickListener(View v, Object item, int rowPos, int pos) {
+//                Log.d("TestBaseBrowseFragment", "longClick1= " + rowPos + " : " + pos);
+//
+////                Toast.makeText(getContext(), "Hello "+rowPos+" "+pos, Toast.LENGTH_SHORT).show();
+//            }
+//        });
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
         cardPresenter.setOnItemLongClickListener(new BasePresenter.onItemLongClickListener() {
             @Override
             public boolean onLongClick(View v, Object item, int rowPos, int pos) {
-                Toast.makeText(getContext(), "longClick : " + rowPos+" " + pos, Toast.LENGTH_SHORT).show();
+                Log.d("TestBaseBrowseFragment", "longClick2= " + rowPos + " : " + pos);
+
+//                Toast.makeText(getContext(), "longClick : " + rowPos+" " + pos, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -88,6 +107,8 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
 
     @Override
     public void onItemClickListener(View v, Object item, int rowPos, int pos) {
-        Toast.makeText(getContext(), "click!!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "click!!", Toast.LENGTH_SHORT).show();
+        Log.d("TestBaseBrowseFragment", "click= " + rowPos + " : " + pos);
+
     }
 }
