@@ -52,8 +52,8 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
             }
         });
         p.setRowBackground(0, new ColorDrawable(Color.GREEN));
-        p.setRowBackground(1, new ColorDrawable(Color.RED));
-        p.setRowBackground(2, new ColorDrawable(Color.BLUE));
+//        p.setRowBackground(1, new ColorDrawable(Color.RED));
+//        p.setRowBackground(2, new ColorDrawable(Color.BLUE));
         p.setHorizontalGridViewPadding(100,100,100,100);
 //        p.setOnLongClickListener(new MyListRowPresenter.OnLongClickListener() {
 //            @Override
@@ -103,7 +103,7 @@ public class TestBaseBrowseFragment extends BaseBrowseFragment {
                 Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
             }
         });
-//        setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.background2), false);
+        setScrollableBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.back_test), true);
     }
 
     @Override

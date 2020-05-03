@@ -48,9 +48,12 @@ import com.bumptech.glide.request.transition.Transition;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.leanback.widget.VerticalGridView;
+import androidx.recyclerview.widget.RecyclerView;
 import ir.huma.humaleanbacklib.R;
 import ir.huma.humaleanbacklib.Util.CustomTitleView;
 import ir.huma.humaleanbacklib.Util.ImageLoader;
+import ru.noties.sbv.ScrollingBackgroundView;
 
 /**
  * created by Morteza.
@@ -74,6 +77,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
     protected Timer mBackgroundTimer;
     private boolean isInitBackgroundManager = true;
     private Object background;
+    private Drawable scrollableBackground;
     public static final Handler HANDLER = new Handler();
     private boolean mShowHeader = true;
     private int drawableResId = R.drawable.default_background;
@@ -84,7 +88,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         super.onActivityCreated(savedInstanceState);
 
         initial();
-        prepareBackgroundManager();
+//        prepareBackgroundManager();
         setHeaders();
         setEventListener();
 //        getView().setOnKeyListener(new View.OnKeyListener() {
@@ -208,13 +212,28 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         }
     }
 
+    ScrollingBackgroundView scrollingBackgroundView;
 
     private void prepareBackgroundManager() {
-
-        if (mBackgroundManager == null && isInitBackgroundManager) {
+        if (scrollableBackground != null) {
+            if (scrollingBackgroundView == null) {
+                scrollingBackgroundView = new ScrollingBackgroundView(getContext());
+                scrollingBackgroundView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+                ViewGroup viewGroup = getView().findViewById(R.id.scale_frame);
+                viewGroup.addView(scrollingBackgroundView, 0);
+                VerticalGridView rv = getView().findViewById(R.id.container_list);
+                rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        scrollingBackgroundView.scrollBy(dx, dy);
+                    }
+                });
+            }
+        } else if (mBackgroundManager == null && isInitBackgroundManager) {
             try {
                 mBackgroundManager = BackgroundManager.getInstance(getActivity());
-                mBackgroundManager.attach(getActivity().getWindow());
+                mBackgroundManager.attachToView(getView().findViewById(R.id.container_list));
                 mMetrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
             } catch (Exception e) {
@@ -242,7 +261,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 
     protected void updateBackground(final Object background) {
 
-        if (mBackgroundManager == null) {
+        if (scrollingBackgroundView == null && mBackgroundManager == null) {
             prepareBackgroundManager();
         }
 
@@ -255,7 +274,9 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                         @Override
                         public void onReady(Bitmap bitmap) {
                             if (BaseBrowseFragment.this.background == background) {
-                                mBackgroundManager.setBitmap(bitmap);
+                                if (mBackgroundManager != null)
+//                                scrollingBackgroundView.setDrawable(new BitmapDrawable(getResources(), bitmap));
+                                    mBackgroundManager.setBitmap(bitmap);
                             }
                         }
                     }).load(getContext(), (String) background);
@@ -280,9 +301,11 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 //                }
 //            }).preload();
 
-        } else if (background != null && background instanceof Drawable) {
+        } else if (background != null && background instanceof Drawable && mBackgroundManager != null) {
             mBackgroundManager.setDrawable((Drawable) background);
-        } else {
+        } else if (scrollableBackground != null && scrollingBackgroundView != null) {
+            scrollingBackgroundView.setDrawable(scrollableBackground);
+        } else if(mBackgroundManager != null){
             mBackgroundManager.setDrawable(ResourcesCompat.getDrawable(getResources(), drawableResId, null));
         }
 
@@ -328,6 +351,12 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         this.background = drawable;
         startBackgroundTimer(hasDelay);
     }
+
+    public void setScrollableBackgroundDrawable(Drawable drawable, boolean hasDelay) {
+        this.scrollableBackground = drawable;
+        startBackgroundTimer(hasDelay);
+    }
+
 
     public void setBackgroundUri(String backgroundUri, boolean hasDelay) {
         this.background = backgroundUri;

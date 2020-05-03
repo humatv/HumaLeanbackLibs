@@ -62,6 +62,8 @@ dependencies {
 //    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
 //    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
 //    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'ru.noties:sbv:1.0.0'
 }
 
 
