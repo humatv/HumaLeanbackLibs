@@ -160,7 +160,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                 }
                 if(lastRowPos != rowPos){
                     lastRowPos = rowPos;
-                    if(rowPos ==0){
+                    if(rowPos ==0 && scrollView != null){
                         scrollView.scrollTo(0,0);
                     }
                 }
