@@ -7,12 +7,14 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.leanback.app.BackgroundManager;
 import androidx.leanback.app.BrowseSupportFragment;
@@ -24,6 +26,7 @@ import androidx.leanback.widget.OnItemViewSelectedListener;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
+import androidx.leanback.widget.ScaleFrameLayout;
 import androidx.leanback.widget.TitleViewAdapter;
 
 import android.util.DisplayMetrics;
@@ -34,6 +37,9 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -81,6 +87,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
     public static final Handler HANDLER = new Handler();
     private boolean mShowHeader = true;
     private int drawableResId = R.drawable.default_background;
+    private int maxScrollImage = 2687;
     boolean longPress = false;
 
     @Override
@@ -129,7 +136,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 //            }
 //        });
     }
-
+    int lastRowPos =0;
     private void setEventListener() {
 
         setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
@@ -149,6 +156,12 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                             pos = i;
                             break;
                         }
+                    }
+                }
+                if(lastRowPos != rowPos){
+                    lastRowPos = rowPos;
+                    if(rowPos ==0){
+                        scrollView.scrollTo(0,0);
                     }
                 }
 
@@ -212,21 +225,46 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         }
     }
 
-    ScrollingBackgroundView scrollingBackgroundView;
+    ImageView scrollingBackgroundView;
+    ScrollView scrollView;
+
 
     private void prepareBackgroundManager() {
         if (scrollableBackground != null) {
             if (scrollingBackgroundView == null) {
-                scrollingBackgroundView = new ScrollingBackgroundView(getContext());
-                scrollingBackgroundView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-                ViewGroup viewGroup = getView().findViewById(R.id.scale_frame);
-                viewGroup.addView(scrollingBackgroundView, 0);
+                scrollView = new ScrollView(getContext());
+                final ScaleFrameLayout frameLayout = getView().findViewById(R.id.scale_frame);
                 VerticalGridView rv = getView().findViewById(R.id.container_list);
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                scrollView.setLayoutParams(layoutParams);
+
+                scrollingBackgroundView = new ImageView(getContext());
+                scrollingBackgroundView.setScaleType(ImageView.ScaleType.FIT_XY);
+                scrollingBackgroundView.setBackgroundColor(Color.YELLOW);
+
+                RelativeLayout relative = new RelativeLayout(getContext());
+                relative.addView(scrollingBackgroundView, new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, maxScrollImage));
+
+                scrollView.addView(relative, FrameLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup viewGroup = getView().findViewById(R.id.browse_frame);
+                viewGroup.addView(scrollView, 0);
+
                 rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
                     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        scrollingBackgroundView.scrollBy(dx, dy);
+//                        scroll += dy;
+//                        Log.d("BaseBrowse", "scroll : " + dy + " " + scroll + " " + frameLayout.getHeight());
+//                        int scrollY = recyclerView.computeVerticalScrollOffset();
+                        // mAppBarBg corresponds to your light green background view
+                        scrollView.scrollBy(dx, dy);
+                        Log.d("BaseBrowse","scroll : " +scrollView.getScrollY());
+//                        scrollingBackgroundView.scrollBy(dx, dy);
+                    }
+
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
                     }
                 });
             }
@@ -304,8 +342,8 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         } else if (background != null && background instanceof Drawable && mBackgroundManager != null) {
             mBackgroundManager.setDrawable((Drawable) background);
         } else if (scrollableBackground != null && scrollingBackgroundView != null) {
-            scrollingBackgroundView.setDrawable(scrollableBackground);
-        } else if(mBackgroundManager != null){
+            scrollingBackgroundView.setImageDrawable(scrollableBackground);
+        } else if (mBackgroundManager != null) {
             mBackgroundManager.setDrawable(ResourcesCompat.getDrawable(getResources(), drawableResId, null));
         }
 
