@@ -440,7 +440,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                         //mDetailsBackground.enableParallax();
 //                        mDetailsBackground.setCoverBitmap(bitmap);
 //                        mDetailsBackground.getCoverDrawable().invalidateSelf();
-                        mBackgroundManager.setBitmap((Bitmap) backgroundImage);
+                        mBackgroundManager.setBitmap(bitmap);
                     }
                 }).load(getContext(), (String) backgroundImage);
             } else if (backgroundImage instanceof Bitmap) {
