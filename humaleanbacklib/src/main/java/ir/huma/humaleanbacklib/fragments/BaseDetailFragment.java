@@ -438,15 +438,17 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                     public void onReady(Bitmap bitmap) {
                         //mBackgroundManager.setBitmap(bitmap);
                         //mDetailsBackground.enableParallax();
-                        mDetailsBackground.setCoverBitmap(bitmap);
-                        mDetailsBackground.getCoverDrawable().invalidateSelf();
+//                        mDetailsBackground.setCoverBitmap(bitmap);
+//                        mDetailsBackground.getCoverDrawable().invalidateSelf();
+                        mBackgroundManager.setBitmap((Bitmap) backgroundImage);
                     }
                 }).load(getContext(), (String) backgroundImage);
             } else if (backgroundImage instanceof Bitmap) {
 //                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
                 //mDetailsBackground.enableParallax();
-                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
-                mDetailsBackground.getCoverDrawable().invalidateSelf();
+                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
+//                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
+//                mDetailsBackground.getCoverDrawable().invalidateSelf();
             } else if (backgroundImage instanceof Drawable) {
                 mBackgroundManager.setBitmap(drawableToBitmap((Drawable) backgroundImage));
 //                mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
