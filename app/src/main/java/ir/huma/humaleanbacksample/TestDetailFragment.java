@@ -1,6 +1,8 @@
 package ir.huma.humaleanbacksample;
 
 import android.graphics.Color;
+
+import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.DetailsOverviewRow;
@@ -20,11 +22,12 @@ public class TestDetailFragment extends BaseDetailFragment {
 //        addAction(new Action(1, "hello"));
         setLogoDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 //        setBackgrouundDrawable(getResources().getDrawable(R.drawable.test));
-        //setBackgroundColor(Color.YELLOW);
+        setBackgroundColor(Color.WHITE);
 //        setActionColor(Color.TRANSPARENT);
 //        setBackgroundColor(Color.TRANSPARENT);
-//        setDetailsColor(Color.TRANSPARENT);
-
+        setDetailsColor(Color.MAGENTA);
+        setBackgroundImageUnderActionDetail(true);
+        setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.background2));
 
         BasePresenter<Video, Video.MyVideoView> cardPresenter = new BasePresenter<>(getActivity(), Video.MyVideoView.class, R.layout.item_video);
 

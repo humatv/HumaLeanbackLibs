@@ -3,6 +3,7 @@ package ir.huma.humaleanbacklib.fragments;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,9 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.leanback.app.BackgroundManager;
 import androidx.leanback.app.DetailsSupportFragment;
 import androidx.leanback.app.DetailsSupportFragmentBackgroundController;
+import androidx.leanback.app.RowsSupportFragment;
 import androidx.leanback.media.MediaPlayerGlue;
 import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
@@ -32,11 +36,14 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+
+import java.lang.reflect.Field;
 
 import ir.atitec.everythingmanager.manager.FontManager;
 import ir.huma.humaleanbacklib.R;
@@ -73,11 +80,12 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     private ArrayObjectAdapter actionAdapter = new ArrayObjectAdapter(actionPresenterSelector);
 
     ArrayObjectAdapter mRowsAdapter;
-    private BackgroundManager mBackgroundManager;
+    //    private BackgroundManager mBackgroundManager;
     private Drawable mDefaultBackground;
     private DisplayMetrics mMetrics;
     FullWidthDetailsOverviewRowPresenter fullWidthDetailsOverviewRowPresenter;
-
+    private ImageView topImageView;
+    private ViewGroup backgroundLayout;
     private Typeface typeface;
 
     @Override
@@ -91,18 +99,27 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        setupUI();
+        setupUI(v);
         initial();
         setupEventListeners();
         return v;
     }
 
-    private void setupUI() {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    private void setupUI(View v) {
         detailsOverview = getDetailsOverview();
-        mBackgroundManager = BackgroundManager.getInstance(getActivity());
-        mBackgroundManager.attach(getActivity().getWindow());
         mMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
+        topImageView = v.findViewById(R.id.topImageView);
+        backgroundLayout = v.findViewById(R.id.details_background_view);
+        final int logoMoreMargin = (int) getResources().getDimension(R.dimen.detail_logo_more_margin);
+//        mMetrics.heightPixels = 100;
+//                (int) getResources().getDimension(R.dimen.lb_details_v2_align_pos_for_actions);
+//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
         fullWidthDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(
                 detailsDescriptionPresenter) {
 
@@ -115,13 +132,13 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                 super.onLayoutLogo(viewHolder, oldState, logoChanged);
                 if (y1 != 0) {
                     final ViewGroup.MarginLayoutParams m2 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                    final int y2 = m2.topMargin += 56;
+                    final int y2 = m2.topMargin += logoMoreMargin ;
                     m2.topMargin = y1;
                     v.setLayoutParams(m2);
                     v.animate().translationY(y2 - y1).setDuration(logoAnimationTime).start();
                 } else {
                     final ViewGroup.MarginLayoutParams m2 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                    m2.topMargin += 56;
+                    m2.topMargin += logoMoreMargin;
 //                    m2.topMargin = y1;
                     v.setLayoutParams(m2);
 //                    m1 = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -217,10 +234,12 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
             }
         }
         mDetailsBackground = new DetailsSupportFragmentBackgroundController(this);
-        mDetailsBackground.enableParallax();
+
+        // change
         if (backgroundColor != -1) {
             mDetailsBackground.setSolidColor(backgroundColor);
         }
+        mDetailsBackground.enableParallax();
 
         if (videoData != null && videoData.length > 0) {
 
@@ -284,29 +303,29 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
             }
         });
     }
-
-
-    private Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = null;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
+//
+//
+//    private Bitmap drawableToBitmap(Drawable drawable) {
+//        Bitmap bitmap = null;
+//
+//        if (drawable instanceof BitmapDrawable) {
+//            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+//            if (bitmapDrawable.getBitmap() != null) {
+//                return bitmapDrawable.getBitmap();
+//            }
+//        }
+//
+//        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+//            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+//        } else {
+//            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+//        }
+//
+//        Canvas canvas = new Canvas(bitmap);
+//        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+//        drawable.draw(canvas);
+//        return bitmap;
+//    }
 
 
     public int addAction(Action action) {
@@ -338,6 +357,16 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
         this.videoData = videoData;
     }
 
+    public void setBackgroundImageUnderActionDetail(boolean b) {
+        ViewGroup.LayoutParams layoutParams = topImageView.getLayoutParams();
+
+        if(b) {
+            layoutParams.height = (int) (getResources().getDimension(R.dimen.lb_details_v2_align_pos_for_actions) + getResources().getDimension(R.dimen.lb_details_v2_actions_height));
+            topImageView.setLayoutParams(layoutParams);
+        } else {
+            layoutParams.height = (int) (getResources().getDimension(R.dimen.lb_details_v2_align_pos_for_actions));
+        }
+    }
 
     public abstract DetailsOverviewRow getDetailsOverview();
 
@@ -352,16 +381,16 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
     public void setBackgroundDrawable(Drawable backgroundImage) {
         this.backgroundImage = backgroundImage;
-        if (mDetailsBackground != null) {
-            mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
-        }
+//        if (mDetailsBackground != null) {
+//            mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
+//        }
     }
 
     public void setBackgroundBitmap(Bitmap backgroundImage) {
         this.backgroundImage = backgroundImage;
-        if (mDetailsBackground != null) {
-            mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
-        }
+//        if (mDetailsBackground != null) {
+//            mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
+//        }
     }
 
     public void setLogoUri(Uri logoImage) {
@@ -387,6 +416,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     public void setActionColor(int actionColor) {
         this.actionColor = actionColor;
     }
+
 
     public int getDetailsColor() {
         return detailsColor;
@@ -420,17 +450,19 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
     public void setDetailsView(int layoutResId, DetailsDescriptionPresenter.OnViewReady onViewReady) {
         detailsDescriptionPresenter = new DetailsDescriptionPresenter(getContext(), layoutResId, onViewReady);
     }
-
-    private Drawable resize(Bitmap b, DisplayMetrics metrics) {
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, metrics.widthPixels + 180, metrics.heightPixels, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
-    }
+//
+//    private Drawable resize(Bitmap b, DisplayMetrics metrics) {
+//        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, metrics.widthPixels + 180, metrics.heightPixels, false);
+//        return new BitmapDrawable(getResources(), bitmapResized);
+//    }
 
     private void setBackgroundData() {
         if (backgroundImage != null) {
 //            mDetailsBackground.enableParallax();
 //            if (backgroundColor != -1)
 //                mDetailsBackground.setSolidColor(backgroundColor);
+//            if(backgroundColor !=-1)
+//                backgroundLayout.setBackgroundColor(backgroundColor);
 
             if (backgroundImage instanceof String) {
                 new ImageLoader().setReadyListener(new ImageLoader.ReadyListener() {
@@ -440,34 +472,38 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
                         //mDetailsBackground.enableParallax();
 //                        mDetailsBackground.setCoverBitmap(bitmap);
 //                        mDetailsBackground.getCoverDrawable().invalidateSelf();
-                        mBackgroundManager.setBitmap(bitmap);
+                        topImageView.setImageBitmap(bitmap);
+//                        mBackgroundManager.setBitmap(bitmap);
                     }
                 }).load(getContext(), (String) backgroundImage);
             } else if (backgroundImage instanceof Bitmap) {
 //                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
                 //mDetailsBackground.enableParallax();
-                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
+                topImageView.setImageBitmap((Bitmap) backgroundImage);
+//                mBackgroundManager.setBitmap((Bitmap) backgroundImage);
 //                mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
 //                mDetailsBackground.getCoverDrawable().invalidateSelf();
             } else if (backgroundImage instanceof Drawable) {
-                mBackgroundManager.setBitmap(drawableToBitmap((Drawable) backgroundImage));
+                topImageView.setImageDrawable((Drawable) backgroundImage);
+//                mBackgroundManager.setDrawable((Drawable) backgroundImage);
 //                mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
+//                mDetailsBackground.enableParallax();
             } else if (backgroundImage instanceof Integer) {
-
-                RequestOptions options = new RequestOptions()
-                        .centerCrop();
-                Glide.with(this)
-                        .asBitmap()
-                        .load(backgroundImage)
-                        .apply(options)
-                        .into(new SimpleTarget<Bitmap>(mMetrics.widthPixels, mMetrics.heightPixels) {
-                            @Override
-                            public void onResourceReady(
-                                    Bitmap resource,
-                                    Transition<? super Bitmap> transition) {
-                                mBackgroundManager.setBitmap(resource);
-                            }
-                        });
+                topImageView.setImageResource((Integer) backgroundImage);
+//                RequestOptions options = new RequestOptions()
+//                        .centerCrop();
+//                Glide.with(this)
+//                        .asBitmap()
+//                        .load(backgroundImage)
+//                        .apply(options)
+//                        .into(new SimpleTarget<Bitmap>(mMetrics.widthPixels, mMetrics.heightPixels) {
+//                            @Override
+//                            public void onResourceReady(
+//                                    Bitmap resource,
+//                                    Transition<? super Bitmap> transition) {
+//                                mBackgroundManager.setBitmap(resource);
+//                            }
+//                        });
 
             }
 
@@ -476,29 +512,29 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
     @Override
     public void onStop() {
-        if (mDetailsBackground != null) {
-            mDetailsBackground.setCoverBitmap(null);
-        }
+//        if (mDetailsBackground != null) {
+//            mDetailsBackground.setCoverBitmap(null);
+//        }
         super.onStop();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (mDetailsBackground != null)
-            setBackgroundData();
+//        if (mDetailsBackground != null)
+//            setBackgroundData();
     }
 
 
     @Override
     public void onDestroyView() {
-        if (mBackgroundManager != null && mBackgroundManager.isAttached()) {
-//            mBackgroundManager.clearDrawable();
-            //mBackgroundManager.setDrawable(null);
-            mBackgroundManager.release();
-
-            mBackgroundManager = null;
-        }
+//        if (mBackgroundManager != null && mBackgroundManager.isAttached()) {
+////            mBackgroundManager.clearDrawable();
+//            //mBackgroundManager.setDrawable(null);
+//            mBackgroundManager.release();
+//
+//            mBackgroundManager = null;
+//        }
         mDetailsBackground = null;
 //        if (mDetailsBackground != null) {
 //            mDetailsBackground.setCoverBitmap(null);
