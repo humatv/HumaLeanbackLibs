@@ -136,7 +136,9 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 //            }
 //        });
     }
-    int lastRowPos =0;
+
+    int lastRowPos = 0;
+
     private void setEventListener() {
 
         setOnItemViewSelectedListener(new OnItemViewSelectedListener() {
@@ -158,10 +160,10 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                         }
                     }
                 }
-                if(lastRowPos != rowPos){
+                if (lastRowPos != rowPos) {
                     lastRowPos = rowPos;
-                    if(rowPos ==0 && scrollView != null){
-                        scrollView.scrollTo(0,0);
+                    if (rowPos == 0 && scrollView != null) {
+                        scrollView.scrollTo(0, 0);
                     }
                 }
 
@@ -258,7 +260,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 //                        int scrollY = recyclerView.computeVerticalScrollOffset();
                         // mAppBarBg corresponds to your light green background view
                         scrollView.scrollBy(dx, dy);
-                        Log.d("BaseBrowse","scroll : " +scrollView.getScrollY());
+                        Log.d("BaseBrowse", "scroll : " + scrollView.getScrollY());
 //                        scrollingBackgroundView.scrollBy(dx, dy);
                     }
 
@@ -312,7 +314,7 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
                         @Override
                         public void onReady(Bitmap bitmap) {
                             if (BaseBrowseFragment.this.background == background) {
-                                if (mBackgroundManager != null)
+                                if (mBackgroundManager != null && mBackgroundManager.isAttached())
 //                                scrollingBackgroundView.setDrawable(new BitmapDrawable(getResources(), bitmap));
                                     mBackgroundManager.setBitmap(bitmap);
                             }
@@ -339,11 +341,11 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
 //                }
 //            }).preload();
 
-        } else if (background != null && background instanceof Drawable && mBackgroundManager != null) {
+        } else if (background != null && background instanceof Drawable && mBackgroundManager != null && mBackgroundManager.isAttached()) {
             mBackgroundManager.setDrawable((Drawable) background);
         } else if (scrollableBackground != null && scrollingBackgroundView != null) {
             scrollingBackgroundView.setImageDrawable(scrollableBackground);
-        } else if (mBackgroundManager != null) {
+        } else if (mBackgroundManager != null && mBackgroundManager.isAttached()) {
             mBackgroundManager.setDrawable(ResourcesCompat.getDrawable(getResources(), drawableResId, null));
         }
 
