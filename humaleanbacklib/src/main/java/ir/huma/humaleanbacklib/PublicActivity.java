@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.leanback.app.GuidedStepSupportFragment;
+
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -88,8 +89,12 @@ public class PublicActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (f != null && f instanceof OnBackPressListener) {
-            if (((OnBackPressListener) f).onBackPress()) {
-                return;
+            try {
+                if (((OnBackPressListener) f).onBackPress()) {
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         super.onBackPressed();
@@ -99,12 +104,22 @@ public class PublicActivity extends FragmentActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        f.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        try {
+            f.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        f.onActivityResult(requestCode, resultCode, data);
+        try {
+            f.onActivityResult(requestCode, resultCode, data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
