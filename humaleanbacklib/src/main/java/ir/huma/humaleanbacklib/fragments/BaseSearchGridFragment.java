@@ -59,7 +59,7 @@ public abstract class BaseSearchGridFragment extends SearchGridFragment implemen
         startVoice();
         setEventListener();
         //initial();
-        getActivity().registerReceiver(receiver, new IntentFilter("ir.huma.launcher.newVoiceSearch"));
+        getActivity().registerReceiver(receiver, new IntentFilter("ir.huma.action.newVoiceSearch"));
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
