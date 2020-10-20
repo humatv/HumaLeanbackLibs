@@ -373,14 +373,17 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
     public void setBackgroundUri(Uri backgroundImage) {
         this.backgroundImage = backgroundImage.toString();
+        setBackgroundData();
     }
 
     public void setBackgroundResId(int backgroundImage) {
         this.backgroundImage = backgroundImage;
+        setBackgroundData();
     }
 
     public void setBackgroundDrawable(Drawable backgroundImage) {
         this.backgroundImage = backgroundImage;
+        setBackgroundData();
 //        if (mDetailsBackground != null) {
 //            mDetailsBackground.setCoverBitmap(drawableToBitmap((Drawable) backgroundImage));
 //        }
@@ -388,6 +391,7 @@ public abstract class BaseDetailFragment extends DetailsSupportFragment implemen
 
     public void setBackgroundBitmap(Bitmap backgroundImage) {
         this.backgroundImage = backgroundImage;
+        setBackgroundData();
 //        if (mDetailsBackground != null) {
 //            mDetailsBackground.setCoverBitmap((Bitmap) backgroundImage);
 //        }
