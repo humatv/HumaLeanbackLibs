@@ -11,13 +11,21 @@ import ir.huma.humaleanbacklib.R
 /**
  * Created by mikepenz on 03.02.15.
  */
-open class SpaceDrawerItem : AbstractDrawerItem<SpaceDrawerItem, SpaceDrawerItem.SpaceViewHolder>() {
+open class SpaceDrawerItem : AbstractDrawerItem<SpaceDrawerItem, SpaceDrawerItem.SpaceViewHolder> {
+    var size : Int = 108
     override val type: Int
         get() = R.id.material_drawer_item_space
 
     override val layoutRes: Int
         @LayoutRes
         get() = R.layout.material_drawer_item_space
+
+    constructor(size: Int) : super() {
+        this.size = size
+    }
+
+    constructor() : super()
+
 
     override fun bindView(holder: SpaceViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
@@ -30,7 +38,7 @@ open class SpaceDrawerItem : AbstractDrawerItem<SpaceDrawerItem, SpaceDrawerItem
         //define how the divider should look like
         holder.view.isClickable = false
         holder.view.isEnabled = false
-        holder.view.minimumHeight = 109
+        holder.view.minimumHeight = size
 //        ViewCompat.setImportantForAccessibility(holder.view, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
