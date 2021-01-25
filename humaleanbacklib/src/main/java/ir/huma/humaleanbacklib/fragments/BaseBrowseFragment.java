@@ -273,7 +273,8 @@ public abstract class BaseBrowseFragment extends BrowseSupportFragment implement
         } else if (mBackgroundManager == null && isInitBackgroundManager) {
             try {
                 mBackgroundManager = BackgroundManager.getInstance(getActivity());
-                mBackgroundManager.attachToView(getView().findViewById(R.id.container_list));
+                mBackgroundManager.attach(getActivity().getWindow());
+//                mBackgroundManager.attachToView(getView().findViewById(R.id.container_list));
                 mMetrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
             } catch (Exception e) {
