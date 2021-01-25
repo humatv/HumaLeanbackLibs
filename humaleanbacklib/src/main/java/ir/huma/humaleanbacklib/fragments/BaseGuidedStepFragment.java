@@ -90,8 +90,8 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
     View lastSelectedIcon;
 
     @Override
-    public void onGuidedActionFocused(GuidedAction action) {
-        int current = getActions().indexOf(action);
+    public void onGuidedActionFocused(final GuidedAction action) {
+        final int current = getActions().indexOf(action);
         if (actionTypeface != null) {
             int start = current - 10 < 0 ? 0 : current - 10;
             int end = current + 10 > getActions().size() ? getActions().size() : current + 10;
@@ -123,8 +123,8 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                 lastSelectedDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean b) {
+                        EditText editText = v.findViewById(R.id.guidedactions_item_description);
                         if (b) {
-                            EditText editText = v.findViewById(R.id.guidedactions_item_description);
                             if(isAutoEmptyFields()){
                                 editText.setText("");
                             } else {
@@ -142,6 +142,9 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
                             lastSelectedTitle = null;
                             lastSelectedDescription = null;
                             lastSelectedIcon = null;
+                        } else {
+                            action.setDescription(editText.getText());
+                            view.setOnFocusChangeListener(null);
                         }
                     }
                 });
