@@ -114,7 +114,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                     item.withChecked(!item.isChecked)
                     result.adapter.notifyAdapterItemChanged(position);
                 } else {
-                    result.adapter.viewClickListener?.onClick(result.recyclerView.getChildAt(position), position, result.adapter, item!!)
+                    result.adapter.viewClickListener?.onClick(if(result.recyclerView.getChildAt(position) == null) foc else result.recyclerView.getChildAt(position) , position, result.adapter, item!!)
                 }
 
                 crossFader.crossFade()
@@ -153,7 +153,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 result.adapter.notifyAdapterItemChanged(position);
             } else {
 
-                result.adapter.viewClickListener?.onClick(result.recyclerView.getChildAt(position), position, result.adapter, item!!)
+                result.adapter.viewClickListener?.onClick(if(result.recyclerView.getChildAt(position) == null) foc else result.recyclerView.getChildAt(position), position, result.adapter, item!!)
             }
 
             return true;
