@@ -127,6 +127,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 } else {
                     val fire : Boolean = if(result.adapter.getItem(position + 1)?.tag != null && result.adapter.getItem(position + 1)?.tag is Boolean) (result.adapter.getItem(position + 1)?.tag as Boolean) else fireOnClick
                     result.setSelectionAtPosition(position + 1, fire)
+                    result.recyclerView.scrollToPosition(position+1)
                     break
                 }
             }
@@ -139,6 +140,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 } else {
                     val fire : Boolean = if(result.adapter.getItem(position - 1)?.tag != null && result.adapter.getItem(position - 1)?.tag is Boolean) (result.adapter.getItem(position - 1)?.tag as Boolean) else fireOnClick
                     result.setSelectionAtPosition(position - 1, fire)
+                    result.recyclerView.scrollToPosition(position-1)
                     break
                 }
             }
