@@ -115,6 +115,10 @@ public abstract class BaseGuidedStepFragment extends MyGuidedStepSupportFragment
             lastSelectedTitle = v.findViewById(R.id.guidedactions_item_title);
             lastSelectedDescription = v.findViewById(R.id.guidedactions_item_description);
             lastSelectedIcon = v.findViewById(R.id.guidedactions_item_icon);
+            if(lastSelectedDescription instanceof EditText)
+                ((EditText) lastSelectedDescription).setInputType(action.getInputType());
+            if(lastSelectedTitle instanceof EditText)
+                ((EditText) lastSelectedTitle).setInputType(action.getInputType());
             lastSelectedTitle.setSelected(true);
             lastSelectedDescription.setSelected(true);
             lastSelectedIcon.setSelected(true);
