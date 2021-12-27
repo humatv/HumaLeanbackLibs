@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':humaleanbacklib')
 
-    implementation 'com.github.hamedgramzi:guidedKeayboardfixer:2.1'
+    implementation 'com.github.hamedgramzi:guidedKeayboardfixer:f23f28a866'
 
 
     implementation "com.mikepenz:materialdrawer:7.0.0"
