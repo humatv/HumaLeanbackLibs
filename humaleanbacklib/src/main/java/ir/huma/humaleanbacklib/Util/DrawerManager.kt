@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.util.ifNull
 import ir.huma.humaleanbacklib.R
 import java.lang.Exception
 import java.lang.RuntimeException
+import kotlin.math.roundToInt
 
 class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
@@ -32,23 +33,25 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     public var useMiniDrawer: Boolean = true
     public var customHeightMiniDrawerItemInDp = 60;
     public var fireOnClick = false;
+    public var miniDrawerWidth =  activity.resources.getDimension(R.dimen.material_mini_drawer_item).roundToInt()
+    public var drawerWidth = activity.resources.getDimension(R.dimen.material_drawer_width).roundToInt()
 
-    fun build(crossfadeContentResLayout : Int) {
+    fun build(crossfadeContentResLayout: Int) {
         if (useMiniDrawer) {
             miniResult = result.miniDrawer!!
 
             //get the widths in px for the first and second panel
-            val firstWidth = UIUtils.convertDpToPixel(300f, activity).toInt()
-            val secondWidth = UIUtils.convertDpToPixel(72f, activity).toInt()
+            val firstWidth = drawerWidth
+            val secondWidth = miniDrawerWidth
 
             //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
             //the crossfader library can be found here: https://github.com/mikepenz/Crossfader
             crossFader = Crossfader<CrossFadeSlidingPaneLayout>()
-                    .withContent(activity.findViewById<View>(crossfadeContentResLayout))
-                    .withFirst(result.slider, firstWidth)
-                    .withSecond(miniResult.build(activity), secondWidth)
+                .withContent(activity.findViewById<View>(crossfadeContentResLayout))
+                .withFirst(result.slider, firstWidth)
+                .withSecond(miniResult.build(activity), secondWidth)
 //                    .withSavedInstance(savedInstanceState)
-                    .build()
+                .build()
 
             //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
             miniResult.withCrossFader(CrossfadeWrapper(crossFader))
@@ -56,12 +59,14 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 crossFader.getSecond().setBackgroundColor(miniDrawerBackColor!!)
             }
             //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
-            crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
+            crossFader.getCrossFadeSlidingPaneLayout()
+                .setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
 
             miniResult.withIncludeSecondaryDrawerItems(true)
 
-            for(i in 0 until miniResult.itemAdapter?.itemList?.size()!!){
-                (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight = DimenHolder.fromDp(customHeightMiniDrawerItemInDp)
+            for (i in 0 until miniResult.itemAdapter?.itemList?.size()!!) {
+                (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight =
+                    DimenHolder.fromDp(customHeightMiniDrawerItemInDp)
             }
         }
     }
@@ -81,14 +86,14 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         }
 
         if (event?.action == KeyEvent.ACTION_DOWN) {
-            if (crossFader.isCrossFaded() && (event?.keyCode != right )) {
+            if (crossFader.isCrossFaded() && (event?.keyCode != right)) {
                 return true;
             }
             return false;
         }
 
-        if (foc != null &&  foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded() ) {
-            if(lastFocus != null && foc::class.java == lastFocus!!::class.java) {
+        if (foc != null && foc != lastFocus && result.miniDrawer?.recyclerView != foc && result.miniDrawer?.recyclerView?.parent != foc && !crossFader.isCrossFaded()) {
+            if (lastFocus != null && foc::class.java == lastFocus!!::class.java) {
                 lastFocus = foc;
                 return false;
             }
@@ -114,33 +119,55 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                     item.withChecked(!item.isChecked)
                     result.adapter.notifyAdapterItemChanged(position);
                 } else {
-                    result.adapter.viewClickListener?.onClick(if(result.recyclerView.getChildAt(position) == null) foc else result.recyclerView.getChildAt(position) , position, result.adapter, item!!)
+                    result.adapter.viewClickListener?.onClick(
+                        if (result.recyclerView.getChildAt(
+                                position
+                            ) == null
+                        ) foc else result.recyclerView.getChildAt(position),
+                        position,
+                        result.adapter,
+                        item!!
+                    )
                 }
 
                 crossFader.crossFade()
                 return true;
             }
         } else if (crossFader.isCrossFaded() && event?.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-            while (position + 1 < result.adapter.itemCount){
-                if(result.adapter.getItem(position + 1) is DividerDrawerItem || result.adapter.getItem(position + 1) is SpaceDrawerItem){
+            while (position + 1 < result.adapter.itemCount) {
+                if (result.adapter.getItem(position + 1) is DividerDrawerItem || result.adapter.getItem(
+                        position + 1
+                    ) is SpaceDrawerItem
+                ) {
                     position++;
                 } else {
-                    val fire : Boolean = if(result.adapter.getItem(position + 1)?.tag != null && result.adapter.getItem(position + 1)?.tag is Boolean) (result.adapter.getItem(position + 1)?.tag as Boolean) else fireOnClick
+                    val fire: Boolean =
+                        if (result.adapter.getItem(position + 1)?.tag != null && result.adapter.getItem(
+                                position + 1
+                            )?.tag is Boolean
+                        ) (result.adapter.getItem(position + 1)?.tag as Boolean) else fireOnClick
                     result.setSelectionAtPosition(position + 1, fire)
-                    result.recyclerView.scrollToPosition(position+1)
+                    result.recyclerView.scrollToPosition(position + 1)
                     break
                 }
             }
             return true;
 
         } else if (crossFader.isCrossFaded() && event?.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            while (position - 1 >= 0){
-                if(result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(position - 1) is SpaceDrawerItem){
+            while (position - 1 >= 0) {
+                if (result.adapter.getItem(position - 1) is DividerDrawerItem || result.adapter.getItem(
+                        position - 1
+                    ) is SpaceDrawerItem
+                ) {
                     position--;
                 } else {
-                    val fire : Boolean = if(result.adapter.getItem(position - 1)?.tag != null && result.adapter.getItem(position - 1)?.tag is Boolean) (result.adapter.getItem(position - 1)?.tag as Boolean) else fireOnClick
+                    val fire: Boolean =
+                        if (result.adapter.getItem(position - 1)?.tag != null && result.adapter.getItem(
+                                position - 1
+                            )?.tag is Boolean
+                        ) (result.adapter.getItem(position - 1)?.tag as Boolean) else fireOnClick
                     result.setSelectionAtPosition(position - 1, fire)
-                    result.recyclerView.scrollToPosition(position-1)
+                    result.recyclerView.scrollToPosition(position - 1)
                     break
                 }
             }
@@ -155,7 +182,15 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
                 result.adapter.notifyAdapterItemChanged(position);
             } else {
 
-                result.adapter.viewClickListener?.onClick(if(result.recyclerView.getChildAt(position) == null) foc else result.recyclerView.getChildAt(position), position, result.adapter, item!!)
+                result.adapter.viewClickListener?.onClick(
+                    if (result.recyclerView.getChildAt(
+                            position
+                        ) == null
+                    ) foc else result.recyclerView.getChildAt(position),
+                    position,
+                    result.adapter,
+                    item!!
+                )
             }
 
             return true;
@@ -171,7 +206,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
         return false;
     }
 
-    fun replaceFragment(fragment: Fragment,tag : String = fragment.javaClass.simpleName) {
+    fun replaceFragment(fragment: Fragment, tag: String = fragment.javaClass.simpleName) {
         if (frameFragmentRes != null) {
 
             if (activity.supportFragmentManager.fragments.size > 0) {
