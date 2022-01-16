@@ -27,14 +27,16 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
     private lateinit var miniResult: MiniDrawer
     private lateinit var crossFader: Crossfader<*>
-    public var frameFragmentRes: Int? = null
-    public var isRtl = false;
-    public var miniDrawerBackColor: Int? = null;
-    public var useMiniDrawer: Boolean = true
-    public var customHeightMiniDrawerItemInDp = 120;
-    public var fireOnClick = false;
-    public var miniDrawerWidth =  activity.resources.getDimension(R.dimen.material_mini_drawer_item).roundToInt()
-    public var drawerWidth = activity.resources.getDimension(R.dimen.material_drawer_width).roundToInt()
+    var frameFragmentRes: Int? = null
+    var isRtl = false;
+    var miniDrawerBackColor: Int? = null;
+    var useMiniDrawer: Boolean = true
+    var customHeightMiniDrawerItemInDp = 120
+    var fireOnClick = false;
+    var miniDrawerWidth =
+        activity.resources.getDimension(R.dimen.material_mini_drawer_item).roundToInt()
+    var drawerWidth =
+        activity.resources.getDimension(R.dimen.material_drawer_width).roundToInt()
 
     fun build(crossfadeContentResLayout: Int) {
         if (useMiniDrawer) {
