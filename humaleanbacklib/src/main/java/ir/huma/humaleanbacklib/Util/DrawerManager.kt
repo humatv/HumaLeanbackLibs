@@ -31,7 +31,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
     public var isRtl = false;
     public var miniDrawerBackColor: Int? = null;
     public var useMiniDrawer: Boolean = true
-    public var customHeightMiniDrawerItemInDp = 60;
+    public var customHeightMiniDrawerItemInDp = 120;
     public var fireOnClick = false;
     public var miniDrawerWidth =  activity.resources.getDimension(R.dimen.material_mini_drawer_item).roundToInt()
     public var drawerWidth = activity.resources.getDimension(R.dimen.material_drawer_width).roundToInt()
@@ -66,7 +66,7 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             for (i in 0 until miniResult.itemAdapter?.itemList?.size()!!) {
                 (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight =
-                    DimenHolder.fromDp(customHeightMiniDrawerItemInDp)
+                    DimenHolder.fromPixel(customHeightMiniDrawerItemInDp)
             }
         }
     }
