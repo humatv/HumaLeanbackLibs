@@ -66,10 +66,10 @@ class DrawerManager(val activity: FragmentActivity, val result: Drawer) {
 
             miniResult.withIncludeSecondaryDrawerItems(true)
 
-            for (i in 0 until miniResult.itemAdapter?.itemList?.size()!!) {
-                (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight =
-                    DimenHolder.fromPixel(customHeightMiniDrawerItemInDp)
-            }
+//            for (i in 0 until miniResult.itemAdapter?.itemList?.size()!!) {
+//                (miniResult.itemAdapter.getAdapterItem(i)!! as MiniDrawerItem).mCustomHeight =
+//                    DimenHolder.fromPixel(customHeightMiniDrawerItemInDp)
+//            }
         }
     }
 
