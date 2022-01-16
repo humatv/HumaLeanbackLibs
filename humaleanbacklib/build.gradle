@@ -52,7 +52,9 @@ dependencies {
     implementation 'com.github.hamedgramzi:everythingManager:1.5'
 
     implementation 'com.github.hamedgramzi:guidedKeayboardfixer:f23f28a866'
-    implementation 'com.github.humatv:HumaLeanbackPlayer:1.5'
+    implementation ('com.github.humatv:HumaLeanbackPlayer:1.5'){
+        exclude group: 'com.google.android.exoplayer'
+    }
 
     implementation "com.mikepenz:materialdrawer:7.0.0"
     implementation 'com.mikepenz:crossfader:1.6.0'
