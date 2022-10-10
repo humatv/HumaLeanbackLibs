@@ -56,9 +56,6 @@ dependencies {
         exclude group: 'com.google.android.exoplayer'
     }
 
-    implementation "com.mikepenz:materialdrawer:7.0.0"
-    implementation 'com.mikepenz:crossfader:1.6.0'
-    implementation 'com.mikepenz:crossfadedrawerlayout:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 

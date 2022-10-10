@@ -66,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBaseBrowse2Click(View view) {
-        startActivity(new Intent(MainActivity.this, MenuActivity.class));
 
     }
 
     public void onTestDrawerClick(View view) {
-        startActivity(new Intent(MainActivity.this, TestDrawerActivity.class));
     }
 }

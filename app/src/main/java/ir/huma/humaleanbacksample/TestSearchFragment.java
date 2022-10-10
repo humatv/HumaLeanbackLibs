@@ -45,7 +45,6 @@ public class TestSearchFragment extends BaseSearchFragment {
 
     @Override
     public boolean onQueryTextChange(String newQuery) {
-
         return false;
     }
 

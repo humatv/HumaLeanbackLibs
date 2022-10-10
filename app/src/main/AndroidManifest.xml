@@ -23,9 +23,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestDrawerActivity"
-            android:theme="@style/LeanbackTheme"
-            ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,9 +32,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ir.huma.humaleanbacksample.MenuActivity"
-            android:theme="@style/LeanbackTheme"
-            ></activity>
     </application>
 
 </manifest>
